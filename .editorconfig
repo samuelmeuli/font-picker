@@ -1,0 +1,9 @@
+# do not look for other .editorconfig files
+root = true
+
+# use tab indentation (2 spaces width) for all file types
+[*]
+charset = utf-8
+indent_style = tab
+indent_size = 2
+trim_trailing_whitespace = true

@@ -1,0 +1,12 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# WebStorm (IDE)
+.idea/
+
+# Node
+node_modules/
+
+# build output
+dist/

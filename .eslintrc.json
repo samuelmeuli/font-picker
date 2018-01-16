@@ -1,0 +1,19 @@
+{
+	"env": {
+		"browser": true
+	},
+	"extends": "airbnb-base",
+	"parser": "babel-eslint",
+	"rules": {
+		"brace-style": [1, "stroustrup"],
+		"class-methods-use-this": 0,
+		"comma-dangle": [1, "never"],
+		"eol-last": [1, "never"],
+		"indent": [1, "tab", { "SwitchCase": 1 }],
+		"no-else-return": 0,
+		"no-tabs": 0,
+		"object-curly-newline": 0,
+		"object-curly-spacing": [1, "always", { "objectsInObjects": false }],
+		"padded-blocks": 0
+	}
+}
