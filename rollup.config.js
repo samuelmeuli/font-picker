@@ -1,4 +1,5 @@
 import babel from 'rollup-plugin-babel';
+import postcss from 'rollup-plugin-postcss';
 
 
 export default {
@@ -9,6 +10,7 @@ export default {
 		name: 'FontPicker'
 	},
 	plugins: [
+		postcss(),
 		babel({
 			exclude: 'node_modules/**'
 		})

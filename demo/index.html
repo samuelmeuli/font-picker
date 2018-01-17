@@ -19,9 +19,9 @@
 		const fontPicker = new FontPicker(
 			'AIzaSyAOkdDlx49HCSBdu86oe8AD1Q7piIxlR6k', // Google API key
 			'Open Sans', // default font
-			{ limit: 10, sort: 'popularity' } // additional options
+			{ limit: 50 } // additional options
 		);
-		// generate the font picker UI inside the <div> with the specified ID
-		fontPicker.display('font-picker');
+		// generate the font picker UI inside the <div> with the ID "font-picker"
+		fontPicker.display();
 	</script>
 </html>
