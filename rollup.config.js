@@ -2,9 +2,9 @@ import babel from 'rollup-plugin-babel';
 
 
 export default {
-	input: 'src/index.js',
+	input: 'src/FontPicker.js',
 	output: {
-		file: 'dist/index.js',
+		file: 'dist/FontPicker.js',
 		format: 'iife',
 		name: 'FontPicker'
 	},
