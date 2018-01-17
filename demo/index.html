@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Google Font Picker</title>
+	</head>
+
+	<body>
+		<h1>Google Font Picker</h1>
+		<div id="font-picker"></div>
+	</body>
+
+	<noscript>JavaScript needs to be enabled to be able to use the font picker.</noscript>
+	<script type="text/javascript" src="../dist/FontPicker.js"></script>
+	<script type="text/javascript">
+		// initialize the font picker
+		const fontPicker = new FontPicker(
+			'AIzaSyAOkdDlx49HCSBdu86oe8AD1Q7piIxlR6k', // Google API key
+			'Open Sans', // default font
+			{ limit: 10, sort: 'popularity' } // additional options
+		);
+		// generate the font picker UI inside the <div> with the specified ID
+		fontPicker.display('font-picker');
+	</script>
+</html>
