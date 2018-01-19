@@ -1,108 +1,116 @@
-import { generateFontList } from './font-list';
-
-// stylesheet
-import './styles.scss';
+import FontHandler from './js/FontHandler';
+import './scss/style.scss';
 
 
 /**
+ * Font picker interface
  * @param apiKey (required): Google API key (https://developers.google.com/fonts/docs/developer_api)
  * @param defaultFont (required): font that is selected when the font picker is initialized
- * @param families: if only specific fonts shall appear in the list, specify their names in an
- *        array (default: all font families)
- * @param categories: array of font categories (default: all categories)
- *        - 'sans-serif'
- *        - 'serif'
- *        - 'display'
- *        - 'handwriting'
- *        - 'monospace'
- * @param minStyles: minimum number of available styles for the fonts in the list (default: 0)
- * @param limit: maximum number of fonts to be displayed in the list (most popular fonts will be
- * 				selected, default: no limit)
- * @param sort: sorting attribute for the font list
- *        - 'alphabetical' (default)
- *        - 'popularity'
+ * @param options:
+ * 	 @param families: if only specific fonts shall appear in the list, specify their names in an
+ *          array (default: all font families)
+ * 	 @param categories: array of font categories (default: all categories)
+ *          - 'sans-serif'
+ *          - 'serif'
+ *          - 'init'
+ *          - 'handwriting'
+ *          - 'monospace'
+ *   @param minStyles: minimum number of available styles for the fonts in the list (default: 0)
+ *   @param limit: maximum number of fonts to be displayed in the list (most popular fonts will be
+ * 				  selected, default: no limit)
+ *   @param sort: sorting attribute for the font list
+ *          - 'alphabetical' (default)
+ *          - 'popularity'
  */
 export default class FontPicker {
 
 	constructor(apiKey, defaultFont, options) {
-		// TODO parameter validation
-
-		this.apiKey = apiKey;
-		this.activeFont = defaultFont;
-		this.options = options;
-		this.expanded = false;
+		this.fontHandler = new FontHandler(apiKey, defaultFont, options);
 	}
 
+	/**
+	 * Download list of available fonts and generate the font picker UI
+	 */
 	async init() {
-		this.fontList = await generateFontList(this.apiKey, this.options);
-		// TODO add default font to list if necessary
-	}
-
-	async display() {
-		const fontPicker = document.getElementById('font-picker');
+		this.expanded = false;
+		const fontPickerDiv = document.getElementById('font-picker');
 
 		// HTML for dropdown button (name of active font and dropdown arrow)
 		this.dropdownButton = document.createElement('a');
 		this.dropdownButton.id = 'dropdown-button';
-		this.dropdownButton.href = '#';
 		this.dropdownButton.onclick = () => this.toggleExpanded();
 
 		this.dropdownFont = document.createElement('p');
-		this.dropdownFont.innerHTML = this.activeFont;
+		this.dropdownFont.innerHTML = this.fontHandler.activeFont.family;
 
 		const dropdownArrow = document.createElement('p');
 		dropdownArrow.innerHTML = '▾';
 
 		this.dropdownButton.append(this.dropdownFont);
 		this.dropdownButton.append(dropdownArrow);
-		fontPicker.appendChild(this.dropdownButton);
+		fontPickerDiv.appendChild(this.dropdownButton);
 
 		// fetch and filter/sort list of fonts
-		await this.init();
+		await this.fontHandler.init();
 
 		// HTML for font list
 		this.ul = document.createElement('ul');
-		for (let i = 0; i < this.fontList.length; i += 1) {
+		for (let i = 0; i < this.fontHandler.fonts.length; i += 1) {
 			const li = document.createElement('li');
 			const a = document.createElement('a');
-			a.innerHTML = this.fontList[i].family;
-			a.href = '#';
-			a.onclick = () => this.selectFont(i);
+			a.innerHTML = this.fontHandler.fonts[i].family;
+			a.onclick = () => {
+				this.toggleExpanded(); // collapse font list
+				this.selectFont(i); // make font with index i active
+			};
 			li.appendChild(a);
 
 			// if active font: highlight it and save reference
-			if (this.fontList[i].family === this.activeFont) {
+			if (this.fontHandler.fonts[i].family === this.fontHandler.activeFont.family) {
 				li.classList.add('active-font');
 				this.activeFontA = li;
 			}
 
 			this.ul.appendChild(li);
 		}
-		fontPicker.appendChild(this.ul);
+		fontPickerDiv.appendChild(this.ul);
 	}
 
+	/**
+	 * Return the object of the currently selected font
+	 */
+	getActiveFont() {
+		return this.fontHandler.activeFont;
+	}
+
+	/**
+	 * Set the font with the given font list index as the active one and highlight it in the list
+	 */
 	selectFont(index) {
-		this.toggleExpanded(); // collapse font list
+		// change font
+		this.fontHandler.changeActiveFont(index);
+
+		// write new font name in dropdown button
+		this.dropdownFont.innerHTML = this.fontHandler.activeFont.family;
 
 		// highlight new active font
 		this.activeFontA.classList.remove('active-font');
 		this.activeFontA = this.ul.getElementsByTagName('li')[index];
 		this.activeFontA.classList.add('active-font');
-
-		// set as active font and display its name in dropdown button
-		this.activeFont = this.fontList[index].family;
-		this.dropdownFont.innerHTML = this.activeFont;
-
-		// TODO download and apply font
 	}
 
+	/**
+	 * Expand/collapse the picker's font list
+	 */
 	toggleExpanded() {
 		if (this.expanded) {
 			this.expanded = false;
+			this.dropdownButton.classList.remove('expanded');
 			this.ul.classList.remove('expanded');
 		}
 		else {
 			this.expanded = true;
+			this.dropdownButton.classList.add('expanded');
 			this.ul.classList.add('expanded');
 		}
 	}

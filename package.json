@@ -3,8 +3,8 @@
 	"version": "1.0.0",
 	"main": "index.js",
 	"scripts": {
+		"start": "rollup -c --watch",
 		"build": "rollup -c",
-		"watch": "rollup -c --watch",
 		"lint": "eslint --ext .js src",
 		"precommit": "npm run lint",
 		"prepush": "npm run lint"

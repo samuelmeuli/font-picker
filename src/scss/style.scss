@@ -1,11 +1,14 @@
 $element-height: 35px;
 $width: 200px;
 
+$color-dropdown-button: #CBCBCB;
+$color-font-list: #EAEAEA;
+
 
 #font-picker {
 	width: $width;
-	background-color: #CBCBCB;
 	position: relative;
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 
 	p {
 		margin: 0;
@@ -16,6 +19,7 @@ $width: 200px;
 	a {
 		color: inherit;
 		text-decoration: none;
+		cursor: pointer;
 	}
 
 	#dropdown-button {
@@ -24,6 +28,11 @@ $width: 200px;
 		align-items: center;
 		justify-content: space-between;
 		padding: 0 10px;
+		background-color: $color-dropdown-button;
+
+		&:hover, &.expanded {
+			background-color: darken($color-dropdown-button, 5%);
+		}
 	}
 
 	ul {
@@ -33,8 +42,9 @@ $width: 200px;
 		overflow-y: auto;
 		margin: 0;
 		padding: 0;
-		background-color: #EAEAEA;
+		background-color: $color-font-list;
 		transition: 0.3s;
+		box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 
 		&.expanded {
 			max-height: 200px;
@@ -44,8 +54,12 @@ $width: 200px;
 			height: $element-height;
 			list-style: none;
 
+			&:hover {
+				background-color: darken($color-font-list, 5%);
+			}
+
 			&.active-font {
-				background-color: #DADADA;
+				background-color: darken($color-font-list, 10%);
 			}
 
 			a {

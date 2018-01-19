@@ -4,24 +4,41 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" type="text/css" href="./style.css">
 		<title>Google Font Picker</title>
 	</head>
 
 	<body>
 		<h1>Google Font Picker</h1>
+
+		<h2>Demo</h2>
 		<div id="font-picker"></div>
+		<p class="apply-font">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quae quidem vel cum periculo est quaerenda vobis; Quid
+			ergo hoc loco intellegit honestum? Nam illud quidem adduci vix possum, ut ea, quae senserit ille, tibi non vera
+			videantur. Nam de isto magna dissensio est. Sed est forma eius disciplinae, sicut fere ceterarum, triplex: una
+			pars est naturae, disserendi altera, vivendi tertia. Ita multo sanguine profuso in laetitia et in victoria est
+			mortuus. Duo Reges: constructio interrete. Cognitio autem haec est una nostri, ut vim corporis animique norimus
+			sequamurque eam vitam, quae rebus iis ipsis perfruatur. Nemo nostrum istius generis asotos iucunde putat vivere.
+			Haeret in salebra. Quodsi, ne quo incommodo afficiare, non relinques amicum, tamen, ne sine fructu alligatus
+			sis, ut moriatur optabis.
+		</p>
+
+		<h2>Download</h2>
+		<a href="https://github.com/quasebaum/google-font-picker" id="github-button">
+			<img src="github-icon.svg" alt="GitHub" width="25px" id="github-icon" />
+			GitHub
+		</a>
 	</body>
 
 	<noscript>JavaScript needs to be enabled to be able to use the font picker.</noscript>
-	<script type="text/javascript" src="../dist/FontPicker.js"></script>
+	<script type="text/javascript" src="../lib/index.js"></script>
 	<script type="text/javascript">
-		// initialize the font picker
 		const fontPicker = new FontPicker(
 			'AIzaSyAOkdDlx49HCSBdu86oe8AD1Q7piIxlR6k', // Google API key
 			'Open Sans', // default font
 			{ limit: 50 } // additional options
 		);
-		// generate the font picker UI inside the <div> with the ID "font-picker"
-		fontPicker.display();
+		fontPicker.init();
 	</script>
 </html>
