@@ -25,6 +25,32 @@ import './scss/style.scss';
 export default class FontPicker {
 
 	constructor(apiKey, defaultFont, options) {
+		// parameter validation
+		if (!apiKey || typeof apiKey !== 'string') {
+			throw Error('apiKey parameter is not a string or missing');
+		}
+		if (!defaultFont || typeof defaultFont !== 'string') {
+			throw Error('defaultFont parameter is not a string or missing');
+		}
+		if (options && typeof options !== 'object') {
+			throw Error('options parameter is not an object');
+		}
+		if (options && options.families && !(options.families instanceof Array)) {
+			throw Error('families parameter is not an array');
+		}
+		if (options && options.categories && !(options.categories instanceof Array)) {
+			throw Error('categories parameter is not an array');
+		}
+		if (options && options.minStyles && typeof options.minStyles !== 'number') {
+			throw Error('minStyles parameter is not a number');
+		}
+		if (options && options.limit && typeof options.limit !== 'number') {
+			throw Error('limit parameter is not a number');
+		}
+		if (options && options.sort && typeof options.sort !== 'string') {
+			throw Error('sort parameter is not a string');
+		}
+
 		this.fontHandler = new FontHandler(apiKey, defaultFont, options);
 	}
 
@@ -55,6 +81,7 @@ export default class FontPicker {
 		catch (err) {
 			const errMessage = 'Error trying to fetch the list of available fonts';
 			console.error(errMessage);
+			console.error(err);
 			dropdownIcon.innerHTML = '⚠';
 			fontPickerDiv.title = errMessage;
 		}

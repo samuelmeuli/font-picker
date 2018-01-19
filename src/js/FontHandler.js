@@ -13,8 +13,6 @@ export default class FontHandler {
 	 */
 	constructor(apiKey, defaultFont, options) {
 
-		// TODO parameter validation
-
 		this.activeFont = defaultFont;
 		this.apiKey = apiKey;
 		this.fonts = [];
@@ -49,30 +47,32 @@ export default class FontHandler {
 			fontList.unshift(this.activeFont);
 		}
 
-		// 'families' parameter (only keep fonts whose names are included in the provided array)
-		if (this.options.families) {
-			fontList = fontList.filter(font => this.options.families.includes(font.family));
-		}
+		if (this.options) {
+			// 'families' parameter (only keep fonts whose names are included in the provided array)
+			if (this.options.families) {
+				fontList = fontList.filter(font => this.options.families.includes(font.family));
+			}
 
-		// 'categories' parameter (only keep fonts in categories from the provided array)
-		if (this.options.categories) {
-			fontList = fontList.filter(font => this.options.categories.includes(font.category));
-		}
+			// 'categories' parameter (only keep fonts in categories from the provided array)
+			if (this.options.categories) {
+				fontList = fontList.filter(font => this.options.categories.includes(font.category));
+			}
 
-		// 'minStyles' parameter (only keep fonts with at least the specified number of styles)
-		if (this.options.minStyles) {
-			fontList = fontList.filter(font => font.variants.length >= this.options.minStyles);
-		}
+			// 'minStyles' parameter (only keep fonts with at least the specified number of styles)
+			if (this.options.minStyles) {
+				fontList = fontList.filter(font => font.variants.length >= this.options.minStyles);
+			}
 
-		// 'limit' parameter (limit font list size)
-		if (this.options.limit) {
-			fontList = fontList.slice(0, this.options.limit);
-		}
+			// 'limit' parameter (limit font list size)
+			if (this.options.limit) {
+				fontList = fontList.slice(0, this.options.limit);
+			}
 
-		// 'sort' parameter (list is already sorted by popularity -> sort the list alphabetically unless
-		// popularity is specified as the sorting attribute)
-		if (this.options.sort !== 'popularity') {
-			fontList = fontList.sort((fontA, fontB) => fontA.family.localeCompare(fontB.family));
+			// 'sort' parameter (list is already sorted by popularity -> sort the list alphabetically
+			// unless popularity is specified as the sorting attribute)
+			if (this.options.sort !== 'popularity') {
+				fontList = fontList.sort((fontA, fontB) => fontA.family.localeCompare(fontB.family));
+			}
 		}
 
 		// save modified font list
