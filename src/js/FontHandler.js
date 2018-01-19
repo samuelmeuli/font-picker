@@ -1,5 +1,4 @@
-import { downloadFont, fetchFontList } from './google-fonts-api';
-import isFontAvailable from './is-font-available';
+import { checkFullFont, checkPreviewFont, fetchFontList } from './font-download';
 
 
 /**
@@ -20,21 +19,14 @@ export default class FontHandler {
 		this.apiKey = apiKey;
 		this.fonts = [];
 		this.options = options;
+		this.previewIndex = 0; // list index up to which font previews have been downloaded
 
-		// make default font active and download it unless it is already available
-		if (!isFontAvailable(defaultFont)) {
-			this.activeFont = {
-				kind: 'webfonts#webfont',
-				family: defaultFont
-			};
-			downloadFont(this.activeFont);
-		}
-		else {
-			this.activeFont = {
-				kind: 'local',
-				family: defaultFont
-			};
-		}
+		// make default font active and download it (if necessary)
+		this.activeFont = {
+			family: defaultFont,
+			variants: 'regular'
+		};
+		checkFullFont(this.activeFont);
 
 		// apply default font
 		this.stylesheet = document.createElement('style');
@@ -83,7 +75,11 @@ export default class FontHandler {
 			fontList = fontList.sort((fontA, fontB) => fontA.family.localeCompare(fontB.family));
 		}
 
+		// save modified font list
 		this.fonts = fontList;
+
+		// download previews for the first 10 fonts in the list
+		this.downloadPreviews(10);
 	}
 
 	/**
@@ -96,14 +92,36 @@ export default class FontHandler {
 		// change font
 		this.activeFont = this.fonts[index];
 
-		// download font if it is not already available
-		if (!isFontAvailable(this.activeFont.family)) {
-			downloadFont(this.activeFont);
-		}
+		// download font (if necessary)
+		checkFullFont(this.activeFont);
 
 		// apply font and set fallback fonts
-		this.stylesheet.firstChild.remove();
 		const style = `.apply-font { font-family: ${this.activeFont.family}, ${previousFont}, ${this.activeFont.category === 'handwriting' ? 'cursive' : this.activeFont.category}; }`;
-		this.stylesheet.appendChild(document.createTextNode(style));
+		this.stylesheet.replaceChild(document.createTextNode(style), this.stylesheet.childNodes[0]);
+	}
+
+	/**
+	 * Download font previews for the list entries up to the given index
+	 */
+	downloadPreviews(downloadIndex) {
+		// stop at the end of the font list
+		let downloadIndexMax;
+		if (downloadIndex > this.fonts.length) {
+			downloadIndexMax = this.fonts.length;
+		}
+		else {
+			downloadIndexMax = downloadIndex;
+		}
+
+		// download the previews up to the given index and apply them to the list entries
+		for (let i = this.previewIndex; i < downloadIndexMax; i += 1) {
+			checkPreviewFont(this.fonts[i]);
+			const style = `.font-${this.fonts[i].family.replace(/\s+/g, '-').toLowerCase()} { font-family: ${this.fonts[i].family}; }`;
+			this.stylesheet.appendChild(document.createTextNode(style));
+		}
+
+		if (downloadIndexMax > this.previewIndex) {
+			this.previewIndex = downloadIndexMax;
+		}
 	}
 }

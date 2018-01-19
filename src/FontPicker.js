@@ -55,10 +55,14 @@ export default class FontPicker {
 
 		// HTML for font list
 		this.ul = document.createElement('ul');
+		this.ul.onscroll = () => this.onScroll(); // download font previews on scroll
 		for (let i = 0; i < this.fontHandler.fonts.length; i += 1) {
 			const li = document.createElement('li');
 			const a = document.createElement('a');
+
+			// write font name in the corresponding font, set onclick listener
 			a.innerHTML = this.fontHandler.fonts[i].family;
+			a.classList.add(`font-${this.fontHandler.fonts[i].family.replace(/\s+/g, '-').toLowerCase()}`);
 			a.onclick = () => {
 				this.toggleExpanded(); // collapse font list
 				this.selectFont(i); // make font with index i active
@@ -113,5 +117,14 @@ export default class FontPicker {
 			this.dropdownButton.classList.add('expanded');
 			this.ul.classList.add('expanded');
 		}
+	}
+
+	/**
+	 * Download the font previews for all visible font entries and the five after them
+	 */
+	onScroll() {
+		const elementHeight = this.ul.scrollHeight / this.fontHandler.fonts.length;
+		const downloadIndex = Math.ceil((this.ul.scrollTop + this.ul.clientHeight) / elementHeight);
+		this.fontHandler.downloadPreviews(downloadIndex + 5);
 	}
 }
