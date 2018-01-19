@@ -43,15 +43,23 @@ export default class FontPicker {
 		this.dropdownFont = document.createElement('p');
 		this.dropdownFont.innerHTML = this.fontHandler.activeFont.family;
 
-		const dropdownArrow = document.createElement('p');
-		dropdownArrow.innerHTML = '▾';
-
 		this.dropdownButton.append(this.dropdownFont);
-		this.dropdownButton.append(dropdownArrow);
 		fontPickerDiv.appendChild(this.dropdownButton);
+		const dropdownIcon = document.createElement('p');
 
 		// fetch and filter/sort list of fonts
-		await this.fontHandler.init();
+		try {
+			await this.fontHandler.init();
+			dropdownIcon.innerHTML = '▾';
+		}
+		catch (err) {
+			const errMessage = 'Error trying to fetch the list of available fonts';
+			console.error(errMessage);
+			dropdownIcon.innerHTML = '⚠';
+			fontPickerDiv.title = errMessage;
+		}
+
+		this.dropdownButton.append(dropdownIcon);
 
 		// HTML for font list
 		this.ul = document.createElement('ul');
