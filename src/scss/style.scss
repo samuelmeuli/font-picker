@@ -6,6 +6,7 @@ $color-font-list: #EAEAEA;
 
 
 #font-picker {
+	display: inline-block;
 	width: $width;
 	position: relative;
 	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);

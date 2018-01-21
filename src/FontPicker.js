@@ -65,7 +65,11 @@ export default class FontPicker {
 			optionsWithDefaults.sort = 'alphabetical';
 		}
 
+		// initialize FontHandler
 		this.fontHandler = new FontHandler(apiKey, defaultFont, optionsWithDefaults);
+
+		// function bindings
+		this.closeEventListener = this.closeEventListener.bind(this);
 	}
 
 	/**
@@ -138,6 +142,25 @@ export default class FontPicker {
 	}
 
 	/**
+	 * EventListener for closing the font picker when clicking anywhere outside it
+	 */
+	closeEventListener(e) {
+		let targetElement = e.target; // clicked element
+
+		do {
+			if (targetElement === document.getElementById('font-picker')) {
+				// click inside font picker
+				return;
+			}
+			// move up the DOM
+			targetElement = targetElement.parentNode;
+		} while (targetElement);
+
+		// click outside font picker
+		this.toggleExpanded();
+	}
+
+	/**
 	 * Download the font previews for all visible font entries and the five after them
 	 */
 	onScroll() {
@@ -170,11 +193,13 @@ export default class FontPicker {
 			this.expanded = false;
 			this.dropdownButton.classList.remove('expanded');
 			this.ul.classList.remove('expanded');
+			document.removeEventListener('click', this.closeEventListener);
 		}
 		else {
 			this.expanded = true;
 			this.dropdownButton.classList.add('expanded');
 			this.ul.classList.add('expanded');
+			document.addEventListener('click', this.closeEventListener);
 		}
 	}
 }
