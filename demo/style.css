@@ -16,6 +16,10 @@ h2 {
 	margin: 35px 0 20px 0;
 }
 
+noscript {
+	color: #D63D3D;
+}
+
 #github-button {
 	height: 35px;
 	display: inline-flex;

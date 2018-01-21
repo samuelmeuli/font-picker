@@ -43,6 +43,7 @@ $color-font-list: #EAEAEA;
 		max-height: 0;
 		width: $width;
 		position: absolute;
+		overflow-x: hidden;
 		overflow-y: auto;
 		margin: 0;
 		padding: 0;

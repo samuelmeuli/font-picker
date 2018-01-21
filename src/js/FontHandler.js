@@ -24,13 +24,55 @@ export default class FontHandler {
 			family: defaultFont,
 			variants: 'regular'
 		};
-		checkFullFont(this.activeFont);
+		checkFullFont(this.activeFont, this.options.variants);
 
 		// apply default font
 		this.stylesheet = document.createElement('style');
 		this.stylesheet.rel = 'stylesheet';
 		this.stylesheet.type = 'text/css';
-		const style = `.apply-font { font-family: ${this.activeFont.family}; }`;
+		let style = `
+			.apply-font {
+				font-family: "${this.activeFont.family}";
+			}
+		`;
+		// font weight/style: split number and text in font variant parameter
+		const defaultVariant = this.options.variants[0].split(/(\d+)/).filter(Boolean);
+		// either font weight or style is specified (e.g. 'regular, '300', 'italic')
+		if (defaultVariant.length === 1) {
+			if (defaultVariant[0] === 'regular') {
+				style += `
+					.apply-font, #font-picker > ul > li > a {
+						font-weight: 400;
+						font-style: normal;
+					}
+				`;
+			}
+			else if (defaultVariant[0] === 'italic') {
+				style += `
+					.apply-font, #font-picker > ul > li > a {
+						font-weight: 400;
+						font-style: italic;
+					}
+				`;
+			}
+			else {
+				style += `
+					.apply-font, #font-picker > ul > li > a {
+						font-weight: ${defaultVariant[0]};
+						font-style: normal;
+					}
+				`;
+			}
+		}
+		// both font weight and style are specified
+		else if (defaultVariant.length === 2) {
+			style += `
+			.apply-font, #font-picker > ul > li > a {
+				font-weight: ${defaultVariant[0]};
+				font-style: ${defaultVariant[1]};
+			}
+		`;
+		}
 		this.stylesheet.appendChild(document.createTextNode(style));
 		document.head.appendChild(this.stylesheet);
 	}
@@ -42,37 +84,41 @@ export default class FontHandler {
 	async init() {
 		let fontList = await fetchFontList(this.apiKey);
 
+		// 'families' parameter (only keep fonts whose names are included in the provided array)
+		if (this.options.families) {
+			fontList = fontList.filter(font => this.options.families.includes(font.family));
+		}
+
+		// 'categories' parameter (only keep fonts in categories from the provided array)
+		if (this.options.categories) {
+			fontList = fontList.filter(font => this.options.categories.includes(font.category));
+		}
+
+		// 'variants' parameter (only keep fonts with at least the specified variants)
+		if (this.options.variants) {
+			fontList = fontList.filter((font) => {
+				for (let i = 0; i < this.options.variants.length; i += 1) {
+					if (font.variants.indexOf(this.options.variants[i]) === -1) {
+						return false;
+					}
+				}
+				return true;
+			});
+		}
+
 		// add default font to beginning of list if it is not already in it
 		if (fontList.filter(font => font.family === this.activeFont.family).length === 0) {
 			fontList.unshift(this.activeFont);
 		}
 
-		if (this.options) {
-			// 'families' parameter (only keep fonts whose names are included in the provided array)
-			if (this.options.families) {
-				fontList = fontList.filter(font => this.options.families.includes(font.family));
-			}
+		// 'limit' parameter (limit font list size)
+		if (this.options.limit) {
+			fontList = fontList.slice(0, this.options.limit);
+		}
 
-			// 'categories' parameter (only keep fonts in categories from the provided array)
-			if (this.options.categories) {
-				fontList = fontList.filter(font => this.options.categories.includes(font.category));
-			}
-
-			// 'minStyles' parameter (only keep fonts with at least the specified number of styles)
-			if (this.options.minStyles) {
-				fontList = fontList.filter(font => font.variants.length >= this.options.minStyles);
-			}
-
-			// 'limit' parameter (limit font list size)
-			if (this.options.limit) {
-				fontList = fontList.slice(0, this.options.limit);
-			}
-
-			// 'sort' parameter (list is already sorted by popularity -> sort the list alphabetically
-			// unless popularity is specified as the sorting attribute)
-			if (this.options.sort !== 'popularity') {
-				fontList = fontList.sort((fontA, fontB) => fontA.family.localeCompare(fontB.family));
-			}
+		// 'sort' parameter (list is already sorted by popularity)
+		if (this.options.sort === 'alphabetical') {
+			fontList = fontList.sort((fontA, fontB) => fontA.family.localeCompare(fontB.family));
 		}
 
 		// save modified font list
@@ -93,10 +139,15 @@ export default class FontHandler {
 		this.activeFont = this.fonts[index];
 
 		// download font (if necessary)
-		checkFullFont(this.activeFont);
+		checkFullFont(this.activeFont, this.options.variants);
 
 		// apply font and set fallback fonts
-		const style = `.apply-font { font-family: ${this.activeFont.family}, ${previousFont}, ${this.activeFont.category === 'handwriting' ? 'cursive' : this.activeFont.category}; }`;
+		const fallbackFont = this.activeFont.category === 'handwriting' ? 'cursive' : this.activeFont.category;
+		const style = `
+			.apply-font {
+				font-family: "${this.activeFont.family}", "${previousFont}", ${fallbackFont};
+			}
+		`;
 		this.stylesheet.replaceChild(document.createTextNode(style), this.stylesheet.childNodes[0]);
 	}
 
@@ -115,8 +166,12 @@ export default class FontHandler {
 
 		// download the previews up to the given index and apply them to the list entries
 		for (let i = this.previewIndex; i < downloadIndexMax; i += 1) {
-			checkPreviewFont(this.fonts[i]);
-			const style = `.font-${this.fonts[i].family.replace(/\s+/g, '-').toLowerCase()} { font-family: ${this.fonts[i].family}; }`;
+			checkPreviewFont(this.fonts[i], this.options.variants);
+			const style = `
+				.font-${this.fonts[i].family.replace(/\s+/g, '-').toLowerCase()} {
+					font-family: "${this.fonts[i].family}";
+				}
+			`;
 			this.stylesheet.appendChild(document.createTextNode(style));
 		}
 

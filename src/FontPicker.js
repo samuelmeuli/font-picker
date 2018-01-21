@@ -15,16 +15,18 @@ import './scss/style.scss';
  *          - 'init'
  *          - 'handwriting'
  *          - 'monospace'
- *   @param minStyles: minimum number of available styles for the fonts in the list (default: 0)
+ *   @param variants: array of variants which the fonts must include and which will be downloaded;
+ *   				the first variant of the array will be used in the font picker and the .apply-font
+ *   				class; e.g. ['regular', 'italic', '700', '700italic'] (default: ['regular'])
  *   @param limit: maximum number of fonts to be displayed in the list (most popular fonts will be
- * 				  selected, default: no limit)
+ * 				  selected, default: 100)
  *   @param sort: sorting attribute for the font list
  *          - 'alphabetical' (default)
  *          - 'popularity'
  */
 export default class FontPicker {
 
-	constructor(apiKey, defaultFont, options) {
+	constructor(apiKey, defaultFont, options = {}) {
 		// parameter validation
 		if (!apiKey || typeof apiKey !== 'string') {
 			throw Error('apiKey parameter is not a string or missing');
@@ -32,26 +34,38 @@ export default class FontPicker {
 		if (!defaultFont || typeof defaultFont !== 'string') {
 			throw Error('defaultFont parameter is not a string or missing');
 		}
-		if (options && typeof options !== 'object') {
+		if (typeof options !== 'object') {
 			throw Error('options parameter is not an object');
 		}
-		if (options && options.families && !(options.families instanceof Array)) {
+		if (options.families && !(options.families instanceof Array)) {
 			throw Error('families parameter is not an array');
 		}
-		if (options && options.categories && !(options.categories instanceof Array)) {
+		if (options.categories && !(options.categories instanceof Array)) {
 			throw Error('categories parameter is not an array');
 		}
-		if (options && options.minStyles && typeof options.minStyles !== 'number') {
-			throw Error('minStyles parameter is not a number');
+		if (options.variants && !(options.variants instanceof Array)) {
+			throw Error('variants parameter is not an array');
 		}
-		if (options && options.limit && typeof options.limit !== 'number') {
+		if (options.limit && typeof options.limit !== 'number') {
 			throw Error('limit parameter is not a number');
 		}
-		if (options && options.sort && typeof options.sort !== 'string') {
+		if (options.sort && typeof options.sort !== 'string') {
 			throw Error('sort parameter is not a string');
 		}
 
-		this.fontHandler = new FontHandler(apiKey, defaultFont, options);
+		// default parameters
+		const optionsWithDefaults = options;
+		if (!options.limit) {
+			optionsWithDefaults.limit = 100;
+		}
+		if (!options.variants) {
+			optionsWithDefaults.variants = ['regular'];
+		}
+		if (!options.sort) {
+			optionsWithDefaults.sort = 'alphabetical';
+		}
+
+		this.fontHandler = new FontHandler(apiKey, defaultFont, optionsWithDefaults);
 	}
 
 	/**
@@ -73,7 +87,10 @@ export default class FontPicker {
 		fontPickerDiv.appendChild(this.dropdownButton);
 		const dropdownIcon = document.createElement('p');
 
-		// fetch and filter/sort list of fonts
+		// HTML for font list
+		this.ul = document.createElement('ul');
+
+		// fetch font list, display dropdown arrow if successful
 		try {
 			await this.fontHandler.init();
 			dropdownIcon.innerHTML = '▾';
@@ -85,11 +102,9 @@ export default class FontPicker {
 			dropdownIcon.innerHTML = '⚠';
 			fontPickerDiv.title = errMessage;
 		}
-
 		this.dropdownButton.append(dropdownIcon);
 
-		// HTML for font list
-		this.ul = document.createElement('ul');
+		// HTML for font list entries
 		this.ul.onscroll = () => this.onScroll(); // download font previews on scroll
 		for (let i = 0; i < this.fontHandler.fonts.length; i += 1) {
 			const li = document.createElement('li');
@@ -123,6 +138,15 @@ export default class FontPicker {
 	}
 
 	/**
+	 * Download the font previews for all visible font entries and the five after them
+	 */
+	onScroll() {
+		const elementHeight = this.ul.scrollHeight / this.fontHandler.fonts.length;
+		const downloadIndex = Math.ceil((this.ul.scrollTop + this.ul.clientHeight) / elementHeight);
+		this.fontHandler.downloadPreviews(downloadIndex + 5);
+	}
+
+	/**
 	 * Set the font with the given font list index as the active one and highlight it in the list
 	 */
 	selectFont(index) {
@@ -152,14 +176,5 @@ export default class FontPicker {
 			this.dropdownButton.classList.add('expanded');
 			this.ul.classList.add('expanded');
 		}
-	}
-
-	/**
-	 * Download the font previews for all visible font entries and the five after them
-	 */
-	onScroll() {
-		const elementHeight = this.ul.scrollHeight / this.fontHandler.fonts.length;
-		const downloadIndex = Math.ceil((this.ul.scrollTop + this.ul.clientHeight) / elementHeight);
-		this.fontHandler.downloadPreviews(downloadIndex + 5);
 	}
 }

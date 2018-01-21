@@ -14,15 +14,15 @@ export async function fetchFontList(apiKey) {
 /**
  * Add Google Fonts stylesheet for the specified font family and variants
  */
-function downloadFullFont(font, fontId) {
+function downloadFullFont(font, fontId, variants) {
 	// generate the stylesheet URL
 	let url = 'https://fonts.googleapis.com/css?family=';
+	// font name
 	url += font.family.replace(/ /g, '+');
-	if (font.variants.includes('regular')) {
-		url += ':regular';
-	}
-	else {
-		url += `:${font.variants[0]}`;
+	// font variants
+	url += `:${variants[0]}`;
+	for (let i = 1; i < variants.length; i += 1) {
+		url += `|${variants[i]}`;
 	}
 
 	// add the stylesheet to the document head
@@ -38,17 +38,17 @@ function downloadFullFont(font, fontId) {
  * Add limited Google Fonts stylesheet for the specified font family (only containing the characters
  * which are needed to write the font family name)
  */
-function downloadPreviewFont(font, fontId) {
+function downloadPreviewFont(font, fontId, variants) {
 	// generate the stylesheet URL
 	let url = 'https://fonts.googleapis.com/css?family=';
+	// font name
 	url += font.family.replace(/ /g, '+');
-	if (font.variants.includes('regular')) {
-		url += ':regular';
+	// font variants
+	url += `:${variants[0]}`;
+	for (let i = 1; i < variants.length; i += 1) {
+		url += `|${variants[i]}`;
 	}
-	else {
-		url += `:${font.variants[0]}`;
-	}
-	// determine the characters to download (remove spaces and duplicate letters from the font name)
+	// characters to download: remove spaces and duplicate letters from the font name
 	let downloadChars = font.family;
 	downloadChars = downloadChars.replace(/\s+/g, '');
 	downloadChars = downloadChars.split('').filter((x, n, s) => s.indexOf(x) === n).join('');
@@ -66,17 +66,17 @@ function downloadPreviewFont(font, fontId) {
 /**
  * Check whether the full font needs to be downloaded and do so if necessary
  */
-export function checkFullFont(font) {
+export function checkFullFont(font, variants) {
 	const fontId = font.family.replace(/\s+/g, '-').toLowerCase();
 
 	// if preview font is available: replace it with the full font
 	if (document.getElementById(`font-preview-${fontId}`)) {
 		document.getElementById(`font-preview-${fontId}`).outerHTML = '';
-		downloadFullFont(font, fontId);
+		downloadFullFont(font, fontId, variants);
 	}
 	// if font is not available: download it
 	else if (!document.getElementById(`font-full-${fontId}`) && !isFontAvailable(font.family)) {
-		downloadFullFont(font, fontId);
+		downloadFullFont(font, fontId, variants);
 	}
 }
 
@@ -84,12 +84,11 @@ export function checkFullFont(font) {
 /**
  * Check whether the preview font needs to be downloaded and do so if necessary
  */
-export function checkPreviewFont(font) {
+export function checkPreviewFont(font, variants) {
 	const fontId = font.family.replace(/\s+/g, '-').toLowerCase();
 
 	// if full font is not available: download preview font
-	if (!document.getElementById(`font-full-${fontId}`) &&
-			!isFontAvailable(font.family)) {
-		downloadPreviewFont(font, fontId);
+	if (!document.getElementById(`font-full-${fontId}`) && !isFontAvailable(font.family)) {
+		downloadPreviewFont(font, fontId, variants);
 	}
 }
