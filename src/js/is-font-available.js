@@ -1,44 +1,37 @@
 /**
- * Checks if a font is available to be used on a web page.
- * Source: https://www.samclarke.com/javascript-is-font-available/
- *
- * @param {String} fontName The name of the font to check
- * @return {Boolean}
- * @license MIT
- * @copyright Sam Clarke 2013
- * @author Sam Clarke <sam@samclarke.com>
+ * Check if font is available for the website
+ * Source: https://www.kirupa.com/html5/detect_whether_font_is_installed.htm
+ * @param fontName
+ * @returns {boolean}
  */
+export default function isFontAvailable(fontName) {
+	// creating our in-memory Canvas element where the magic happens
+	var canvas = document.createElement("canvas");
+	var context = canvas.getContext("2d");
 
-var width;
-var body = document.body;
+	// the text whose final pixel size I want to measure
+	var text = "abcdefghijklmnopqrstuvwxyz0123456789";
 
-var container = document.createElement('span');
-container.innerHTML = Array(100).join('wi');
-container.style.cssText = [
-	'position:absolute',
-	'width:auto',
-	'font-size:128px',
-	'left:-99999px'
-].join(' !important;');
+	// specifying the baseline font
+	context.font = "72px monospace";
 
-var getWidth = function (fontFamily) {
-	container.style.fontFamily = fontFamily;
+	// checking the size of the baseline text
+	var baselineSize = context.measureText(text).width;
 
-	body.appendChild(container);
-	width = container.clientWidth;
-	body.removeChild(container);
+	// specifying the font whose existence we want to check
+	context.font = "72px '" + fontName + "', monospace";
 
-	return width;
-};
+	// checking the size of the font we want to check
+	var newSize = context.measureText(text).width;
 
-// Pre compute the widths of monospace, serif & sans-serif
-// to improve performance.
-var monoWidth  = getWidth('monospace');
-var serifWidth = getWidth('serif');
-var sansWidth  = getWidth('sans-serif');
+	// removing the Canvas element we created
+	canvas = null;
 
-export default function isFontAvailable(font) {
-	return monoWidth !== getWidth(font + ',monospace') ||
-		sansWidth !== getWidth(font + ',sans-serif') ||
-		serifWidth !== getWidth(font + ',serif');
+	// If the size of the two text instances is the same, the font does not exist because it is being
+	// rendered using the default sans-serif font
+	if (newSize == baselineSize) {
+		return false;
+	} else {
+		return true;
+	}
 }
