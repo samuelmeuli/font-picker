@@ -82,7 +82,10 @@ export default class FontPicker {
 		// HTML for dropdown button (name of active font and dropdown arrow)
 		this.dropdownButton = document.createElement('a');
 		this.dropdownButton.id = 'dropdown-button';
+		this.dropdownButton.role = 'button';
+		this.dropdownButton.tabIndex = 0;
 		this.dropdownButton.onclick = () => this.toggleExpanded();
+		this.dropdownButton.onkeypress = () => this.toggleExpanded();
 
 		this.dropdownFont = document.createElement('p');
 		this.dropdownFont.innerHTML = this.fontHandler.activeFont.family;
@@ -117,7 +120,13 @@ export default class FontPicker {
 			// write font name in the corresponding font, set onclick listener
 			a.innerHTML = this.fontHandler.fonts[i].family;
 			a.classList.add(`font-${this.fontHandler.fonts[i].family.replace(/\s+/g, '-').toLowerCase()}`);
+			a.role = 'button';
+			a.tabIndex = 0;
 			a.onclick = () => {
+				this.toggleExpanded(); // collapse font list
+				this.selectFont(i); // make font with index i active
+			};
+			a.onkeypress = () => {
 				this.toggleExpanded(); // collapse font list
 				this.selectFont(i); // make font with index i active
 			};
