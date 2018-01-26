@@ -14,7 +14,7 @@ export async function fetchFontList(apiKey) {
 /**
  * Add Google Fonts stylesheet for the specified font family and variants
  */
-function downloadFullFont(font, fontId, variants) {
+function downloadFullFont(font, fontId, variants, onChange) {
 	// generate the stylesheet URL
 	let url = 'https://fonts.googleapis.com/css?family=';
 	// font name
@@ -30,6 +30,12 @@ function downloadFullFont(font, fontId, variants) {
 	link.rel = 'stylesheet';
 	link.href = url;
 	link.id = `font-full-${fontId}`;
+	// if onChange function is specified: execute it once the stylesheet has loaded
+	if (onChange) {
+		link.onload = () => {
+			onChange(font);
+		};
+	}
 	document.head.appendChild(link);
 }
 
@@ -66,17 +72,22 @@ function downloadPreviewFont(font, fontId, variants) {
 /**
  * Check whether the full font needs to be downloaded and do so if necessary
  */
-export function checkFullFont(font, variants) {
+export function checkFullFont(font, variants, onChange) {
 	const fontId = font.family.replace(/\s+/g, '-').toLowerCase();
 
 	// if preview font is available: replace it with the full font
 	if (document.getElementById(`font-preview-${fontId}`)) {
 		document.getElementById(`font-preview-${fontId}`).outerHTML = '';
-		downloadFullFont(font, fontId, variants);
+		downloadFullFont(font, fontId, variants, onChange);
 	}
 	// if font is not available: download it
 	else if (!document.getElementById(`font-full-${fontId}`) && !isFontAvailable(font.family)) {
-		downloadFullFont(font, fontId, variants);
+		downloadFullFont(font, fontId, variants, onChange);
+	}
+	// if is available
+	else if (onChange) {
+		// execute onChange function if it is specified
+		onChange(font);
 	}
 }
 

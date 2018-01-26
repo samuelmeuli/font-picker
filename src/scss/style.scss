@@ -35,7 +35,8 @@ $color-font-list: #EAEAEA;
 		padding: 0 10px;
 		background-color: $color-dropdown-button;
 
-		&:hover, &.expanded {
+		&:hover,
+		&.expanded {
 			background-color: darken($color-dropdown-button, 5%);
 		}
 	}
@@ -44,6 +45,7 @@ $color-font-list: #EAEAEA;
 		max-height: 0;
 		width: $width;
 		position: absolute;
+		z-index: 1;
 		overflow-x: hidden;
 		overflow-y: auto;
 		margin: 0;

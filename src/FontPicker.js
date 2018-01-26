@@ -4,35 +4,35 @@ import './scss/style.scss';
 
 /**
  * Font picker interface
- * @param apiKey (required): Google API key (https://developers.google.com/fonts/docs/developer_api)
- * @param defaultFont (required): font that is selected when the font picker is initialized
- * @param options:
- * 	 @param families: if only specific fonts shall appear in the list, specify their names in an
- *          array (default: all font families)
- * 	 @param categories: array of font categories (default: all categories)
- *          - 'sans-serif'
- *          - 'serif'
- *          - 'init'
- *          - 'handwriting'
- *          - 'monospace'
- *   @param variants: array of variants which the fonts must include and which will be downloaded;
- *   				the first variant of the array will be used in the font picker and the .apply-font
- *   				class; e.g. ['regular', 'italic', '700', '700italic'] (default: ['regular'])
- *   @param limit: maximum number of fonts to be displayed in the list (most popular fonts will be
- * 				  selected, default: 100)
- *   @param sort: sorting attribute for the font list
- *          - 'alphabetical' (default)
- *          - 'popularity'
+ * @param {string} apiKey (required) - Google API key (can be generated at
+ * 				https://developers.google.com/fonts/docs/developer_api)
+ * @param {string} defaultFont - Font that is selected on initialization (default: 'Open Sans')
+ * @param {Object} options - Object with additional (optional) parameters:
+ * 	 @param {string[]} families - If only specific fonts shall appear in the list, specify their
+ * 	 				names in an array
+ * 	 @param {string[]} categories - Array of font categories
+ * 	 				Possible values: 'sans-serif', 'serif', 'display', 'handwriting', 'monospace' (default:
+ * 	 				all categories)
+ *   @param {string[]} variants - Array of variants which the fonts must include and which will be
+ *   				downloaded; the first variant in the array will become the default variant (and will be
+ *   				used in the font picker and the .apply-font class)
+ *   				Example: ['regular', 'italic', '700', '700italic'] (default: ['regular'])
+ *   @param {number} limit - Maximum number of fonts to be displayed in the list (the least popular
+ *   				fonts will be omitted; default: 100)
+ *   @param {string} sort - Sorting attribute for the font list
+ *          Possible values: 'alphabetical' (default), 'popularity'
+ * @param {function} onChange - Function which is executed whenever the user changes the active
+ * 				font and its stylesheet finishes downloading
  */
 export default class FontPicker {
 
-	constructor(apiKey, defaultFont, options = {}) {
+	constructor(apiKey, defaultFont, options = {}, onChange) {
 		// parameter validation
 		if (!apiKey || typeof apiKey !== 'string') {
 			throw Error('apiKey parameter is not a string or missing');
 		}
-		if (!defaultFont || typeof defaultFont !== 'string') {
-			throw Error('defaultFont parameter is not a string or missing');
+		if (defaultFont && typeof defaultFont !== 'string') {
+			throw Error('defaultFont parameter is not a string');
 		}
 		if (typeof options !== 'object') {
 			throw Error('options parameter is not an object');
@@ -52,21 +52,25 @@ export default class FontPicker {
 		if (options.sort && typeof options.sort !== 'string') {
 			throw Error('sort parameter is not a string');
 		}
+		if (onChange && typeof onChange !== 'function') {
+			throw Error('onChange is not a function');
+		}
 
 		// default parameters
-		const optionsWithDefaults = options;
+		const newDefaultFont = defaultFont || 'Open Sans';
+		const newOptions = options;
 		if (!options.limit) {
-			optionsWithDefaults.limit = 100;
+			newOptions.limit = 100;
 		}
 		if (!options.variants) {
-			optionsWithDefaults.variants = ['regular'];
+			newOptions.variants = ['regular'];
 		}
 		if (!options.sort) {
-			optionsWithDefaults.sort = 'alphabetical';
+			newOptions.sort = 'alphabetical';
 		}
 
 		// initialize FontHandler
-		this.fontHandler = new FontHandler(apiKey, defaultFont, optionsWithDefaults);
+		this.fontHandler = new FontHandler(apiKey, newDefaultFont, newOptions, onChange);
 
 		// function bindings
 		this.closeEventListener = this.closeEventListener.bind(this);

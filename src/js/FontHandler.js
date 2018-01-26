@@ -2,8 +2,8 @@ import { checkFullFont, checkPreviewFont, fetchFontList } from './font-download'
 
 
 /**
- * Class responsible for retrieving and filtering/sorting the font list, keeping track of and
- * downloading/applying the active font
+ * Class responsible for retrieving and filtering/sorting the font list, keeping track of the active
+ * font, and downloading and applying fonts and font previews
  * @see FontPicker.js (same parameters)
  */
 export default class FontHandler {
@@ -11,11 +11,12 @@ export default class FontHandler {
 	/**
 	 * Download the default font (if necessary) and apply it
 	 */
-	constructor(apiKey, defaultFont, options) {
+	constructor(apiKey, defaultFont, options, onChange) {
 
 		this.activeFont = defaultFont;
 		this.apiKey = apiKey;
 		this.fonts = [];
+		this.onChange = onChange;
 		this.options = options;
 		this.previewIndex = 0; // list index up to which font previews have been downloaded
 
@@ -138,9 +139,6 @@ export default class FontHandler {
 		// change font
 		this.activeFont = this.fonts[index];
 
-		// download font (if necessary)
-		checkFullFont(this.activeFont, this.options.variants);
-
 		// apply font and set fallback fonts
 		const fallbackFont = this.activeFont.category === 'handwriting' ? 'cursive' : this.activeFont.category;
 		const style = `
@@ -149,6 +147,9 @@ export default class FontHandler {
 			}
 		`;
 		this.stylesheet.replaceChild(document.createTextNode(style), this.stylesheet.childNodes[0]);
+
+		// download font (if necessary)
+		checkFullFont(this.activeFont, this.options.variants, this.onChange);
 	}
 
 	/**
