@@ -138,8 +138,8 @@ export default class FontPicker {
 
 			// if active font: highlight it and save reference
 			if (this.fontHandler.fonts[i].family === this.fontHandler.activeFont.family) {
-				li.classList.add('active-font');
-				this.activeFontA = li;
+				a.classList.add('active-font');
+				this.activeFontA = a;
 			}
 
 			this.ul.appendChild(li);
@@ -194,7 +194,7 @@ export default class FontPicker {
 
 		// highlight new active font
 		this.activeFontA.classList.remove('active-font');
-		this.activeFontA = this.ul.getElementsByTagName('li')[index];
+		this.activeFontA = this.ul.getElementsByTagName('li')[index].firstChild;
 		this.activeFontA.classList.add('active-font');
 	}
 

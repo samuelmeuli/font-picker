@@ -25,6 +25,7 @@ $color-font-list: #EAEAEA;
 		color: inherit;
 		text-decoration: none;
 		cursor: pointer;
+		outline: none;
 	}
 
 	#dropdown-button {
@@ -36,7 +37,8 @@ $color-font-list: #EAEAEA;
 		background-color: $color-dropdown-button;
 
 		&:hover,
-		&.expanded {
+		&.expanded,
+		&:focus {
 			background-color: darken($color-dropdown-button, 5%);
 		}
 	}
@@ -62,14 +64,6 @@ $color-font-list: #EAEAEA;
 			height: $element-height;
 			list-style: none;
 
-			&:hover {
-				background-color: darken($color-font-list, 5%);
-			}
-
-			&.active-font {
-				background-color: darken($color-font-list, 10%);
-			}
-
 			a {
 				height: 100%;
 				display: flex;
@@ -77,6 +71,15 @@ $color-font-list: #EAEAEA;
 				padding: 0 10px;
 				white-space: nowrap;
 				width: 100%;
+
+				&:hover,
+				&:focus {
+					background-color: darken($color-font-list, 5%);
+				}
+
+				&.active-font {
+					background-color: darken($color-font-list, 10%);
+				}
 			}
 		}
 	}
