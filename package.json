@@ -36,7 +36,6 @@
 		"rollup-plugin-postcss": "^1.2.5"
 	},
 	"files": [
-		"lib/",
-		"index.js"
+		"lib/"
 	]
 }
