@@ -82,51 +82,54 @@ export default class FontHandler {
 	 * Download list of available Google Fonts and filter/sort it according as specified in the
 	 * 'options' parameter object
 	 */
-	async init() {
-		let fontList = await fetchFontList(this.apiKey);
+	init() {
+		return fetchFontList(this.apiKey)
+			.then((fetchedList) => {
+				let fontList = fetchedList;
 
-		// 'families' parameter (only keep fonts whose names are included in the provided array)
-		if (this.options.families) {
-			fontList = fontList.filter(font => this.options.families.includes(font.family));
-		}
-
-		// 'categories' parameter (only keep fonts in categories from the provided array)
-		if (this.options.categories) {
-			fontList = fontList.filter(font => this.options.categories.includes(font.category));
-		}
-
-		// 'variants' parameter (only keep fonts with at least the specified variants)
-		if (this.options.variants) {
-			fontList = fontList.filter((font) => {
-				for (let i = 0; i < this.options.variants.length; i += 1) {
-					if (font.variants.indexOf(this.options.variants[i]) === -1) {
-						return false;
-					}
+				// 'families' parameter (only keep fonts whose names are included in the provided array)
+				if (this.options.families) {
+					fontList = fontList.filter(font => this.options.families.includes(font.family));
 				}
-				return true;
+
+				// 'categories' parameter (only keep fonts in categories from the provided array)
+				if (this.options.categories) {
+					fontList = fontList.filter(font => this.options.categories.includes(font.category));
+				}
+
+				// 'variants' parameter (only keep fonts with at least the specified variants)
+				if (this.options.variants) {
+					fontList = fontList.filter((font) => {
+						for (let i = 0; i < this.options.variants.length; i += 1) {
+							if (font.variants.indexOf(this.options.variants[i]) === -1) {
+								return false;
+							}
+						}
+						return true;
+					});
+				}
+
+				// add default font to beginning of list if it is not already in it
+				if (fontList.filter(font => font.family === this.activeFont.family).length === 0) {
+					fontList.unshift(this.activeFont);
+				}
+
+				// 'limit' parameter (limit font list size)
+				if (this.options.limit) {
+					fontList = fontList.slice(0, this.options.limit);
+				}
+
+				// 'sort' parameter (list is already sorted by popularity)
+				if (this.options.sort === 'alphabetical') {
+					fontList = fontList.sort((fontA, fontB) => fontA.family.localeCompare(fontB.family));
+				}
+
+				// save modified font list
+				this.fonts = fontList;
+
+				// download previews for the first 10 fonts in the list
+				this.downloadPreviews(10);
 			});
-		}
-
-		// add default font to beginning of list if it is not already in it
-		if (fontList.filter(font => font.family === this.activeFont.family).length === 0) {
-			fontList.unshift(this.activeFont);
-		}
-
-		// 'limit' parameter (limit font list size)
-		if (this.options.limit) {
-			fontList = fontList.slice(0, this.options.limit);
-		}
-
-		// 'sort' parameter (list is already sorted by popularity)
-		if (this.options.sort === 'alphabetical') {
-			fontList = fontList.sort((fontA, fontB) => fontA.family.localeCompare(fontB.family));
-		}
-
-		// save modified font list
-		this.fonts = fontList;
-
-		// download previews for the first 10 fonts in the list
-		this.downloadPreviews(10);
 	}
 
 	/**

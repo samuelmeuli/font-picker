@@ -3,7 +3,6 @@
 		"browser": true
 	},
 	"extends": "airbnb-base",
-	"parser": "babel-eslint",
 	"rules": {
 		"brace-style": [1, "stroustrup"],
 		"class-methods-use-this": 0,

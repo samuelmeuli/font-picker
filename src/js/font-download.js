@@ -4,10 +4,12 @@ import isFontAvailable from './is-font-available';
 /**
  * Fetch list of all fonts available on Google Fonts, sorted by popularity
  */
-export async function fetchFontList(apiKey) {
-	const response = await window.fetch(`https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=${apiKey}`);
-	const json = await response.json();
-	return json.items;
+export function fetchFontList(apiKey) {
+	return new Promise((resolve, reject) =>
+		window.fetch(`https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=${apiKey}`)
+			.then(response => response.json())
+			.then(json => resolve(json.items))
+			.catch(err => reject(err)));
 }
 
 

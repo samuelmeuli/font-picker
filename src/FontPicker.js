@@ -79,7 +79,7 @@ export default class FontPicker {
 	/**
 	 * Download list of available fonts and generate the font picker UI
 	 */
-	async init() {
+	init() {
 		this.expanded = false;
 		const fontPickerDiv = document.getElementById('font-picker');
 
@@ -102,49 +102,50 @@ export default class FontPicker {
 		this.ul = document.createElement('ul');
 
 		// fetch font list, display dropdown arrow if successful
-		try {
-			await this.fontHandler.init();
-			dropdownIcon.innerHTML = '▾';
-		}
-		catch (err) {
-			const errMessage = 'Error trying to fetch the list of available fonts';
-			console.error(errMessage);
-			console.error(err);
-			dropdownIcon.innerHTML = '⚠';
-			fontPickerDiv.title = errMessage;
-		}
-		this.dropdownButton.append(dropdownIcon);
+		this.fontHandler.init()
+			.then(() => {
+				dropdownIcon.innerHTML = '▾';
+				this.dropdownButton.append(dropdownIcon);
 
-		// HTML for font list entries
-		this.ul.onscroll = () => this.onScroll(); // download font previews on scroll
-		for (let i = 0; i < this.fontHandler.fonts.length; i += 1) {
-			const li = document.createElement('li');
-			const a = document.createElement('a');
+				// HTML for font list entries
+				this.ul.onscroll = () => this.onScroll(); // download font previews on scroll
+				for (let i = 0; i < this.fontHandler.fonts.length; i += 1) {
+					const li = document.createElement('li');
+					const a = document.createElement('a');
 
-			// write font name in the corresponding font, set onclick listener
-			a.innerHTML = this.fontHandler.fonts[i].family;
-			a.classList.add(`font-${this.fontHandler.fonts[i].family.replace(/\s+/g, '-').toLowerCase()}`);
-			a.role = 'button';
-			a.tabIndex = 0;
-			a.onclick = () => {
-				this.toggleExpanded(); // collapse font list
-				this.selectFont(i); // make font with index i active
-			};
-			a.onkeypress = () => {
-				this.toggleExpanded(); // collapse font list
-				this.selectFont(i); // make font with index i active
-			};
-			li.appendChild(a);
+					// write font name in the corresponding font, set onclick listener
+					a.innerHTML = this.fontHandler.fonts[i].family;
+					a.classList.add(`font-${this.fontHandler.fonts[i].family.replace(/\s+/g, '-').toLowerCase()}`);
+					a.role = 'button';
+					a.tabIndex = 0;
+					a.onclick = () => {
+						this.toggleExpanded(); // collapse font list
+						this.selectFont(i); // make font with index i active
+					};
+					a.onkeypress = () => {
+						this.toggleExpanded(); // collapse font list
+						this.selectFont(i); // make font with index i active
+					};
+					li.appendChild(a);
 
-			// if active font: highlight it and save reference
-			if (this.fontHandler.fonts[i].family === this.fontHandler.activeFont.family) {
-				a.classList.add('active-font');
-				this.activeFontA = a;
-			}
+					// if active font: highlight it and save reference
+					if (this.fontHandler.fonts[i].family === this.fontHandler.activeFont.family) {
+						a.classList.add('active-font');
+						this.activeFontA = a;
+					}
 
-			this.ul.appendChild(li);
-		}
-		fontPickerDiv.appendChild(this.ul);
+					this.ul.appendChild(li);
+				}
+				fontPickerDiv.appendChild(this.ul);
+			})
+			.catch((err) => {
+				dropdownIcon.innerHTML = '⚠';
+				this.dropdownButton.append(dropdownIcon);
+				const errMessage = 'Error trying to fetch the list of available fonts';
+				console.error(errMessage);
+				console.error(err);
+				fontPickerDiv.title = errMessage;
+			});
 	}
 
 	/**
