@@ -1,15 +1,14 @@
-$element-height: 35px;
-$width: 200px;
-
+$box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 $color-dropdown-button: #CBCBCB;
 $color-font-list: #EAEAEA;
+$element-height: 35px;
 
 
 #font-picker {
 	display: inline-block;
-	width: $width;
+	width: 200px;
 	position: relative;
-	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+	box-shadow: $box-shadow;
 
 	* {
 		box-sizing: border-box;
@@ -45,7 +44,7 @@ $color-font-list: #EAEAEA;
 
 	ul {
 		max-height: 0;
-		width: $width;
+		width: 100%;
 		position: absolute;
 		z-index: 1;
 		overflow-x: hidden;
@@ -54,7 +53,7 @@ $color-font-list: #EAEAEA;
 		padding: 0;
 		background-color: $color-font-list;
 		transition: 0.3s;
-		box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+		box-shadow: $box-shadow;
 
 		&.expanded {
 			max-height: 200px;
