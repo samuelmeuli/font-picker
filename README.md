@@ -9,7 +9,7 @@
 * efficient font previews (previews in the list are loaded dynamically; the full font is only downloaded on selection)
 * no dependencies
 
-→ **[Demo](https://samuelmeuli.com/font-picker)**
+→ **[Demo](https://smeuli.github.io/font-picker)**
 
 _If you use React, see [**Font Picker for React**](https://github.com/smeuli/font-picker-react)._
 

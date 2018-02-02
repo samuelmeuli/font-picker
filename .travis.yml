@@ -1,0 +1,15 @@
+language: node_js
+
+node_js:
+  - "node"  # latest stable Node release
+
+script:
+  npm run build
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  local-dir: demo
+  on:
+    branch: master

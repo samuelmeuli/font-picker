@@ -11,7 +11,7 @@
 	"main": "lib/index.js",
 	"author": "Samuel Meuli <dev@samuelmeuli.com>",
 	"repository": "github:smeuli/font-picker",
-	"homepage": "https://samuelmeuli.com/font-picker",
+	"homepage": "https://smeuli.github.io/font-picker",
 	"license": "MIT",
 	"scripts": {
 		"start": "rollup -c --watch",
