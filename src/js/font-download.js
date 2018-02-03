@@ -5,11 +5,27 @@ import isFontAvailable from './is-font-available';
  * Fetch list of all fonts available on Google Fonts, sorted by popularity
  */
 export function fetchFontList(apiKey) {
-	return new Promise((resolve, reject) =>
-		window.fetch(`https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=${apiKey}`)
-			.then(response => response.json())
-			.then(json => resolve(json.items))
-			.catch(err => reject(err)));
+	return new Promise((resolve, reject) => {
+		const url = `https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=${apiKey}`;
+		const request = new XMLHttpRequest();
+		request.overrideMimeType('application/json');
+		request.open('GET', url, true);
+		request.onreadystatechange = () => {
+			// request has completed
+			if (request.readyState === 4) {
+				// success
+				if (request.status === 200) {
+					const response = JSON.parse(request.responseText);
+					return resolve(response.items);
+				}
+				// error
+				else {
+					return reject(new Error(`Response has status code ${request.status}`));
+				}
+			}
+		};
+		request.send();
+	});
 }
 
 
