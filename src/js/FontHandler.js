@@ -18,6 +18,7 @@ export default class FontHandler {
 		this.fonts = [];
 		this.onChange = onChange;
 		this.options = options;
+		this.name = options.name;
 		this.previewIndex = 0; // list index up to which font previews have been downloaded
 
 		// make default font active and download it (if necessary)
@@ -32,7 +33,7 @@ export default class FontHandler {
 		this.stylesheet.rel = 'stylesheet';
 		this.stylesheet.type = 'text/css';
 		let style = `
-			.apply-font {
+			.apply-font${this.name} {
 				font-family: "${this.activeFont.family}";
 			}
 		`;
@@ -42,7 +43,7 @@ export default class FontHandler {
 		if (defaultVariant.length === 1) {
 			if (defaultVariant[0] === 'regular') {
 				style += `
-					.apply-font, #font-picker > ul > li > a {
+					.apply-font${this.name}, #font-picker > ul > li > a {
 						font-weight: 400;
 						font-style: normal;
 					}
@@ -50,7 +51,7 @@ export default class FontHandler {
 			}
 			else if (defaultVariant[0] === 'italic') {
 				style += `
-					.apply-font, #font-picker > ul > li > a {
+					.apply-font${this.name}, #font-picker > ul > li > a {
 						font-weight: 400;
 						font-style: italic;
 					}
@@ -58,7 +59,7 @@ export default class FontHandler {
 			}
 			else {
 				style += `
-					.apply-font, #font-picker > ul > li > a {
+					.apply-font${this.name}, #font-picker > ul > li > a {
 						font-weight: ${defaultVariant[0]};
 						font-style: normal;
 					}
@@ -68,7 +69,7 @@ export default class FontHandler {
 		// both font weight and style are specified
 		else if (defaultVariant.length === 2) {
 			style += `
-			.apply-font, #font-picker > ul > li > a {
+			.apply-font${this.name}, #font-picker > ul > li > a {
 				font-weight: ${defaultVariant[0]};
 				font-style: ${defaultVariant[1]};
 			}
@@ -145,7 +146,7 @@ export default class FontHandler {
 		// apply font and set fallback fonts
 		const fallbackFont = this.activeFont.category === 'handwriting' ? 'cursive' : this.activeFont.category;
 		const style = `
-			.apply-font {
+			.apply-font${this.name} {
 				font-family: "${this.activeFont.family}", "${previousFont}", ${fallbackFont};
 			}
 		`;

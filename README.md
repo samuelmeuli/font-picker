@@ -88,6 +88,7 @@ The following parameters can be passed to the constructor of the `FontPicker` cl
 * **`apiKey` (required)**: Google API key (can be generated [here](https://developers.google.com/fonts/docs/developer_api#APIKey))
 * **`defaultFont`**: Font that is selected on initialization (default: `'Open Sans'`)
 * **`options`**: Object with additional (optional) parameters:
+  * **`name`**: If you have multiple font pickers on your site, you need to give them unique names (which may only consist of letters and digits). These names must also be appended to the font picker's ID and the `.apply-font` class name; e.g. if `{ name: 'main' }`, then use `#font-picker-main` and `.apply-font-main`
   * **`families`**: If only specific fonts shall appear in the list, specify their names in an array (default: all font families)
   * **`categories`**: Array of font categories – possible values: `'sans-serif', 'serif', 'display', handwriting', 'monospace'` (default: all categories)
   * **`variants`**: Array of variants which the fonts must include and which will be downloaded; the first variant in the array will become the default variant (and will be used in the font picker and the `.apply-font` class); e.g. `['regular', 'italic', '700', '700italic']` (default: `['regular']`)

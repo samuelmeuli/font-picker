@@ -4,7 +4,7 @@ $color-font-list: #EAEAEA;
 $element-height: 35px;
 
 
-#font-picker {
+div[id^="font-picker"] {
 	display: inline-block;
 	width: 200px;
 	position: relative;
@@ -27,7 +27,7 @@ $element-height: 35px;
 		outline: none;
 	}
 
-	#dropdown-button {
+	.dropdown-button {
 		height: $element-height;
 		display: flex;
 		align-items: center;

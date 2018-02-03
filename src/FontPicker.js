@@ -8,6 +8,10 @@ import './scss/style.scss';
  * 				https://developers.google.com/fonts/docs/developer_api)
  * @param {string} defaultFont - Font that is selected on initialization (default: 'Open Sans')
  * @param {Object} options - Object with additional (optional) parameters:
+ *   @param {string} name - If you have multiple font pickers on your site, you need to give them
+ *          unique names (which may only consist of letters and digits). These names must also be
+ *          appended to the font picker's ID and the .apply-font class name.
+ *          Example: if { name: 'main' }, then use #font-picker-main and .apply-font-main
  * 	 @param {string[]} families - If only specific fonts shall appear in the list, specify their
  * 	 				names in an array
  * 	 @param {string[]} categories - Array of font categories
@@ -37,20 +41,28 @@ export default class FontPicker {
 		if (typeof options !== 'object') {
 			throw Error('options parameter is not an object');
 		}
+		if (options.name) {
+			if (typeof options.name !== 'string') {
+				throw Error('options.name parameter is not a string');
+			}
+			if (options.name.match(/[^0-9a-z]/i)) {
+				throw Error('options.name may only contain letters and digits');
+			}
+		}
 		if (options.families && !(options.families instanceof Array)) {
-			throw Error('families parameter is not an array');
+			throw Error('options.families parameter is not an array');
 		}
 		if (options.categories && !(options.categories instanceof Array)) {
-			throw Error('categories parameter is not an array');
+			throw Error('options.categories parameter is not an array');
 		}
 		if (options.variants && !(options.variants instanceof Array)) {
-			throw Error('variants parameter is not an array');
+			throw Error('options.variants parameter is not an array');
 		}
 		if (options.limit && typeof options.limit !== 'number') {
-			throw Error('limit parameter is not a number');
+			throw Error('options.limit parameter is not a number');
 		}
 		if (options.sort && typeof options.sort !== 'string') {
-			throw Error('sort parameter is not a string');
+			throw Error('options.sort parameter is not a string');
 		}
 		if (onChange && typeof onChange !== 'function') {
 			throw Error('onChange is not a function');
@@ -59,6 +71,13 @@ export default class FontPicker {
 		// default parameters
 		const newDefaultFont = defaultFont || 'Open Sans';
 		const newOptions = options;
+		if (options.name) {
+			this.name = `-${options.name}`;
+		}
+		else {
+			this.name = '';
+		}
+		newOptions.name = this.name;
 		if (!options.limit) {
 			newOptions.limit = 100;
 		}
@@ -81,11 +100,15 @@ export default class FontPicker {
 	 */
 	init() {
 		this.expanded = false;
-		const fontPickerDiv = document.getElementById('font-picker');
+
+		const fontPickerDiv = document.getElementById(`font-picker${this.name}`);
+		if (!fontPickerDiv) {
+			throw Error(`Missing div with id="font-picker${this.name}"`);
+		}
 
 		// HTML for dropdown button (name of active font and dropdown arrow)
 		this.dropdownButton = document.createElement('a');
-		this.dropdownButton.id = 'dropdown-button';
+		this.dropdownButton.classList.add('dropdown-button');
 		this.dropdownButton.role = 'button';
 		this.dropdownButton.tabIndex = 0;
 		this.dropdownButton.onclick = () => this.toggleExpanded();
@@ -164,7 +187,7 @@ export default class FontPicker {
 		let targetElement = e.target; // clicked element
 
 		do {
-			if (targetElement === document.getElementById('font-picker')) {
+			if (targetElement === document.getElementById(`font-picker${this.name}`)) {
 				// click inside font picker
 				return;
 			}
