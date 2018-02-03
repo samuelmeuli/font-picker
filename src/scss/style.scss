@@ -49,6 +49,7 @@ $element-height: 35px;
 		z-index: 1;
 		overflow-x: hidden;
 		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
 		margin: 0;
 		padding: 0;
 		background-color: $color-font-list;

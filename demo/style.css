@@ -20,11 +20,12 @@ noscript {
 	color: #D63D3D;
 }
 
-#github-button {
+.github-button {
 	height: 35px;
 	display: inline-flex;
 	align-items: center;
 	background-color: #CBCBCB;
+	margin: 0 10px 10px 0;
 	padding: 0 10px;
 	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 
@@ -32,10 +33,10 @@ noscript {
 	text-decoration: none;
 }
 
-#github-button:hover {
+.github-button:hover {
 	background-color: #BEBEBE;
 }
 
-#github-icon {
+.github-icon {
 	margin-right: 7px;
 }
