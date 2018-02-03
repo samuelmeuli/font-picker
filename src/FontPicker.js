@@ -97,6 +97,8 @@ export default class FontPicker {
 		this.dropdownButton.append(this.dropdownFont);
 		fontPickerDiv.appendChild(this.dropdownButton);
 		const dropdownIcon = document.createElement('p');
+		dropdownIcon.classList.add('dropdown-icon', 'loading');
+		this.dropdownButton.append(dropdownIcon);
 
 		// HTML for font list
 		this.ul = document.createElement('ul');
@@ -104,8 +106,8 @@ export default class FontPicker {
 		// fetch font list, display dropdown arrow if successful
 		this.fontHandler.init()
 			.then(() => {
-				dropdownIcon.innerHTML = '▾';
-				this.dropdownButton.append(dropdownIcon);
+				dropdownIcon.classList.remove('loading');
+				dropdownIcon.classList.add('finished');
 
 				// HTML for font list entries
 				this.ul.onscroll = () => this.onScroll(); // download font previews on scroll
@@ -139,8 +141,8 @@ export default class FontPicker {
 				fontPickerDiv.appendChild(this.ul);
 			})
 			.catch((err) => {
-				dropdownIcon.innerHTML = '⚠';
-				this.dropdownButton.append(dropdownIcon);
+				dropdownIcon.classList.remove('loading');
+				dropdownIcon.classList.add('error');
 				const errMessage = 'Error trying to fetch the list of available fonts';
 				console.error(errMessage);
 				console.error(err);

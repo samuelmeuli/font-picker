@@ -40,6 +40,30 @@ $element-height: 35px;
 		&:focus {
 			background-color: darken($color-dropdown-button, 5%);
 		}
+
+		.dropdown-icon {
+			@keyframes spinner {
+				to {transform: rotate(360deg);}
+			}
+			&.loading:before {
+				content: '';
+				display: block;
+				height: 10px;
+				width: 10px;
+				border-radius: 50%;
+				border: 2px solid darken($color-dropdown-button, 10%);
+				border-top-color: black;
+				animation: spinner 0.6s linear infinite;
+			}
+
+			&.finished:before {
+				content: '▾';
+			}
+
+			&.error:before {
+				content: '⚠';
+			}
+		}
 	}
 
 	ul {
