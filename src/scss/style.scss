@@ -41,7 +41,14 @@ div[id^="font-picker"] {
 			background-color: darken($color-dropdown-button, 5%);
 		}
 
+		p {
+			overflow: hidden;
+			white-space: nowrap;
+		}
+
 		.dropdown-icon {
+			margin-left: 10px;
+
 			@keyframes spinner {
 				to {transform: rotate(360deg);}
 			}
