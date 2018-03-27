@@ -16,7 +16,7 @@
 	"scripts": {
 		"start": "rollup -c --watch",
 		"build": "rollup -c",
-		"lint": "eslint --ext .js src",
+		"lint": "eslint .",
 		"precommit": "npm run lint",
 		"prepush": "npm run lint"
 	},
