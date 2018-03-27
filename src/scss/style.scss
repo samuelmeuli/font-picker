@@ -2,6 +2,7 @@ $box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 $color-dropdown-button: #CBCBCB;
 $color-font-list: #EAEAEA;
 $element-height: 35px;
+$transition-duration: 0.3s;
 
 
 div[id^="font-picker"] {
@@ -41,7 +42,7 @@ div[id^="font-picker"] {
 			background-color: darken($color-dropdown-button, 5%);
 		}
 
-		p {
+		.dropdown-font-name {
 			overflow: hidden;
 			white-space: nowrap;
 		}
@@ -64,7 +65,15 @@ div[id^="font-picker"] {
 			}
 
 			&.finished:before {
-				content: '▾';
+				content: '';
+				display: block;
+				height: 0;
+				width: 0;
+				border-left: 5px solid transparent;
+				border-right: 5px solid transparent;
+				border-top: 6px solid black;
+				transition: transform $transition-duration;
+				margin: 0 2px; // center arrow in comparison to loading spinner
 			}
 
 			&.error:before {
@@ -84,7 +93,7 @@ div[id^="font-picker"] {
 		margin: 0;
 		padding: 0;
 		background-color: $color-font-list;
-		transition: 0.3s;
+		transition: $transition-duration;
 		box-shadow: $box-shadow;
 
 		&.expanded {
@@ -113,5 +122,11 @@ div[id^="font-picker"] {
 				}
 			}
 		}
+	}
+}
+
+.dropdown-button.expanded {
+	.dropdown-icon.finished:before {
+		transform: rotate(-180deg);
 	}
 }

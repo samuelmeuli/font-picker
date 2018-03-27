@@ -113,12 +113,13 @@ export default class FontPicker {
 		this.dropdownButton.tabIndex = 0;
 		this.dropdownButton.onclick = () => this.toggleExpanded();
 		this.dropdownButton.onkeypress = () => this.toggleExpanded();
-
+		fontPickerDiv.appendChild(this.dropdownButton);
+		// name of selected font
 		this.dropdownFont = document.createElement('p');
 		this.dropdownFont.innerHTML = this.fontHandler.activeFont.family;
-
+		this.dropdownFont.classList.add('dropdown-font-name');
 		this.dropdownButton.append(this.dropdownFont);
-		fontPickerDiv.appendChild(this.dropdownButton);
+		// dropdown icon (possible classes/states: 'loading', 'finished', 'error')
 		const dropdownIcon = document.createElement('p');
 		dropdownIcon.classList.add('dropdown-icon', 'loading');
 		this.dropdownButton.append(dropdownIcon);
