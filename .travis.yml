@@ -7,9 +7,17 @@ script:
   npm run build
 
 deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  local-dir: demo
-  on:
-    branch: master
+  # GitHub Pages
+  - provider: pages
+    github-token: $GITHUB_TOKEN
+    local-dir: demo
+    skip-cleanup: true
+    on:
+      branch: master
+  # GitHub Releases
+  - provider: releases
+    api_key: $GITHUB_TOKEN
+    file: lib/index.js
+    skip_cleanup: true
+    on:
+      tags: true
