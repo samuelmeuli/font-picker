@@ -1,132 +1,15 @@
-$box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-$color-dropdown-button: #CBCBCB;
-$color-font-list: #EAEAEA;
-$element-height: 35px;
-$transition-duration: 0.3s;
+@import 'variables';
 
-
+// match all font picker IDs (e.g. font-picker, font-picker-main, ...)
 div[id^="font-picker"] {
+	@import 'reset';
+
+	// style font picker container
+	position: relative;
 	display: inline-block;
 	width: 200px;
-	position: relative;
 	box-shadow: $box-shadow;
 
-	* {
-		box-sizing: border-box;
-	}
-
-	p {
-		margin: 0;
-		padding: 0;
-	}
-
-	// remove link styling
-	a {
-		color: inherit;
-		text-decoration: none;
-		cursor: pointer;
-		outline: none;
-	}
-
-	.dropdown-button {
-		height: $element-height;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 0 10px;
-		background-color: $color-dropdown-button;
-
-		&:hover,
-		&.expanded,
-		&:focus {
-			background-color: darken($color-dropdown-button, 5%);
-		}
-
-		.dropdown-font-name {
-			overflow: hidden;
-			white-space: nowrap;
-		}
-
-		.dropdown-icon {
-			margin-left: 10px;
-
-			@keyframes spinner {
-				to {transform: rotate(360deg);}
-			}
-			&.loading:before {
-				content: '';
-				display: block;
-				height: 10px;
-				width: 10px;
-				border-radius: 50%;
-				border: 2px solid darken($color-dropdown-button, 10%);
-				border-top-color: black;
-				animation: spinner 0.6s linear infinite;
-			}
-
-			&.finished:before {
-				content: '';
-				display: block;
-				height: 0;
-				width: 0;
-				border-left: 5px solid transparent;
-				border-right: 5px solid transparent;
-				border-top: 6px solid black;
-				transition: transform $transition-duration;
-				margin: 0 2px; // center arrow in comparison to loading spinner
-			}
-
-			&.error:before {
-				content: '⚠';
-			}
-		}
-	}
-
-	ul {
-		max-height: 0;
-		width: 100%;
-		position: absolute;
-		z-index: 1;
-		overflow-x: hidden;
-		overflow-y: auto;
-		-webkit-overflow-scrolling: touch;
-		margin: 0;
-		padding: 0;
-		background-color: $color-font-list;
-		transition: $transition-duration;
-		box-shadow: $box-shadow;
-
-		&.expanded {
-			max-height: 200px;
-		}
-
-		li {
-			height: $element-height;
-			list-style: none;
-
-			a {
-				height: 100%;
-				display: flex;
-				align-items: center;
-				padding: 0 10px;
-				white-space: nowrap;
-				width: 100%;
-
-				&:hover,
-				&:focus {
-					background-color: darken($color-font-list, 5%);
-				}
-
-				&.active-font {
-					background-color: darken($color-font-list, 10%);
-				}
-			}
-		}
-	}
-}
-
-.dropdown-button.expanded {
-	.dropdown-icon.finished:before {
-		transform: rotate(-180deg);
-	}
+	@import 'dropdown-button';
+	@import 'dropdown-list';
 }

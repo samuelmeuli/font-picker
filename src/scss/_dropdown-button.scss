@@ -1,0 +1,66 @@
+// dropdown menu containing the name of the active font and the dropdown icon (loading/arrow/error)
+.dropdown-button {
+	height: $element-height;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 10px;
+	background-color: $color-dropdown-button;
+
+	&:hover,
+	&.expanded,
+	&:focus {
+		background-color: darken($color-dropdown-button, 5%);
+	}
+
+	.dropdown-font-name {
+		overflow: hidden;
+		white-space: nowrap;
+	}
+}
+
+// dropdown icon indicating the state (spinner while loading the font list, arrow when loaded
+// successfully, warning icon on error)
+.dropdown-icon {
+	margin-left: 10px;
+
+	// spinner animation
+	@keyframes spinner {
+		to {transform: rotate(360deg);}
+	}
+
+	// loading icon
+	&.loading:before {
+		content: '';
+		display: block;
+		height: 10px;
+		width: 10px;
+		border-radius: 50%;
+		border: 2px solid darken($color-dropdown-button, 10%);
+		border-top-color: black;
+		animation: spinner 0.6s linear infinite;
+	}
+
+	// dropdown arrow
+	&.finished:before {
+		content: '';
+		display: block;
+		height: 0;
+		width: 0;
+		border-left: 5px solid transparent;
+		border-right: 5px solid transparent;
+		border-top: 6px solid black;
+		transition: transform $transition-duration;
+		margin: 0 2px; // center arrow in comparison to loading spinner
+	}
+
+	// error icon
+	&.error:before {
+		content: '⚠';
+	}
+}
+
+// rotate dropdown arrow on expand/collapse
+.dropdown-button.expanded .dropdown-icon.finished:before {
+	transform: rotate(-180deg);
+}

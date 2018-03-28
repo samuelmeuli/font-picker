@@ -1,0 +1,44 @@
+// font list
+ul {
+	position: absolute;
+	z-index: 1;
+	max-height: 0;
+	width: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	margin: 0;
+	padding: 0;
+	background-color: $color-font-list;
+	box-shadow: $box-shadow;
+	transition: $transition-duration;
+
+	&.expanded {
+		max-height: 200px;
+	}
+
+	// font list elements
+	li {
+		height: $element-height;
+		list-style: none;
+
+		// link inside font list element (completely fills <li>)
+		a {
+			height: 100%;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			padding: 0 10px;
+			white-space: nowrap;
+
+			&:hover,
+			&:focus {
+				background-color: darken($color-font-list, 5%);
+			}
+
+			&.active-font {
+				background-color: darken($color-font-list, 10%);
+			}
+		}
+	}
+}
