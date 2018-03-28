@@ -14,7 +14,7 @@
 _If you use React, see [**Font Picker for React**](https://github.com/smeuli/font-picker-react)._
 
 <p align="center">
-  <img src=".github/demo.gif" width=800 alt="Demo">
+  <img src=".github/demo.gif" width=700 alt="Demo">
 </p>
 
 
