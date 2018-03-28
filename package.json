@@ -24,15 +24,15 @@
 		"babel-core": "^6.26.0",
 		"babel-plugin-external-helpers": "^6.22.0",
 		"babel-preset-env": "^1.6.1",
-		"eslint": "^4.15.0",
+		"eslint": "^4.19.1",
 		"eslint-config-airbnb-base": "^12.1.0",
-		"eslint-plugin-import": "^2.8.0",
+		"eslint-plugin-import": "^2.9.0",
 		"husky": "^0.14.3",
-		"node-sass": "^4.7.2",
-		"postcss": "^6.0.16",
-		"rollup": "^0.54.0",
+		"node-sass": "^4.8.3",
+		"postcss": "^6.0.21",
+		"rollup": "^0.57.1",
 		"rollup-plugin-babel": "^3.0.3",
-		"rollup-plugin-postcss": "^1.2.5"
+		"rollup-plugin-postcss": "^1.4.0"
 	},
 	"files": [
 		"lib/"
