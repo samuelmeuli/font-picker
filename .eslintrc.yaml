@@ -1,0 +1,23 @@
+extends: airbnb-base
+
+env:
+  browser: true
+
+rules:
+  # Default rules
+  comma-dangle:
+    - 2
+    - never
+  indent:
+    - 2
+    - tab
+  no-tabs: 0
+  object-curly-newline: 0
+  object-curly-spacing:
+    - 2
+    - always
+    - objectsInObjects: false
+
+  # Project-specific rules
+  consistent-return: 0
+  no-console: 0
