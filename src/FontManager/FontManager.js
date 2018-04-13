@@ -158,14 +158,21 @@ export default class FontManager {
 	}
 
 	/**
-	 * Set the specified font as the active one, download it (if necessary) and apply it
+	 * Set the specified font as the active one, download it (if necessary) and apply it. On success,
+	 * return the index of the font in the font list. On error, return -1.
 	 */
-	setActiveFont(font) {
+	setActiveFont(fontFamily) {
+		const listIndex = this.fonts.findIndex(f => f.family === fontFamily);
+		if (listIndex === -1) {
+			// Font is not part of font list: Keep current activeFont and log error
+			console.error(`Cannot update activeFont: The font "${fontFamily}" is not in the font list`);
+			return -1;
+		}
+		// Font is part of font list: Update activeFont and set previous one as fallback
 		const previousFont = this.activeFont.family;
-
-		// Change font
-		this.activeFont = font;
+		this.activeFont = this.fonts[listIndex];
 		this.styleManager.changeActiveStyle(this.activeFont, previousFont);
 		checkFullFont(this.activeFont, this.options.variants, this.onChange);
+		return listIndex;
 	}
 }

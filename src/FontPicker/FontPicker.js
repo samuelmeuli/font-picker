@@ -73,11 +73,11 @@ export default class FontPicker {
 					a.tabIndex = 0;
 					a.onclick = () => {
 						this.toggleExpanded(); // collapse font list
-						this.setActiveFont(i); // make font with index i active
+						this.setActiveFont(this.fontManager.fonts[i].family);
 					};
 					a.onkeypress = () => {
 						this.toggleExpanded(); // collapse font list
-						this.setActiveFont(i); // make font with index i active
+						this.setActiveFont(this.fontManager.fonts[i].family);
 					};
 					li.appendChild(a);
 
@@ -139,18 +139,15 @@ export default class FontPicker {
 	/**
 	 * Set the font with the given font list index as the active one and highlight it in the list
 	 */
-	setActiveFont(index) {
-		// Change font
-		const font = this.fontManager.fonts[index];
-		this.fontManager.setActiveFont(font);
-
-		// Write new font name in dropdown button
-		this.dropdownFont.innerHTML = this.fontManager.activeFont.family;
-
-		// Highlight new active font
-		this.activeFontA.classList.remove('active-font');
-		this.activeFontA = this.ul.getElementsByTagName('li')[index].firstChild;
-		this.activeFontA.classList.add('active-font');
+	setActiveFont(fontFamily) {
+		const listIndex = this.fontManager.setActiveFont(fontFamily);
+		if (listIndex >= 0) {
+			// On success: Write new font name in dropdown button and highlight it in the font list
+			this.dropdownFont.innerHTML = fontFamily;
+			this.activeFontA.classList.remove('active-font');
+			this.activeFontA = this.ul.getElementsByTagName('li')[listIndex].firstChild;
+			this.activeFontA.classList.add('active-font');
+		}
 	}
 
 	/**
