@@ -3,7 +3,7 @@ import postcss from 'rollup-plugin-postcss';
 
 
 export default {
-	input: 'src/FontPicker.js',
+	input: 'src/FontPicker/FontPicker.js',
 	output: [
 		{
 			file: 'lib/index.js',

@@ -1,10 +1,10 @@
 /**
- * Check if font is available for the website
+ * Check if font is available locally to be used on the website
  * Source: https://www.kirupa.com/html5/detect_whether_font_is_installed.htm
- * @param fontName
+ * @param {string} fontName
  * @returns {boolean}
  */
-export default function isFontAvailable(fontName) {
+export function isFontAvailable(fontName) {
 	// creating our in-memory Canvas element where the magic happens
 	var canvas = document.createElement("canvas");
 	var context = canvas.getContext("2d");

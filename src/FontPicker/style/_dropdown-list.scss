@@ -1,4 +1,4 @@
-// font list
+// Font list
 ul {
 	position: absolute;
 	z-index: 1;
@@ -17,12 +17,12 @@ ul {
 		max-height: 200px;
 	}
 
-	// font list elements
+	// Font list elements
 	li {
 		height: $element-height;
 		list-style: none;
 
-		// link inside font list element (completely fills <li>)
+		// Link inside font list element (completely fills <li>)
 		a {
 			height: 100%;
 			width: 100%;
