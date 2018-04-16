@@ -76,7 +76,7 @@ export default class FontManager {
 	 * Set default values for options that have not been specified
 	 */
 	static setDefaultOptions(options) {
-		const newOptions = options || {};
+		const newOptions = options;
 		if (!options.name) {
 			newOptions.name = '';
 		}
@@ -95,7 +95,7 @@ export default class FontManager {
 	/**
 	 * Download the default font (if necessary) and apply it
 	 */
-	constructor(apiKey, defaultFont, options, onChange) {
+	constructor(apiKey, defaultFont, options = {}, onChange) {
 		// Check parameters and apply defaults if necessary
 		FontManager.validateParameters(apiKey, defaultFont, options, onChange);
 		const newDefaultFont = defaultFont || 'Open Sans';
