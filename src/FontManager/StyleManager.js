@@ -15,7 +15,7 @@ export default class StyleManager {
 
 		// Apply the default active font
 		let style = `
-			.apply-font${this.pickerName} {
+			.apply-font${this.pickerSelector} {
 				font-family: "${activeFont.family}";
 			}
 		`;
@@ -25,21 +25,21 @@ export default class StyleManager {
 			// Either font weight or style is specified (e.g. 'regular, '300', 'italic')
 			if (defaultVariant[0] === 'regular') {
 				style += `
-					.apply-font${this.pickerName}, #font-picker > ul > li > a {
+					.apply-font${this.pickerSelector}, #font-picker > ul > li > a {
 						font-weight: 400;
 						font-style: normal;
 					}
 				`;
 			}	else if (defaultVariant[0] === 'italic') {
 				style += `
-					.apply-font${this.pickerName}, #font-picker > ul > li > a {
+					.apply-font${this.pickerSelector}, #font-picker > ul > li > a {
 						font-weight: 400;
 						font-style: italic;
 					}
 				`;
 			}	else {
 				style += `
-					.apply-font${this.pickerName}, #font-picker > ul > li > a {
+					.apply-font${this.pickerSelector}, #font-picker > ul > li > a {
 						font-weight: ${defaultVariant[0]};
 						font-style: normal;
 					}
@@ -48,7 +48,7 @@ export default class StyleManager {
 		}	else if (defaultVariant.length === 2) {
 			// Both font weight and style are specified
 			style += `
-			.apply-font${this.pickerName}, #font-picker > ul > li > a {
+			.apply-font${this.pickerSelector}, #font-picker > ul > li > a {
 				font-weight: ${defaultVariant[0]};
 				font-style: ${defaultVariant[1]};
 			}
