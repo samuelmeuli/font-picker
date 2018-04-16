@@ -8,16 +8,16 @@
 		"selector",
 		"download"
 	],
-	"main": "lib/index.js",
+	"main": "lib/font-picker.js",
 	"author": "Samuel Meuli <dev@samuelmeuli.com>",
 	"repository": "github:smeuli/font-picker",
 	"homepage": "https://smeuli.github.io/font-picker",
 	"license": "MIT",
 	"scripts": {
-		"start": "run-p start:*",
-		"start:rollup": "rollup -c --watch",
+		"start": "npm-run-all build --parallel start:*",
+		"start:rollup": "rollup --config --watch",
 		"start:serve": "serve demo --cache=0 --open",
-		"build": "rollup -c",
+		"build": "rollup --config",
 		"lint": "eslint .",
 		"precommit": "npm run lint",
 		"prepush": "npm run lint"

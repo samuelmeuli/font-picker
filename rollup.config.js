@@ -3,18 +3,26 @@ import postcss from 'rollup-plugin-postcss';
 
 
 export default {
-	input: 'src/FontPicker/FontPicker.js',
+	input: 'src/index.js',
 	output: [
 		{
-			file: 'lib/index.js',
+			file: 'lib/font-picker.js',
 			format: 'umd',
-			name: 'FontPicker'
+
+			// HACK: export multiple globals (FontPicker and FontManager) by adding them to window
+			name: 'window',
+			extend: true
 		},
 		{
-			file: 'demo/index.js',
+			file: 'demo/lib/font-picker.js',
 			format: 'umd',
-			name: 'FontPicker'
-		}],
+			sourcemap: true,
+
+			// HACK: export multiple globals (FontPicker and FontManager) by adding them to window
+			name: 'window',
+			extend: true
+		}
+	],
 	plugins: [
 		postcss(),
 		babel({

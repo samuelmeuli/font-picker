@@ -10,4 +10,3 @@ node_modules/
 
 # build output
 lib/
-demo/index.js
