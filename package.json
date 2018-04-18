@@ -1,11 +1,14 @@
 {
 	"name": "font-picker",
 	"version": "1.3.0",
-	"description": "Font picker component for previewing, selecting, and downloading Google Fonts",
+	"description": "Font selector component for Google Fonts",
 	"keywords": [
 		"fonts",
 		"google fonts",
 		"selector",
+		"picker",
+		"component",
+		"preview",
 		"download"
 	],
 	"main": "lib/font-picker.js",
