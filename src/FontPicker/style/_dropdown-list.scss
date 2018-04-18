@@ -9,7 +9,7 @@ ul {
 	-webkit-overflow-scrolling: touch;
 	margin: 0;
 	padding: 0;
-	background-color: $color-font-list;
+	background: $color-font-list;
 	box-shadow: $box-shadow;
 	transition: $transition-duration;
 
@@ -22,8 +22,8 @@ ul {
 		height: $element-height;
 		list-style: none;
 
-		// Link inside font list element (completely fills <li>)
-		a {
+		// Button inside font list element (completely fills <li>)
+		button {
 			height: 100%;
 			width: 100%;
 			display: flex;
@@ -33,11 +33,11 @@ ul {
 
 			&:hover,
 			&:focus {
-				background-color: darken($color-font-list, 5%);
+				background: darken($color-font-list, 5%);
 			}
 
 			&.active-font {
-				background-color: darken($color-font-list, 10%);
+				background: darken($color-font-list, 10%);
 			}
 		}
 	}

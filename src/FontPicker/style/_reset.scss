@@ -7,9 +7,11 @@ p {
 	padding: 0;
 }
 
-a {
+button {
+	background: none;
+	border: 0;
 	color: inherit;
 	cursor: pointer;
+	font-size: inherit;
 	outline: none;
-	text-decoration: none;
 }

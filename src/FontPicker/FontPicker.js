@@ -4,6 +4,7 @@ import './style/style.scss';
 
 /**
  * User interface for the font picker
+ * @see FontManager parameters
  */
 export default class FontPicker {
 	constructor(apiKey, defaultFont, options, onChange) {
@@ -34,10 +35,8 @@ export default class FontPicker {
 		}
 
 		// HTML for dropdown button (name of active font and dropdown arrow)
-		this.dropdownButton = document.createElement('a');
+		this.dropdownButton = document.createElement('button');
 		this.dropdownButton.classList.add('dropdown-button');
-		this.dropdownButton.role = 'button';
-		this.dropdownButton.tabIndex = 0;
 		this.dropdownButton.onclick = () => this.toggleExpanded();
 		this.dropdownButton.onkeypress = () => this.toggleExpanded();
 		fontPickerDiv.appendChild(this.dropdownButton);
@@ -64,13 +63,11 @@ export default class FontPicker {
 				this.ul.onscroll = () => this.onScroll(); // download font previews on scroll
 				for (let i = 0; i < this.fontManager.fonts.length; i += 1) {
 					const li = document.createElement('li');
-					const a = document.createElement('a');
+					const a = document.createElement('button');
 
 					// Write font name in the corresponding font, set onclick listener
 					a.innerHTML = this.fontManager.fonts[i].family;
 					a.classList.add(`font-${this.fontManager.fonts[i].family.replace(/\s+/g, '-').toLowerCase()}`);
-					a.role = 'button';
-					a.tabIndex = 0;
 					a.onclick = () => {
 						this.toggleExpanded(); // collapse font list
 						this.setActiveFont(this.fontManager.fonts[i].family);

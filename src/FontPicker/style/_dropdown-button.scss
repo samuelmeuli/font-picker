@@ -1,16 +1,17 @@
 // Dropdown menu containing the name of the active font and the dropdown icon (loading/arrow/error)
 .dropdown-button {
 	height: $element-height;
+	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	padding: 0 10px;
-	background-color: $color-dropdown-button;
+	background: $color-dropdown-button;
 
 	&:hover,
 	&.expanded,
 	&:focus {
-		background-color: darken($color-dropdown-button, 5%);
+		background: darken($color-dropdown-button, 5%);
 	}
 
 	.dropdown-font-name {
