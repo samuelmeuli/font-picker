@@ -14,7 +14,7 @@
 _If you use React, see [**Font Picker for React**](https://github.com/smeuli/font-picker-react)._
 
 <p align="center">
-    <img src=".github/demo.gif" width=700 alt="Demo">
+  <img src=".github/demo.gif" width=700 alt="Demo">
 </p>
 
 
@@ -27,11 +27,11 @@ _If you use React, see [**Font Picker for React**](https://github.com/smeuli/fon
 ```html
 <script type="text/javascript" src="path/to/font-picker.js"></script>
 <script type="text/javascript">
-    const fontPicker = new FontPicker(
-        'YOUR_API_KEY', // Google API key
-        'Open Sans', // default font
-        { limit: 50 } // additional options
-    );
+  const fontPicker = new FontPicker(
+    'YOUR_API_KEY', // Google API key
+    'Open Sans', // default font
+    { limit: 50 } // additional options
+  );
 </script>
 ```
 
@@ -46,9 +46,9 @@ npm install font-picker
 import { FontPicker } from 'font-picker';
 
 const fontPicker = new FontPicker(
-    'YOUR_API_KEY', // Google API key
-    'Open Sans', // default font
-    { limit: 50 } // additional options
+  'YOUR_API_KEY', // Google API key
+  'Open Sans', // default font
+  { limit: 50 } // additional options
 );
 ```
 
@@ -70,7 +70,7 @@ When the user selects a font, it will automatically be downloaded and applied to
 
 
 <p align="center">
-    <img src=".github/html-element-names.png" width=800 alt="Class names">
+  <img src=".github/html-element-names.png" width=800 alt="Class names">
 </p>
 
 
