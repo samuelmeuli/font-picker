@@ -2,7 +2,7 @@
  * Class responsible for adding/removing CSS styles for applying the active font and font previews
  */
 export default class StyleManager {
-	constructor(pickerName, activeFont, defaultVariant) {
+	constructor(pickerName, activeFont, variants) {
 		if (pickerName !== '') {
 			this.pickerSelector = `-${pickerName}`;
 		} else {
@@ -13,48 +13,34 @@ export default class StyleManager {
 		this.stylesheet.rel = 'stylesheet';
 		this.stylesheet.type = 'text/css';
 
-		// Apply the default active font
-		let style = `
-			.apply-font${this.pickerSelector} {
-				font-family: "${activeFont.family}";
-			}
-		`;
+		// Font weight/style for previews: split number and text in font variant parameter
+		const defaultVariant = variants[0].split(/(\d+)/).filter(Boolean);
 
 		// Apply the default font variant to the fonts in the font picker and the .apply-font class
 		if (defaultVariant.length === 1) {
 			// Either font weight or style is specified (e.g. 'regular, '300', 'italic')
-			if (defaultVariant[0] === 'regular') {
-				style += `
-					.apply-font${this.pickerSelector}, #font-picker > ul > li > a {
-						font-weight: 400;
-						font-style: normal;
-					}
-				`;
-			}	else if (defaultVariant[0] === 'italic') {
-				style += `
-					.apply-font${this.pickerSelector}, #font-picker > ul > li > a {
-						font-weight: 400;
-						font-style: italic;
-					}
-				`;
+			if (defaultVariant[0] === 'regular' || defaultVariant[0] === 'italic') {
+				// Font style is specified
+				[this.fontStyle] = defaultVariant;
+				this.fontWeight = '400';
 			}	else {
-				style += `
-					.apply-font${this.pickerSelector}, #font-picker > ul > li > a {
-						font-weight: ${defaultVariant[0]};
-						font-style: normal;
-					}
-				`;
+				// Font weight is specified
+				this.fontStyle = 'regular';
+				[this.fontWeight] = defaultVariant;
 			}
 		}	else if (defaultVariant.length === 2) {
 			// Both font weight and style are specified
-			style += `
-			.apply-font${this.pickerSelector}, #font-picker > ul > li > a {
-				font-weight: ${defaultVariant[0]};
-				font-style: ${defaultVariant[1]};
-			}
-		`;
+			[this.fontWeight, this.fontStyle] = defaultVariant;
 		}
 
+		// Apply the default active font
+		const style = `
+			.apply-font${this.pickerSelector} {
+				font-family: "${activeFont.family}";
+				font-style: ${this.fontStyle};
+				font-weight: ${this.fontWeight};
+			}
+		`;
 		this.stylesheet.appendChild(document.createTextNode(style));
 		document.head.appendChild(this.stylesheet);
 	}
@@ -67,6 +53,8 @@ export default class StyleManager {
 		const style = `
 			.font-${fontId} {
 				font-family: "${font.family}";
+				font-style: ${this.fontStyle};
+				font-weight: ${this.fontWeight};
 			}
 		`;
 		this.stylesheet.appendChild(document.createTextNode(style));
@@ -81,6 +69,8 @@ export default class StyleManager {
 		const style = `
 			.apply-font${this.pickerSelector} {
 				font-family: "${activeFont.family}", "${previousFont}", ${fallbackFont};
+				font-style: ${this.fontStyle};
+				font-weight: ${this.fontWeight};
 			}
 		`;
 		this.stylesheet.replaceChild(document.createTextNode(style), this.stylesheet.childNodes[0]);

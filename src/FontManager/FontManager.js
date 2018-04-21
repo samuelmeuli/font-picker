@@ -114,12 +114,9 @@ export default class FontManager {
 		this.fonts = [];
 		this.previewIndex = 0; // list index up to which font previews have been downloaded
 
-		// Font weight/style for previews: split number and text in font variant parameter
-		const defaultVariant = this.options.variants[0].split(/(\d+)/).filter(Boolean);
-
 		// Download and apply default font
 		checkFullFont(this.activeFont, this.options.variants);
-		this.styleManager = new StyleManager(this.options.name, this.activeFont, defaultVariant);
+		this.styleManager = new StyleManager(this.options.name, this.activeFont, this.options.variants);
 	}
 
 	/**
