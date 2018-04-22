@@ -13,8 +13,8 @@
 	],
 	"main": "lib/font-picker.js",
 	"author": "Samuel Meuli <dev@samuelmeuli.com>",
-	"repository": "github:smeuli/font-picker",
-	"homepage": "https://smeuli.github.io/font-picker",
+	"repository": "github:samuelmeuli/font-picker",
+	"homepage": "https://samuelmeuli.github.io/font-picker",
 	"license": "MIT",
 	"scripts": {
 		"start": "npm-run-all build --parallel start:*",

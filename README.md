@@ -1,7 +1,6 @@
 # Font Picker
 
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/smeuli/font-picker/blob/master/LICENSE)
-[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/smeuli/font-picker/pulls)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/samuelmeuli/font-picker/blob/master/LICENSE)
 
 **A simple, customizable font picker allowing users to preview, select, and use Google Fonts on your website.**
 
@@ -9,9 +8,9 @@
 * Efficient font previews (previews are loaded dynamically and full fonts are only downloaded on selection)
 * No dependencies
 
-→ **[Demo](https://smeuli.github.io/font-picker)**
+→ **[Demo](https://samuelmeuli.github.io/font-picker)**
 
-_If you use React, see [**Font Picker for React**](https://github.com/smeuli/font-picker-react)._
+_If you use React, see [**Font Picker for React**](https://github.com/samuelmeuli/font-picker-react)._
 
 <p align="center">
   <img src=".github/demo.gif" width=700 alt="Demo">
@@ -22,7 +21,7 @@ _If you use React, see [**Font Picker for React**](https://github.com/smeuli/fon
 
 ### 1. Setup
 
-* **Using script tags:** Download the [latest release](https://github.com/smeuli/font-picker/releases/latest) and include the `font-picker.js` file in your HTML:
+* **Using script tags:** Download the [latest release](https://github.com/samuelmeuli/font-picker/releases/latest) and include the `font-picker.js` file in your HTML:
 
 ```html
 <script type="text/javascript" src="path/to/font-picker.js"></script>
