@@ -39,6 +39,7 @@ export default class FontPicker {
 		this.dropdownButton.classList.add('dropdown-button');
 		this.dropdownButton.onclick = () => this.toggleExpanded();
 		this.dropdownButton.onkeypress = () => this.toggleExpanded();
+		this.dropdownButton.type = 'button';
 		fontPickerDiv.appendChild(this.dropdownButton);
 		// Name of selected font
 		this.dropdownFont = document.createElement('p');
@@ -62,26 +63,28 @@ export default class FontPicker {
 				// HTML for font list entries
 				this.ul.onscroll = () => this.onScroll(); // download font previews on scroll
 				for (let i = 0; i < this.fontManager.fonts.length; i += 1) {
-					const li = document.createElement('li');
-					const a = document.createElement('button');
+					const fontFamily = this.fontManager.fonts[i].family;
 
 					// Write font name in the corresponding font, set onclick listener
-					a.innerHTML = this.fontManager.fonts[i].family;
-					a.classList.add(`font-${this.fontManager.fonts[i].family.replace(/\s+/g, '-').toLowerCase()}`);
-					a.onclick = () => {
+					const li = document.createElement('li');
+					const fontButton = document.createElement('button');
+					fontButton.type = 'button';
+					fontButton.innerHTML = fontFamily;
+					fontButton.classList.add(`font-${fontFamily.replace(/\s+/g, '-').toLowerCase()}`);
+					fontButton.onclick = () => {
 						this.toggleExpanded(); // collapse font list
 						this.setActiveFont(this.fontManager.fonts[i].family);
 					};
-					a.onkeypress = () => {
+					fontButton.onkeypress = () => {
 						this.toggleExpanded(); // collapse font list
 						this.setActiveFont(this.fontManager.fonts[i].family);
 					};
-					li.appendChild(a);
+					li.appendChild(fontButton);
 
 					// If active font: highlight it and save reference
 					if (this.fontManager.fonts[i].family === this.fontManager.activeFont.family) {
-						a.classList.add('active-font');
-						this.activeFontA = a;
+						fontButton.classList.add('active-font');
+						this.activeFontA = fontButton;
 					}
 
 					this.ul.appendChild(li);
