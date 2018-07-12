@@ -172,4 +172,11 @@ export default class FontManager {
 		checkFullFont(this.activeFont, this.options.variants, this.onChange);
 		return listIndex;
 	}
+	
+	/**
+	 * Remove the stylesheet of the current instance
+	 */
+	removeCustomStyle() {
+		this.styleManager.removePreviewStyle();
+	}
 }

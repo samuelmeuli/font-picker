@@ -101,4 +101,11 @@ export default class StyleManager {
 		`;
 		this.stylesheet.replaceChild(document.createTextNode(style), this.stylesheet.childNodes[0]);
 	}
+
+	/**
+	 * Remove the stylesheet of the current instance
+	 */
+	removePreviewStyle() {
+		this.stylesheet.parentElement.removeChild(this.stylesheet)
+	}
 }
