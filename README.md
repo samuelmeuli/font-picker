@@ -1,7 +1,5 @@
 # Font Picker
 
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/samuelmeuli/font-picker/blob/master/LICENSE)
-
 **A simple, customizable font picker allowing users to preview, select, and use Google Fonts on your website.**
 
 * Automatic font download and generation of the required CSS styles
@@ -99,7 +97,7 @@ The following parameters can be passed to the constructor of the `FontPicker` cl
 The `FontPicker` class has the following functions:
 
 * **`getActiveFont()`**: Returns an object with information about the currently selected font
-* **`setActiveFont(fontFamily)`**: Change the active font programatically
+* **`setActiveFont(fontFamily)`**: Change the active font programmatically
 
 
 ## Contributing
@@ -108,4 +106,4 @@ To build the project locally, do the following:
 
 * `git clone`
 * `npm install`
-* `npm start` to generate the library bundle using [Rollup](https://github.com/rollup/rollup) and serve the demo website for previewing the component
+* `npm start` to generate the library bundle using [Rollup](https://github.com/rollup/rollup) and serve the demo website on `localhost:3000`
