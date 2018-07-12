@@ -4,19 +4,34 @@
 export default class StyleManager {
 	constructor(pickerName, activeFont, variants) {
 		if (pickerName !== '') {
-			this.pickerSelector = `-${pickerName}`;
+			this.pickerSuffix = `-${pickerName}`;
 		} else {
-			this.pickerSelector = '';
+			this.pickerSuffix = '';
 		}
+		this.stylesheetId = `font-selectors${this.pickerSuffix}`;
 
-		this.stylesheet = document.createElement('style');
-		this.stylesheet.rel = 'stylesheet';
-		this.stylesheet.type = 'text/css';
+		this.determineFontVariants(variants);
 
+		// If stylesheet for applying font styles was created earlier, continue using it, otherwise
+		// create new one
+		const existingStylesheet = document.getElementById(this.stylesheetId);
+		if (existingStylesheet) {
+			this.stylesheet = existingStylesheet;
+		} else {
+			this.initStylesheet(activeFont);
+		}
+	}
+
+	/**
+	 * Determine the specified font variants (style and weight) and save them in the corresponding
+	 * object variables
+	 */
+	determineFontVariants(variants) {
 		// Font weight/style for previews: split number and text in font variant parameter
 		const defaultVariant = variants[0].split(/(\d+)/).filter(Boolean);
 
-		// Apply the default font variant to the fonts in the font picker and the .apply-font class
+		// Determine font variants which will be applied to the fonts in the font picker and to elements
+		// of the .apply-font class
 		if (defaultVariant.length === 1) {
 			// Either font weight or style is specified (e.g. 'regular, '300', 'italic')
 			if (defaultVariant[0] === 'regular' || defaultVariant[0] === 'italic') {
@@ -32,10 +47,21 @@ export default class StyleManager {
 			// Both font weight and style are specified
 			[this.fontWeight, this.fontStyle] = defaultVariant;
 		}
+	}
+
+	/**
+	 * Generate the selector for the default font, set up the font picker's stylesheet and add it to
+	 * the document head
+	 */
+	initStylesheet(activeFont) {
+		this.stylesheet = document.createElement('style');
+		this.stylesheet.id = this.stylesheetId;
+		this.stylesheet.rel = 'stylesheet';
+		this.stylesheet.type = 'text/css';
 
 		// Apply the default active font
 		const style = `
-			.apply-font${this.pickerSelector} {
+			.apply-font${this.pickerSuffix} {
 				font-family: "${activeFont.family}";
 				font-style: ${this.fontStyle};
 				font-weight: ${this.fontWeight};
@@ -51,7 +77,7 @@ export default class StyleManager {
 	applyPreviewStyle(font) {
 		const fontId = font.family.replace(/\s+/g, '-').toLowerCase();
 		const style = `
-			.font-${fontId} {
+			.font-${fontId}${this.pickerSuffix} {
 				font-family: "${font.family}";
 				font-style: ${this.fontStyle};
 				font-weight: ${this.fontWeight};
@@ -67,7 +93,7 @@ export default class StyleManager {
 		// Apply font and set fallback fonts
 		const fallbackFont = activeFont.category === 'handwriting' ? 'cursive' : activeFont.category;
 		const style = `
-			.apply-font${this.pickerSelector} {
+			.apply-font${this.pickerSuffix} {
 				font-family: "${activeFont.family}", "${previousFont}", ${fallbackFont};
 				font-style: ${this.fontStyle};
 				font-weight: ${this.fontWeight};

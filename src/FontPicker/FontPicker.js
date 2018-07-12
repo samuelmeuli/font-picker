@@ -11,12 +11,13 @@ export default class FontPicker {
 		// Function bindings
 		this.closeEventListener = this.closeEventListener.bind(this);
 
-		// Set font picker name
+		// Determine font picker ID and selector suffix from its name
 		if (options.name) {
-			this.pickerSelector = `font-picker-${options.name}`;
+			this.pickerSuffix = `-${options.name}`;
 		} else {
-			this.pickerSelector = 'font-picker';
+			this.pickerSuffix = '';
 		}
+		this.pickerId = `font-picker${this.pickerSuffix}`;
 
 		// Initialize FontManager and FontPicker UI
 		this.fontManager = new FontManager(apiKey, defaultFont, options, onChange);
@@ -29,9 +30,9 @@ export default class FontPicker {
 	generateUI() {
 		this.expanded = false;
 
-		const fontPickerDiv = document.getElementById(this.pickerSelector);
+		const fontPickerDiv = document.getElementById(this.pickerId);
 		if (!fontPickerDiv) {
-			throw Error(`Missing div with id="${this.pickerSelector}"`);
+			throw Error(`Missing div with id="${this.pickerId}"`);
 		}
 
 		// HTML for dropdown button (name of active font and dropdown arrow)
@@ -64,13 +65,14 @@ export default class FontPicker {
 				this.ul.onscroll = () => this.onScroll(); // download font previews on scroll
 				for (let i = 0; i < this.fontManager.fonts.length; i += 1) {
 					const fontFamily = this.fontManager.fonts[i].family;
+					const fontId = fontFamily.replace(/\s+/g, '-').toLowerCase();
 
 					// Write font name in the corresponding font, set onclick listener
 					const li = document.createElement('li');
 					const fontButton = document.createElement('button');
 					fontButton.type = 'button';
 					fontButton.innerHTML = fontFamily;
-					fontButton.classList.add(`font-${fontFamily.replace(/\s+/g, '-').toLowerCase()}`);
+					fontButton.classList.add(`font-${fontId}${this.pickerSuffix}`);
 					fontButton.onclick = () => {
 						this.toggleExpanded(); // collapse font list
 						this.setActiveFont(this.fontManager.fonts[i].family);
@@ -108,7 +110,7 @@ export default class FontPicker {
 		let targetElement = e.target; // clicked element
 
 		do {
-			if (targetElement === document.getElementById(this.pickerSelector)) {
+			if (targetElement === document.getElementById(this.pickerId)) {
 				// Click inside font picker
 				return;
 			}
