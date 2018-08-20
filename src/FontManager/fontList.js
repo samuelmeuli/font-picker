@@ -27,7 +27,7 @@ export function fetchList(apiKey) {
 /**
  * Filter font list according to the specified options
  */
-export function filterList(fontList, activeFont, options) {
+export function filterList(fontList, defaultFont, options) {
 	let filteredList = fontList;
 
 	// 'families' parameter (only keep fonts whose names are included in the provided array)
@@ -52,14 +52,19 @@ export function filterList(fontList, activeFont, options) {
 		});
 	}
 
-	// Add default font to beginning of list if it is not already in it
-	if (filteredList.filter(font => font.family === activeFont.family).length === 0) {
-		filteredList.unshift(activeFont);
-	}
-
 	// 'limit' parameter (limit font list size)
 	if (options.limit) {
 		filteredList = filteredList.slice(0, options.limit);
+	}
+
+	// Add default font to list if it is not already in it
+	if (filteredList.filter(font => font.family === defaultFont.family).length === 0) {
+		// Add default font to beginning of list
+		filteredList.unshift(defaultFont);
+		// Remove least popular font from list if limit parameter is set
+		if (options.limit) {
+			filteredList.pop();
+		}
 	}
 
 	// 'sort' parameter (list is already sorted by popularity)
