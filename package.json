@@ -21,7 +21,9 @@
 		"start": "npm-run-all build --parallel start:*",
 		"start:rollup": "rollup --config --sourcemap --watch",
 		"start:serve": "serve demo --listen 3000",
-		"build": "rollup --config",
+		"build": "run-s build:*",
+		"build:clean": "rm -rf lib",
+		"build:rollup": "rollup --config",
 		"lint": "eslint ."
 	},
 	"devDependencies": {
