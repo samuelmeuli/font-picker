@@ -105,5 +105,5 @@ The `FontPicker` class has the following functions:
 To build the project locally, do the following:
 
 * `git clone`
-* `npm install`
-* `npm start` to generate the library bundle using [Rollup](https://github.com/rollup/rollup) and serve the demo website on `localhost:3000`
+* `yarn install`
+* `yarn start` to generate the library bundle using [Rollup](https://github.com/rollup/rollup) and serve the demo website on `localhost:3000`

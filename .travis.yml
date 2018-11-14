@@ -4,7 +4,7 @@ node_js:
   - "node"  # latest stable Node release
 
 script:
-  npm run build
+  yarn build
 
 deploy:
   # GitHub Pages
