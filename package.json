@@ -12,6 +12,7 @@
 		"download"
 	],
 	"main": "lib/font-picker.js",
+	"module": "lib/font-picker.es.js",
 	"author": "Samuel Meuli <me@samuelmeuli.com>",
 	"repository": "github:samuelmeuli/font-picker",
 	"homepage": "https://samuelmeuli.github.io/font-picker",
