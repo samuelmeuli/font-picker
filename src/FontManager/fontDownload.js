@@ -21,7 +21,7 @@ function getDownloadURL(font, variants, onlyCharacters) {
 	// Font variants
 	url += `:${variants[0]}`;
 	for (let i = 1; i < variants.length; i += 1) {
-		url += `|${variants[i]}`;
+		url += `,${variants[i]}`;
 	}
 	// Only download characters in the font name if onlyCharacters is true
 	if (onlyCharacters === true) {
