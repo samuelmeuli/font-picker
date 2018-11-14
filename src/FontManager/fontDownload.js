@@ -1,6 +1,3 @@
-import { isFontAvailable } from './isFontAvailable';
-
-
 /**
  * Transform the font's name to a valid selector (make the name lowercase and replace spaces with
  * dashes)
@@ -83,10 +80,7 @@ export function checkFullFont(font, variants, onChange) {
 		// If preview font is available: replace it with the full font
 		document.getElementById(`font-preview-${fontSelector}`).outerHTML = ''; // remove tag
 		downloadFullFont(font, fontSelector, variants, onChange);
-	}	else if (
-		!document.getElementById(`font-full-${fontSelector}`) &&
-		!isFontAvailable(font.family)
-	) {
+	}	else if (!document.getElementById(`font-full-${fontSelector}`)) {
 		// If font is not available: download it
 		downloadFullFont(font, fontSelector, variants, onChange);
 	}	else if (onChange) {
@@ -103,7 +97,7 @@ export function checkPreviewFont(font, variants) {
 	const fontSelector = getFontSelector(font);
 
 	// If full font is not available: download preview font
-	if (!document.getElementById(`font-full-${fontSelector}`) && !isFontAvailable(font.family)) {
+	if (!document.getElementById(`font-full-${fontSelector}`)) {
 		downloadPreviewFont(font, fontSelector, variants);
 	}
 }
