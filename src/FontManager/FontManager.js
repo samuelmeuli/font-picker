@@ -6,28 +6,7 @@ import StyleManager from './StyleManager';
 /**
  * Class for managing the list of fonts for the font picker, keeping track of the active font, and
  * downloading/activating Google Fonts
- * @param {string} apiKey (required) - Google API key
- * @param {string} defaultFont - Font that is selected on initialization (default: 'Open Sans')
- * @param {Object} options - Object with additional (optional) parameters:
- *   @param {string} name - If you have multiple font pickers on your site, you need to give them
- *   unique names (which may only consist of letters and digits). These names must also be appended
- *   to the font picker's ID and the .apply-font class name.
- *   Example: If { name: 'main' }, use #font-picker-main and .apply-font-main
- *   @param {string[]} families - If only specific fonts shall appear in the list, specify their
- *   names in an array
- *   @param {string[]} categories - Array of font categories
- *   Possible values: 'sans-serif', 'serif', 'display', 'handwriting', 'monospace' (default: all
- *   categories)
- *   @param {string[]} variants - Array of variants which the fonts must include and which will be
- *   downloaded; the first variant in the array will become the default variant (and will be used
- *   in the font picker and the .apply-font class)
- *   Example: ['regular', 'italic', '700', '700italic'] (default: ['regular'])
- *   @param {number} limit - Maximum number of fonts to be displayed in the list (the least popular
- *   fonts will be omitted; default: 100)
- *   @param {string} sort - Sorting attribute for the font list
- *   Possible values: 'alphabetical' (default), 'popularity'
- * @param {function} onChange - Function which is executed whenever the user changes the active font
- * and its stylesheet finishes downloading
+ * @see README.md
  */
 export default class FontManager {
 	/**

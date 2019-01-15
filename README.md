@@ -2,9 +2,9 @@
 
 **A simple, customizable font picker allowing users to preview, select, and use Google Fonts on your website.**
 
+* Simple setup
 * Automatic font download and generation of the required CSS styles
 * Efficient font previews (previews are loaded dynamically and full fonts are only downloaded on selection)
-* No dependencies
 
 → **[Demo](https://samuelmeuli.github.io/font-picker)**
 
@@ -19,7 +19,9 @@ _If you use React, see [**Font Picker for React**](https://github.com/samuelmeul
 
 ### 1. Setup
 
-* **Using script tags:** Download the [latest release](https://github.com/samuelmeuli/font-picker/releases/latest) and include the `font-picker.js` file in your HTML:
+You have the following options for installing/using the package:
+
+* **Download using script tags:** Download the `font-picker.js` file from the [releases page](https://github.com/samuelmeuli/font-picker/releases/latest), add it to your project, and include it in your HTML:
 
 ```html
 <script type="text/javascript" src="path/to/font-picker.js"></script>
@@ -32,8 +34,20 @@ _If you use React, see [**Font Picker for React**](https://github.com/samuelmeul
 </script>
 ```
 
+* **Using CDN:** You can load the package from a CDN like unpkg:
 
-* **Using NPM:** Install the `font-picker` package from NPM and import/require it in a JavaScript file:
+```html
+<script type="text/javascript" src="https://unpkg.com/font-picker^@2"></script>
+<script type="text/javascript">
+  const fontPicker = new FontPicker(
+    'YOUR_API_KEY', // Google API key
+    'Open Sans', // default font
+    { limit: 50 } // additional options
+  );
+</script>
+```
+
+* **Using NPM:** If you're using a module bundler like Webpack, you can install the `font-picker` package from NPM and import it in your code:
 
 ```sh
 npm install font-picker
@@ -65,11 +79,12 @@ const fontPicker = new FontPicker(
 
 When the user selects a font, it will automatically be downloaded and applied to all HTML elements of the `"apply-font"` class.
 
-
 <p align="center">
   <img src=".github/html-element-names.png" width=800 alt="Class names">
 </p>
 
+
+## Example
 
 See [`demo/index.html`](demo/index.html) for an example.
 
@@ -80,16 +95,20 @@ See [`demo/index.html`](demo/index.html) for an example.
 
 The following parameters can be passed to the constructor of the `FontPicker` class:
 
+```js
+const fontPicker = new FontPicker(apiKey, defaultFont, options, onChange);
+```
+
 * **`apiKey` (required)**: Google API key (can be generated [here](https://developers.google.com/fonts/docs/developer_api#APIKey))
 * **`defaultFont`**: Font that is selected on initialization (default: `'Open Sans'`)
-* **`options`**: Object with additional (optional) parameters:
-  * **`name`**: If you have multiple font pickers on your site, you need to give them unique names (which may only consist of letters and digits). These names must also be appended to the font picker's ID and the `.apply-font` class name; e.g. if `{ name: 'main' }`, use `#font-picker-main` and `.apply-font-main`
+* **`options`**: Object with additional optional parameters:
+  * **`name`**: If you have multiple font pickers on your site, you need to give them unique names (which may only consist of letters and digits). These names must also be appended to the font picker's ID and the `.apply-font` class name. Example: If `options = { name: 'main' }`, use `#font-picker-main` and `.apply-font-main`
   * **`families`**: If only specific fonts shall appear in the list, specify their names in an array (default: all font families)
   * **`categories`**: Array of font categories – possible values: `'sans-serif', 'serif', 'display', handwriting', 'monospace'` (default: all categories)
-  * **`variants`**: Array of variants which the fonts must include and which will be downloaded; the first variant in the array will become the default variant (and will be used in the font picker and the `.apply-font` class); e.g. `['regular', 'italic', '700', '700italic']` (default: `['regular']`)
+  * **`variants`**: Array of variants which the fonts must include and which will be downloaded; the first variant in the array will become the default variant and will be used in the font picker and the `.apply-font` class. Example: `['regular', 'italic', '700', '700italic']` (default: `['regular']`)
   * **`limit`**: Maximum number of fonts to be displayed in the list (the least popular fonts will be omitted; default: `100`)
   * **`sort`**: Sorting attribute for the font list – possible values: `'alphabetical'` (default), `'popularity'`
-* **`onChange`**: Function which is executed whenever the user changes the active font and its stylesheet finishes downloading
+* **`onChange`**: Function which is executed when the user changes the active font and its stylesheet has finished downloading
 
 
 ### Functions
@@ -100,10 +119,12 @@ The `FontPicker` class has the following functions:
 * **`setActiveFont(fontFamily)`**: Change the active font programmatically
 
 
-## Contributing
+## Development
 
 To build the project locally, do the following:
 
 * `git clone`
 * `yarn install`
 * `yarn start` to generate the library bundle using [Rollup](https://github.com/rollup/rollup) and serve the demo website on `localhost:3000`
+
+Suggestions and contributions are always welcome! Please first discuss changes via issue before submitting a pull request.
