@@ -39,6 +39,8 @@
 		"postcss": "^7.0.5",
 		"rollup": "^1.0.0",
 		"rollup-plugin-babel": "^4.0.3",
+		"rollup-plugin-commonjs": "^9.2.0",
+		"rollup-plugin-node-resolve": "^4.0.0",
 		"rollup-plugin-postcss": "^1.6.2",
 		"serve": "^10.1.1"
 	},
@@ -50,5 +52,8 @@
 			"pre-commit": "yarn lint",
 			"pre-push": "yarn lint"
 		}
+	},
+	"dependencies": {
+		"lodash.throttle": "^4.1.1"
 	}
 }

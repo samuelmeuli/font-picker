@@ -1,6 +1,9 @@
+import throttle from 'lodash.throttle';
+
 import FontManager from '../FontManager/FontManager';
 import './style/style.scss';
 
+const THROTTLE_INTERVAL = 250;
 
 /**
  * User interface for the font picker
@@ -62,7 +65,10 @@ export default class FontPicker {
 				dropdownIcon.classList.add('finished');
 
 				// HTML for font list entries
-				this.ul.onscroll = () => this.onScroll(); // download font previews on scroll
+				this.ul.onscroll = throttle(
+					() => this.onScroll(),
+					THROTTLE_INTERVAL
+				); // download font previews on scroll
 				for (let i = 0; i < this.fontManager.fonts.length; i += 1) {
 					const fontFamily = this.fontManager.fonts[i].family;
 					const fontId = fontFamily.replace(/\s+/g, '-').toLowerCase();
@@ -161,7 +167,7 @@ export default class FontPicker {
 			this.dropdownButton.classList.remove('expanded');
 			this.ul.classList.remove('expanded');
 			document.removeEventListener('click', this.closeEventListener);
-		}	else {
+		} else {
 			this.expanded = true;
 			this.dropdownButton.classList.add('expanded');
 			this.ul.classList.add('expanded');
