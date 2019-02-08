@@ -12,17 +12,17 @@ export function fetchList(apiKey) {
 			if (request.readyState === 4) {
 				// On error
 				if (request.status !== 200) {
-					return reject(new Error(`Response has status code ${request.status}`));
+					reject(new Error(`Response has status code ${request.status}`));
+				} else {
+					// On success
+					const response = JSON.parse(request.responseText);
+					resolve(response.items);
 				}
-				// On success
-				const response = JSON.parse(request.responseText);
-				return resolve(response.items);
 			}
 		};
 		request.send();
 	});
 }
-
 
 /**
  * Filter font list according to the specified options
@@ -42,7 +42,7 @@ export function filterList(fontList, defaultFont, options) {
 
 	// 'variants' parameter (only keep fonts with at least the specified variants)
 	if (options.variants) {
-		filteredList = filteredList.filter((font) => {
+		filteredList = filteredList.filter(font => {
 			for (let i = 0; i < options.variants.length; i += 1) {
 				if (font.variants.indexOf(options.variants[i]) === -1) {
 					return false;

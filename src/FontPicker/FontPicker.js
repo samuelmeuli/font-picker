@@ -1,5 +1,4 @@
 import throttle from 'lodash.throttle';
-
 import FontManager from '../FontManager/FontManager';
 import './style/style.scss';
 
@@ -59,16 +58,14 @@ export default class FontPicker {
 		this.ul = document.createElement('ul');
 
 		// Fetch font list, display dropdown arrow if successful
-		this.fontManager.init()
+		this.fontManager
+			.init()
 			.then(() => {
 				dropdownIcon.classList.remove('loading');
 				dropdownIcon.classList.add('finished');
 
 				// HTML for font list entries
-				this.ul.onscroll = throttle(
-					() => this.onScroll(),
-					THROTTLE_INTERVAL
-				); // download font previews on scroll
+				this.ul.onscroll = throttle(() => this.onScroll(), THROTTLE_INTERVAL); // download font previews on scroll
 				for (let i = 0; i < this.fontManager.fonts.length; i += 1) {
 					const fontFamily = this.fontManager.fonts[i].family;
 					const fontId = fontFamily.replace(/\s+/g, '-').toLowerCase();
@@ -99,7 +96,7 @@ export default class FontPicker {
 				}
 				fontPickerDiv.appendChild(this.ul);
 			})
-			.catch((err) => {
+			.catch(err => {
 				dropdownIcon.classList.remove('loading');
 				dropdownIcon.classList.add('error');
 				const errMessage = 'Error trying to fetch the list of available fonts';
