@@ -48,11 +48,11 @@ export default class FontPicker {
 		this.dropdownFont = document.createElement('p');
 		this.dropdownFont.innerHTML = this.fontManager.activeFont.family;
 		this.dropdownFont.classList.add('dropdown-font-name');
-		this.dropdownButton.append(this.dropdownFont);
+		this.dropdownButton.appendChild(this.dropdownFont);
 		// Dropdown icon (possible classes/states: 'loading', 'finished', 'error')
 		const dropdownIcon = document.createElement('p');
 		dropdownIcon.classList.add('dropdown-icon', 'loading');
-		this.dropdownButton.append(dropdownIcon);
+		this.dropdownButton.appendChild(dropdownIcon);
 
 		// HTML for font list
 		this.ul = document.createElement('ul');
