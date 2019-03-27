@@ -1,10 +1,10 @@
-// Dropdown menu containing the name of the active font and the dropdown icon (loading/arrow/error)
+// Dropdown menu containing the pickerId of the active font and the dropdown icon (loading/arrow/error)
 .dropdown-button {
-	height: $element-height;
-	width: 100%;
 	display: flex;
-	align-items: center;
 	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	height: $element-height;
 	padding: 0 10px;
 	background: $color-dropdown-button;
 
@@ -27,41 +27,43 @@
 
 	// Spinner animation
 	@keyframes spinner {
-		to {transform: rotate(360deg);}
+		to {
+			transform: rotate(360deg);
+		}
 	}
 
 	// Loading icon
-	&.loading:before {
-		content: '';
+	&.loading::before {
 		display: block;
-		height: 10px;
 		width: 10px;
-		border-radius: 50%;
+		height: 10px;
 		border: 2px solid darken($color-dropdown-button, 10%);
-		border-top-color: black;
+		border-top-color: #000000;
+		border-radius: 50%;
 		animation: spinner 0.6s linear infinite;
+		content: "";
 	}
 
 	// Dropdown arrow
-	&.finished:before {
-		content: '';
+	&.finished::before {
 		display: block;
-		height: 0;
 		width: 0;
-		border-left: 5px solid transparent;
-		border-right: 5px solid transparent;
-		border-top: 6px solid black;
-		transition: transform $transition-duration;
+		height: 0;
 		margin: 0 2px; // center arrow in comparison to loading spinner
+		border-top: 6px solid #000000;
+		border-right: 5px solid transparent;
+		border-left: 5px solid transparent;
+		transition: transform $transition-duration;
+		content: "";
 	}
 
 	// Error icon
-	&.error:before {
-		content: '⚠';
+	&.error::before {
+		content: "⚠";
 	}
 }
 
 // Rotate dropdown arrow on expand/collapse
-.dropdown-button.expanded .dropdown-icon.finished:before {
+.dropdown-button.expanded .dropdown-icon.finished::before {
 	transform: rotate(-180deg);
 }

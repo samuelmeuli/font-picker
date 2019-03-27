@@ -1,8 +1,8 @@
-@import 'variables';
+@import "variables";
 
 // match all font picker IDs (e.g. font-picker, font-picker-main, ...)
 div[id^="font-picker"] {
-	@import 'reset';
+	@import "reset";
 
 	// style font picker container
 	position: relative;
@@ -10,6 +10,6 @@ div[id^="font-picker"] {
 	width: 200px;
 	box-shadow: $box-shadow;
 
-	@import 'dropdown-button';
-	@import 'dropdown-list';
+	@import "dropdown-button";
+	@import "dropdown-list";
 }

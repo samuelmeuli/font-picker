@@ -1,10 +1,9 @@
 language: node_js
 
 node_js:
-  - "node"  # latest stable Node release
+  - node
 
-script:
-  yarn build
+script: yarn build
 
 deploy:
   # GitHub Pages
@@ -17,7 +16,7 @@ deploy:
   # GitHub Releases
   - provider: releases
     api_key: $GITHUB_TOKEN
-    file: lib/font-picker.js
+    file: dist/font-picker/font-picker.js
     skip_cleanup: true
     on:
       tags: true

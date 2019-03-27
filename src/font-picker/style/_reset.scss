@@ -8,10 +8,10 @@ p {
 }
 
 button {
+	color: inherit;
+	font-size: inherit;
 	background: none;
 	border: 0;
-	color: inherit;
-	cursor: pointer;
-	font-size: inherit;
 	outline: none;
+	cursor: pointer;
 }

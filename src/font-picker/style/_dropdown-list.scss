@@ -2,16 +2,16 @@
 ul {
 	position: absolute;
 	z-index: 1;
-	max-height: 0;
 	width: 100%;
-	overflow-x: hidden;
-	overflow-y: auto;
-	-webkit-overflow-scrolling: touch;
+	max-height: 0;
 	margin: 0;
 	padding: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
 	background: $color-font-list;
 	box-shadow: $box-shadow;
 	transition: $transition-duration;
+	-webkit-overflow-scrolling: touch;
 
 	&.expanded {
 		max-height: 200px;
@@ -24,10 +24,10 @@ ul {
 
 		// Button inside font list element (completely fills <li>)
 		button {
-			height: 100%;
-			width: 100%;
 			display: flex;
 			align-items: center;
+			width: 100%;
+			height: 100%;
 			padding: 0 10px;
 			white-space: nowrap;
 

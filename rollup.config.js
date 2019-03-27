@@ -1,48 +1,58 @@
-import autoprefixer from 'autoprefixer';
-import babel from 'rollup-plugin-babel';
-import commonjs from 'rollup-plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
-import postcss from 'rollup-plugin-postcss';
+import autoprefixer from "autoprefixer";
+import postcss from "rollup-plugin-postcss";
+import typescript from "rollup-plugin-typescript2";
 
-import pkg from './package.json';
+import pkg from "./package.json";
 
-
-export default {
-	input: 'src/index.js',
-	output: [
-		{
-			file: pkg.main,
-			format: 'umd',
-
-			// HACK: export multiple globals (FontPicker and FontManager) by adding them to window
-			name: 'window',
-			extend: true
-		},
-		{
-			file: pkg.module,
-			format: 'esm'
-		},
-		{
-			file: `demo/${pkg.main}`,
-			format: 'umd',
-
-			// HACK: export multiple globals (FontPicker and FontManager) by adding them to window
-			name: 'window',
-			extend: true
-		},
-		{
-			file: `demo/${pkg.module}`,
-			format: 'esm'
-		}
-	],
-	plugins: [
-		resolve(),
-		commonjs(),
-		postcss({
-			plugins: [autoprefixer]
-		}),
-		babel({
-			exclude: 'node_modules/**'
-		})
-	]
-};
+export default [
+	{
+		input: "src/font-manager/FontManager.ts",
+		output: [
+			{
+				file: "dist/font-manager/FontManager.js",
+				format: "umd",
+				name: "FontManager",
+			},
+			{
+				file: "dist/font-manager/FontManager.es",
+				format: "esm",
+			},
+		],
+		plugins: [
+			typescript({
+				cacheRoot: "node_modules/.cache/rollup-plugin-typescript2",
+				tsconfig: "src/font-manager/tsconfig.json",
+			}),
+		],
+	},
+	{
+		input: "src/font-picker/FontPicker.ts",
+		output: [
+			// NPM build
+			{
+				file: pkg.main,
+				format: "umd",
+				name: "FontPicker",
+			},
+			{
+				file: pkg.module,
+				format: "esm",
+			},
+			// Demo
+			{
+				file: `demo/dist/font-picker.js`,
+				format: "umd",
+				name: "FontPicker",
+			},
+		],
+		plugins: [
+			postcss({
+				plugins: [autoprefixer],
+			}),
+			typescript({
+				cacheRoot: "node_modules/.cache/rollup-plugin-typescript2",
+				tsconfig: "src/font-picker/tsconfig.json",
+			}),
+		],
+	},
+];

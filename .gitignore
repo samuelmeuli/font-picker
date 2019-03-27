@@ -1,8 +1,2 @@
-# OS
-.DS_Store
-
-# Node
+dist/
 node_modules/
-
-# Rollup
-lib/

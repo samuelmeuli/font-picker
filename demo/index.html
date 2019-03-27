@@ -2,10 +2,13 @@
 
 <html lang="en">
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<link rel="stylesheet" type="text/css" href="./style.css">
+		<meta name="description" content="Font selector component for Google Fonts">
+
 		<title>Font Picker</title>
+
+		<link rel="stylesheet" type="text/css" href="./style.css" />
 	</head>
 
 	<body>
@@ -15,33 +18,34 @@
 		<div id="font-picker"></div>
 		<noscript>JavaScript needs to be enabled to be able to use the font picker.</noscript>
 		<p class="apply-font">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quae quidem vel cum periculo est quaerenda vobis; Quid
-			ergo hoc loco intellegit honestum? Nam illud quidem adduci vix possum, ut ea, quae senserit ille, tibi non vera
-			videantur. Nam de isto magna dissensio est. Sed est forma eius disciplinae, sicut fere ceterarum, triplex: una
-			pars est naturae, disserendi altera, vivendi tertia. Ita multo sanguine profuso in laetitia et in victoria est
-			mortuus. Duo Reges: constructio interrete. Cognitio autem haec est una nostri, ut vim corporis animique norimus
-			sequamurque eam vitam, quae rebus iis ipsis perfruatur. Nemo nostrum istius generis asotos iucunde putat vivere.
-			Haeret in salebra. Quodsi, ne quo incommodo afficiare, non relinques amicum, tamen, ne sine fructu alligatus
-			sis, ut moriatur optabis.
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quae quidem vel cum periculo est
+			quaerenda vobis; Quid ergo hoc loco intellegit honestum? Nam illud quidem adduci vix possum,
+			ut ea, quae senserit ille, tibi non vera videantur. Nam de isto magna dissensio est. Sed est
+			forma eius disciplinae, sicut fere ceterarum, triplex: una pars est naturae, disserendi
+			altera, vivendi tertia. Ita multo sanguine profuso in laetitia et in victoria est mortuus. Duo
+			Reges: constructio interrete. Cognitio autem haec est una nostri, ut vim corporis animique
+			norimus sequamurque eam vitam, quae rebus iis ipsis perfruatur. Nemo nostrum istius generis
+			asotos iucunde putat vivere. Haeret in salebra. Quodsi, ne quo incommodo afficiare, non
+			relinques amicum, tamen, ne sine fructu alligatus sis, ut moriatur optabis.
 		</p>
 
 		<h2>Download</h2>
 		<a href="https://github.com/samuelmeuli/font-picker" class="github-button">
-			<img src="github-icon.svg" alt="GitHub" width="25px" class="github-icon" />
+			<img src="github-icon.svg" alt="GitHub icon" width="25" class="github-icon" />
 			Font Picker
 		</a>
 		<a href="https://github.com/samuelmeuli/font-picker-react" class="github-button">
-			<img src="github-icon.svg" alt="GitHub" width="25px" class="github-icon" />
+			<img src="github-icon.svg" alt="GitHub icon" width="25" class="github-icon" />
 			Font Picker React
 		</a>
 	</body>
 
-	<script type="text/javascript" src="lib/font-picker.js"></script>
-	<script type="text/javascript">
+	<script src="dist/font-picker.js"></script>
+	<script>
 		const fontPicker = new FontPicker(
-			'AIzaSyAOkdDlx49HCSBdu86oe8AD1Q7piIxlR6k', // Google API key
-			'Open Sans', // default font
-			{ limit: 50 } // additional options
+			"AIzaSyAOkdDlx49HCSBdu86oe8AD1Q7piIxlR6k", // Google API key
+			"Open Sans", // Default font
+			{ limit: 30 }, // Additional options
 		);
 	</script>
 </html>

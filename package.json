@@ -11,8 +11,8 @@
 		"preview",
 		"download"
 	],
-	"main": "lib/font-picker.js",
-	"module": "lib/font-picker.es.js",
+	"main": "dist/font-picker/font-picker.js",
+	"module": "dist/font-picker/font-picker.es.js",
 	"author": "Samuel Meuli <me@samuelmeuli.com>",
 	"repository": "github:samuelmeuli/font-picker",
 	"homepage": "https://samuelmeuli.github.io/font-picker",
@@ -22,21 +22,21 @@
 		"start:rollup": "rollup --config --sourcemap --watch",
 		"start:serve": "serve demo --listen 3000",
 		"build": "run-s build:*",
-		"build:clean": "rm -rf lib",
+		"build:clean": "rm -rf dist/ demo/dist/",
 		"build:rollup": "rollup --config",
-		"format:any": "prettier --print-width 100 --write",
-		"format:js": "prettier --print-width 100 --single-quote --write",
-		"lint": "eslint --fix"
-	},
-	"dependencies": {
-		"lodash.throttle": "^4.1.1"
+		"format": "prettier --write",
+		"lint:css": "stylelint --fix",
+		"lint:scss": "stylelint --fix --syntax scss",
+		"lint:js": "eslint --ext .js,.jsx --fix",
+		"lint:ts": "eslint --ext .ts,.tsx --fix"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.1.6",
-		"@babel/preset-env": "^7.3.1",
-		"@samuelmeuli/eslint-config": "~1.1.0",
-		"autoprefixer": "^9.4.7",
-		"eslint": "5.13.0",
+		"@samuelmeuli/eslint-config": "~2.0.0",
+		"@samuelmeuli/stylelint-config": "~1.0.0",
+		"@typescript-eslint/eslint-plugin": "^1.4.2",
+		"@typescript-eslint/parser": "^1.4.2",
+		"autoprefixer": "^9.5.0",
+		"eslint": "5.15.2",
 		"eslint-config-airbnb-base": "13.1.0",
 		"eslint-config-prettier": "^4.0.0",
 		"eslint-plugin-import": "^2.16.0",
@@ -47,28 +47,44 @@
 		"postcss": "^7.0.14",
 		"prettier": "^1.16.4",
 		"rollup": "^1.1.2",
-		"rollup-plugin-babel": "^4.3.2",
-		"rollup-plugin-commonjs": "^9.2.0",
-		"rollup-plugin-node-resolve": "^4.0.0",
 		"rollup-plugin-postcss": "^2.0.3",
-		"serve": "^10.1.2"
+		"rollup-plugin-typescript2": "^0.20.1",
+		"serve": "^10.1.2",
+		"stylelint": "^9.10.1",
+		"typescript": "^3.3.3333"
 	},
 	"files": [
-		"lib/"
+		"dist/"
 	],
+	"types": "dist/index.d.ts",
 	"husky": {
 		"hooks": {
 			"pre-commit": "lint-staged"
 		}
 	},
 	"lint-staged": {
-		"*.js": [
-			"yarn lint",
-			"yarn format:js",
+		"*.{js,jsx}": [
+			"yarn lint:js",
+			"yarn format",
 			"git add"
 		],
-		"*.{css,json,md,scss,yml}": [
-			"yarn format:any",
+		"*.{ts,tsx}": [
+			"yarn lint:ts",
+			"yarn format",
+			"git add"
+		],
+		"*.css": [
+			"yarn lint:css",
+			"yarn format",
+			"git add"
+		],
+		"*.scss": [
+			"yarn lint:scss",
+			"yarn format",
+			"git add"
+		],
+		"*.{json,md,yml}": [
+			"yarn format",
 			"git add"
 		]
 	}
