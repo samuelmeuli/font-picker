@@ -40,7 +40,7 @@ export default [
 			},
 			// Demo
 			{
-				file: `demo/dist/font-picker.js`,
+				file: `demo/dist/FontPicker.js`,
 				format: "umd",
 				name: "FontPicker",
 			},
