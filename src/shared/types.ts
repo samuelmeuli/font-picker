@@ -1,7 +1,5 @@
 export type Category = "sans-serif" | "serif" | "display" | "handwriting" | "monospace";
 
-export type SortOption = "alphabet" | "popularity";
-
 export type Script =
 	| "arabic"
 	| "bengali"
@@ -29,6 +27,8 @@ export type Script =
 	| "​telugu"
 	| "thai"
 	| "vietnamese";
+
+export type SortOption = "alphabet" | "popularity";
 
 export type Variant =
 	| "100"
