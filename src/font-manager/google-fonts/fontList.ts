@@ -1,4 +1,5 @@
-import { getFontId } from "../utils/ids";
+import getFontId from "../../shared/fontId";
+import { Font, Script } from "../../shared/types";
 import get from "../utils/request";
 
 const LIST_BASE_URL = "https://www.googleapis.com/webfonts/v1";

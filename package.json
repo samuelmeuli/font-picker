@@ -2,6 +2,10 @@
 	"name": "font-picker",
 	"version": "2.2.1",
 	"description": "Font selector component for Google Fonts",
+	"author": "Samuel Meuli <me@samuelmeuli.com>",
+	"repository": "github:samuelmeuli/font-picker",
+	"homepage": "https://samuelmeuli.github.io/font-picker",
+	"license": "MIT",
 	"keywords": [
 		"fonts",
 		"google fonts",
@@ -13,10 +17,10 @@
 	],
 	"main": "dist/font-picker/font-picker.js",
 	"module": "dist/font-picker/font-picker.es.js",
-	"author": "Samuel Meuli <me@samuelmeuli.com>",
-	"repository": "github:samuelmeuli/font-picker",
-	"homepage": "https://samuelmeuli.github.io/font-picker",
-	"license": "MIT",
+	"types": "dist/font-picker/index.d.ts",
+	"files": [
+		"dist/"
+	],
 	"scripts": {
 		"start": "npm-run-all build --parallel start:*",
 		"start:rollup": "rollup --config --sourcemap --watch",
@@ -53,10 +57,6 @@
 		"stylelint": "^9.10.1",
 		"typescript": "^3.3.3333"
 	},
-	"files": [
-		"dist/"
-	],
-	"types": "dist/index.d.ts",
 	"husky": {
 		"hooks": {
 			"pre-commit": "lint-staged"

@@ -1,4 +1,5 @@
-import { getFontId } from "../utils/ids";
+import getFontId from "../../shared/fontId";
+import { Font } from "../../shared/types";
 
 const activeFontStylesheet = document.createElement("style");
 const previewFontsStylesheet = document.createElement("style");

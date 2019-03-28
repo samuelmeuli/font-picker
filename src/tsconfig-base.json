@@ -12,6 +12,7 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"removeComments": true,
+		"rootDir": ".",
 		"sourceMap": true,
 		"strictBindCallApply": true,
 		"strictFunctionTypes": true,

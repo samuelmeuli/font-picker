@@ -1,8 +1,8 @@
-type Category = "sans-serif" | "serif" | "display" | "handwriting" | "monospace";
+export type Category = "sans-serif" | "serif" | "display" | "handwriting" | "monospace";
 
-type SortOption = "alphabet" | "popularity";
+export type SortOption = "alphabet" | "popularity";
 
-type Script =
+export type Script =
 	| "arabic"
 	| "bengali"
 	| "chinese-simplified"
@@ -30,7 +30,7 @@ type Script =
 	| "thai"
 	| "vietnamese";
 
-type Variant =
+export type Variant =
 	| "100"
 	| "100italic"
 	| "200"
@@ -50,7 +50,7 @@ type Variant =
 	| "900"
 	| "900italic";
 
-interface Font {
+export interface Font {
 	// Fields used by font-picker
 	family: string;
 	id: string;
@@ -65,9 +65,9 @@ interface Font {
 	files?: Record<Variant, string>; // Font file for each variant
 }
 
-type FontList = Map<string, Font>;
+export type FontList = Map<string, Font>;
 
-interface Options {
+export interface Options {
 	pickerId?: string;
 	families?: string[];
 	categories?: Category[];

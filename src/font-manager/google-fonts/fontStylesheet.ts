@@ -1,3 +1,4 @@
+import { Font, Script, Variant } from "../../shared/types";
 import get from "../utils/request";
 
 const FONT_BASE_URL = "https://fonts.googleapis.com/css";

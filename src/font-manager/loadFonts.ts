@@ -1,3 +1,4 @@
+import { Font, Script, Variant } from "../shared/types";
 import extractFontStyles from "./google-fonts/extractFontStyles";
 import getStylesheet from "./google-fonts/fontStylesheet";
 import { createStylesheet, deleteStylesheet, stylesheetExists } from "./styles/stylesheets";

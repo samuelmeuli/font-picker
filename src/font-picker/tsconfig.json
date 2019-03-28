@@ -1,4 +1,5 @@
 {
 	"extends": "../tsconfig-base.json",
-	"references": [{ "path": "../font-manager" }]
+	"references": [{ "path": "../shared" }, { "path": "../font-manager" }],
+	"include": ["./**/*", "../shared/**/*", "../font-manager/**/*"]
 }

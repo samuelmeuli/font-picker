@@ -1,12 +1,7 @@
 import FontManager from "../font-manager/FontManager";
+import getFontId from "../shared/fontId";
+import { Font, FontList, Options, SortOption } from "../shared/types";
 import "./styles/styles.scss";
-
-/**
- * Return the fontId based on the provided font family
- */
-function getFontId(fontFamily: string): string {
-	return fontFamily.replace(/\s+/g, "-").toLowerCase();
-}
 
 /**
  * Font picker user interface
@@ -102,7 +97,7 @@ export default class FontPicker {
 			.then((fontMap: FontList) => {
 				const fonts = Array.from(fontMap.values());
 				if (sort === "alphabet") {
-					fonts.sort((font1, font2) => font1.family.localeCompare(font2.family));
+					fonts.sort((font1: Font, font2: Font) => font1.family.localeCompare(font2.family));
 				}
 				this.generateFontList(fonts);
 				dropdownIcon.classList.replace("loading", "finished");
@@ -133,7 +128,7 @@ export default class FontPicker {
 	 * Generate list entry in font picker UI for the provided font. Highlight it if it's the active
 	 * font
 	 */
-	private addFontLi(font: Font, listIndex?: number) {
+	private addFontLi(font: Font, listIndex?: number): void {
 		const fontId = getFontId(font.family);
 		const li = document.createElement("li");
 		const fontButton = document.createElement("button");

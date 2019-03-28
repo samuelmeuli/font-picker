@@ -1,7 +1,9 @@
+import getFontId from "../shared/fontId";
+import { Font, FontList, Options, Script, Variant } from "../shared/types";
 import getFontList from "./google-fonts/fontList";
 import loadFonts from "./loadFonts";
 import { applyActiveFont, applyFontPreview } from "./styles/declarations";
-import { getFontId, validatePickerId } from "./utils/ids";
+import validatePickerId from "./utils/pickerId";
 
 /**
  * Class for managing the list of fonts for the font picker, keeping track of the active font and
@@ -90,9 +92,9 @@ export default class FontManager {
 				// `categories` parameter: only keep fonts in categories from the provided array
 				(this.options.categories.length === 0 || this.options.categories.includes(font.category)) &&
 				// `scripts` parameter: Only keep fonts which are available in all specified scripts
-				this.options.scripts.every(script => font.scripts.includes(script)) &&
+				this.options.scripts.every((script: Script) => font.scripts.includes(script)) &&
 				// `variants` parameter: Only keep fonts which contain all specified variants
-				this.options.variants.every(variant => font.variants.includes(variant))
+				this.options.variants.every((variant: Variant) => font.variants.includes(variant))
 			) {
 				// Font fulfils all requirements: Add it to font map
 				this.fonts.set(font.family, font);

@@ -1,4 +1,4 @@
-import { getFontId } from "../utils/ids";
+import getFontId from "../../shared/fontId";
 import getMatches from "../utils/regex";
 
 const FONT_FACE_REGEX = /@font-face {([\s\S]*?)}/gm;
