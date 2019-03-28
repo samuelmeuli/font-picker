@@ -1,4 +1,5 @@
-// Dropdown menu containing the pickerId of the active font and the dropdown icon (loading/arrow/error)
+// Dropdown menu containing the pickerId of the active font and the dropdown icon
+// (loading/arrow/error)
 .dropdown-button {
 	display: flex;
 	justify-content: space-between;
@@ -9,7 +10,6 @@
 	background: $color-dropdown-button;
 
 	&:hover,
-	&.expanded,
 	&:focus {
 		background: darken($color-dropdown-button, 5%);
 	}
@@ -20,8 +20,8 @@
 	}
 }
 
-// Dropdown icon indicating the state (spinner while loading the font list, arrow when loaded successfully, warning icon
-// on error)
+// Dropdown icon indicating the state (spinner while loading the font list, arrow when loaded
+// successfully, warning icon on error)
 .dropdown-icon {
 	margin-left: 10px;
 
@@ -49,7 +49,7 @@
 		display: block;
 		width: 0;
 		height: 0;
-		margin: 0 2px; // center arrow in comparison to loading spinner
+		margin: 0 2px; // Center arrow in comparison to loading spinner
 		border-top: 6px solid #000000;
 		border-right: 5px solid transparent;
 		border-left: 5px solid transparent;
@@ -64,6 +64,6 @@
 }
 
 // Rotate dropdown arrow on expand/collapse
-.dropdown-button.expanded .dropdown-icon.finished::before {
+&.expanded .dropdown-icon.finished::before {
 	transform: rotate(-180deg);
 }

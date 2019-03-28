@@ -1,10 +1,10 @@
 @import "variables";
 
-// match all font picker IDs (e.g. font-picker, font-picker-main, ...)
+// Match all font picker IDs (e.g. "font-picker", "font-picker-main", ...)
 div[id^="font-picker"] {
 	@import "reset";
 
-	// style font picker container
+	// Style font picker container
 	position: relative;
 	display: inline-block;
 	width: 200px;

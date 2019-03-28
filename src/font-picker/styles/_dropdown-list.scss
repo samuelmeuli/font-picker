@@ -1,4 +1,9 @@
 // Font list
+
+&.expanded ul {
+	max-height: 200px;
+}
+
 ul {
 	position: absolute;
 	z-index: 1;
@@ -12,10 +17,6 @@ ul {
 	box-shadow: $box-shadow;
 	transition: $transition-duration;
 	-webkit-overflow-scrolling: touch;
-
-	&.expanded {
-		max-height: 200px;
-	}
 
 	// Font list elements
 	li {

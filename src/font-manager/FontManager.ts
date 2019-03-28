@@ -71,7 +71,7 @@ export default class FontManager {
 	 * Fetch list of all fonts from Google Fonts API, filter it according to the class parameters and
 	 * save them to the font map
 	 */
-	public async init(): Promise<Font[]> {
+	public async init(): Promise<FontList> {
 		// Get list of all fonts
 		const fonts = await getFontList(this.apiKey);
 
@@ -100,9 +100,9 @@ export default class FontManager {
 		}
 		// Download previews for all fonts in list except for default font (its full font has already
 		// been downloaded)
-		this.downloadFontPreviews(this.getFonts().slice(1));
+		this.downloadFontPreviews(Array.from(this.fonts.values()).slice(1));
 
-		return this.getFonts();
+		return this.fonts;
 	}
 
 	/**
@@ -116,10 +116,10 @@ export default class FontManager {
 	}
 
 	/**
-	 * Convert the font map to an array and return it
+	 * Return font map
 	 */
-	public getFonts(): Font[] {
-		return Array.from(this.fonts.values());
+	public getFonts(): FontList {
+		return this.fonts;
 	}
 
 	/**
