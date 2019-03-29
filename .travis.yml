@@ -16,7 +16,7 @@ deploy:
   # GitHub Releases
   - provider: releases
     api_key: $GITHUB_TOKEN
-    file: dist/font-picker/font-picker.js
+    file: dist/font-picker/font-picker/FontPicker.js
     skip_cleanup: true
     on:
       tags: true
