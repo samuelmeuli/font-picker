@@ -162,7 +162,7 @@ export default class FontPicker {
 	/**
 	 * EventListener for closing the font picker when clicking anywhere outside it
 	 */
-	private closeEventListener(e: CloseEvent): void {
+	private closeEventListener(e: MouseEvent): void {
 		let targetElement = e.target as Node; // Clicked element
 
 		do {
