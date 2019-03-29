@@ -28,6 +28,7 @@
 		"build": "run-s build:*",
 		"build:clean": "rm -rf dist/ demo/dist/",
 		"build:rollup": "rollup --config",
+		"build:scss": "node-sass --output-style compressed src/font-picker/styles/styles.scss dist/styles.min.css",
 		"format": "prettier --write",
 		"lint:css": "stylelint --fix",
 		"lint:scss": "stylelint --fix --syntax scss",
