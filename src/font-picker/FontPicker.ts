@@ -84,7 +84,7 @@ export default class FontPicker {
 		// Font family of active font
 		this.dropdownFamily = document.createElement("p");
 		this.dropdownFamily.textContent = this.fontManager.getActiveFont().family;
-		this.dropdownFamily.classList.add("dropdown-font-name");
+		this.dropdownFamily.classList.add("dropdown-font-family");
 		this.dropdownButton.appendChild(this.dropdownFamily);
 		// Dropdown icon (possible classes/states: "loading", "finished", "error")
 		const dropdownIcon = document.createElement("p");
@@ -162,7 +162,7 @@ export default class FontPicker {
 	/**
 	 * EventListener for closing the font picker when clicking anywhere outside it
 	 */
-	private closeEventListener(e: MouseEvent): void {
+	private closeEventListener(e: MouseEvent | KeyboardEvent): void {
 		let targetElement = e.target as Node; // Clicked element
 
 		do {
