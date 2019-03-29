@@ -7,7 +7,7 @@
 - Automatic font download and generation of the required CSS selectors
 - Efficient font previews (full fonts are only downloaded on selection)
 
-→ **[Examples](https://samuelmeuli.github.io/font-picker)**
+→ **[Demo](https://samuelmeuli.github.io/font-picker)**
 
 _If you use React, see [**Font Picker for React**](https://github.com/samuelmeuli/font-picker-react)._
 
@@ -36,7 +36,7 @@ You have the following options for installing/using the package:
 </script>
 ```
 
-- **Using NPM:** If you're using a module bundler like Webpack, you can install the `font-picker` package from NPM and import it in your code:
+- **Using NPM:** If you're using a module bundler like Webpack, you can install the `font-picker` package using NPM and import it in your code:
 
 ```sh
 npm install font-picker
