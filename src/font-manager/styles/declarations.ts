@@ -22,10 +22,14 @@ export function applyFontPreview(previewFont: Font, selectorSuffix: string): voi
 /**
  * Add/update declaration for applying the current active font
  */
-export function applyActiveFont(activeFont: Font, selectorSuffix: string): void {
+export function applyActiveFont(
+	activeFont: Font,
+	previousFontFamily: string,
+	selectorSuffix: string,
+): void {
 	const style = `
 		.apply-font${selectorSuffix} {
-			font-family: "${activeFont.family}";
+			font-family: "${activeFont.family}"${previousFontFamily ? `, "${previousFontFamily}"` : ""};
 		}
 	`;
 	const styleNode = document.createTextNode(style);

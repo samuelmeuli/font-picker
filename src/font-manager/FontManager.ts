@@ -1,8 +1,7 @@
 import getFontId from "../shared/fontId";
 import { Font, FontList, Options, Script, Variant } from "../shared/types";
 import getFontList from "./google-fonts/fontList";
-import loadFonts from "./loadFonts";
-import { applyActiveFont, applyFontPreview } from "./styles/declarations";
+import { loadActiveFont, loadFontPreviews } from "./loadFonts";
 import validatePickerId from "./utils/pickerId";
 
 /**
@@ -64,7 +63,6 @@ export default class FontManager {
 		this.onChange = onChange;
 
 		// Download default font and add it to the empty font list
-		this.activeFontFamily = defaultFamily;
 		this.addFont(defaultFamily, false);
 		this.setActiveFont(defaultFamily);
 	}
@@ -102,19 +100,11 @@ export default class FontManager {
 		}
 		// Download previews for all fonts in list except for default font (its full font has already
 		// been downloaded)
-		this.downloadFontPreviews(Array.from(this.fonts.values()).slice(1));
+		const fontsToLoad = new Map(this.fonts);
+		fontsToLoad.delete(this.activeFontFamily);
+		loadFontPreviews(fontsToLoad, this.options.scripts, this.options.variants, this.selectorSuffix);
 
 		return this.fonts;
-	}
-
-	/**
-	 * Download and apply characters required for writing out all font names of the provided fonts
-	 */
-	private downloadFontPreviews(fonts: Font[]): void {
-		loadFonts(fonts, this.options.scripts, this.options.variants, true);
-		fonts.forEach(font => {
-			applyFontPreview(font, this.selectorSuffix);
-		});
 	}
 
 	/**
@@ -133,8 +123,12 @@ export default class FontManager {
 			id: getFontId(fontFamily),
 		};
 		this.fonts.set(fontFamily, font);
+
+		// Download font preview unless specified not to
 		if (downloadPreview) {
-			this.downloadFontPreviews([font]);
+			const fontMap: FontList = new Map<string, Font>();
+			fontMap.set(fontFamily, font);
+			loadFontPreviews(fontMap, this.options.scripts, this.options.variants, this.selectorSuffix);
 		}
 	}
 
@@ -161,12 +155,15 @@ export default class FontManager {
 			console.error(`Cannot update active font: "${fontFamily}" is not in the font list`);
 			return;
 		}
+		const previousFontFamily = this.activeFontFamily;
 		const activeFont = this.fonts.get(fontFamily);
 		this.activeFontFamily = fontFamily;
-
-		loadFonts([activeFont], this.options.scripts, this.options.variants, false).then(() =>
-			this.onChange(activeFont),
-		);
-		applyActiveFont(activeFont, this.selectorSuffix);
+		loadActiveFont(
+			activeFont,
+			previousFontFamily,
+			this.options.scripts,
+			this.options.variants,
+			this.selectorSuffix,
+		).then(() => this.onChange(activeFont));
 	}
 }
