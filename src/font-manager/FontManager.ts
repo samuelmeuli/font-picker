@@ -64,7 +64,7 @@ export default class FontManager {
 
 		// Download default font and add it to the empty font list
 		this.addFont(defaultFamily, false);
-		this.setActiveFont(defaultFamily);
+		this.setActiveFont(defaultFamily, false);
 	}
 
 	/**
@@ -149,7 +149,7 @@ export default class FontManager {
 	/**
 	 * Set the specified font as the active font and download it
 	 */
-	public setActiveFont(fontFamily: string): void {
+	public setActiveFont(fontFamily: string, runOnChange: boolean = true): void {
 		if (!this.fonts.has(fontFamily)) {
 			// Font is not in fontList: Keep current activeFont and log error
 			console.error(`Cannot update active font: "${fontFamily}" is not in the font list`);
@@ -164,6 +164,10 @@ export default class FontManager {
 			this.options.scripts,
 			this.options.variants,
 			this.selectorSuffix,
-		).then(() => this.onChange(activeFont));
+		).then(() => {
+			if (runOnChange) {
+				this.onChange(activeFont);
+			}
+		});
 	}
 }
