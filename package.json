@@ -1,6 +1,6 @@
 {
 	"name": "font-picker",
-	"version": "3.0.1",
+	"version": "3.0.2",
 	"description": "Font selector component for Google Fonts",
 	"author": "Samuel Meuli <me@samuelmeuli.com>",
 	"repository": "github:samuelmeuli/font-picker",
