@@ -3,7 +3,7 @@ import fs from "fs";
 import postcss from "rollup-plugin-postcss";
 import typescript from "rollup-plugin-typescript2";
 
-const EXTENSIONS = [".es", ".es.map", ".js", ".js.map"];
+const EXTENSIONS = [".es.js", ".es.js.map", ".js", ".js.map"];
 const MANAGER_OUT_TEMP = "./dist/font-manager/FontManager";
 const MANAGER_OUT = "./dist/font-manager/font-manager/FontManager";
 const PICKER_OUT_TEMP = "./dist/font-picker/FontPicker";
@@ -46,7 +46,7 @@ export default [
 				name: "FontManager",
 			},
 			{
-				file: `${MANAGER_OUT_TEMP}.es`,
+				file: `${MANAGER_OUT_TEMP}.es.js`,
 				format: "esm",
 			},
 		],
@@ -67,7 +67,7 @@ export default [
 				name: "FontPicker",
 			},
 			{
-				file: `${PICKER_OUT_TEMP}.es`,
+				file: `${PICKER_OUT_TEMP}.es.js`,
 				format: "esm",
 			},
 		],

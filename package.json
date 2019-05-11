@@ -16,7 +16,7 @@
 		"download"
 	],
 	"main": "dist/font-picker/font-picker/FontPicker.js",
-	"module": "dist/font-picker/font-picker/FontPicker.es",
+	"module": "dist/font-picker/font-picker/FontPicker.es.js",
 	"types": "dist/font-picker/font-picker/index.d.ts",
 	"files": [
 		"dist/"
