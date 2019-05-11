@@ -1,9 +1,7 @@
 import getFontId from "../../shared/fontId";
 import { Font } from "../../shared/types";
 
-const activeFontStylesheet = document.createElement("style");
 const previewFontsStylesheet = document.createElement("style");
-document.head.appendChild(activeFontStylesheet);
 document.head.appendChild(previewFontsStylesheet);
 
 /**
@@ -20,6 +18,20 @@ export function applyFontPreview(previewFont: Font, selectorSuffix: string): voi
 }
 
 /**
+ * Create/find and return the apply-font stylesheet for the provided selectorSuffix
+ */
+function getActiveFontStylesheet(selectorSuffix: string) {
+	const stylesheetId = `active-font-${selectorSuffix}`;
+	let activeFontStylesheet = document.getElementById(stylesheetId);
+	if (!activeFontStylesheet) {
+		activeFontStylesheet = document.createElement("style");
+		activeFontStylesheet.id = stylesheetId;
+		document.head.appendChild(activeFontStylesheet);
+	}
+	return activeFontStylesheet;
+}
+
+/**
  * Add/update declaration for applying the current active font
  */
 export function applyActiveFont(
@@ -32,10 +44,6 @@ export function applyActiveFont(
 			font-family: "${activeFont.family}"${previousFontFamily ? `, "${previousFontFamily}"` : ""};
 		}
 	`;
-	const styleNode = document.createTextNode(style);
-	if (activeFontStylesheet.childNodes.length === 0) {
-		activeFontStylesheet.appendChild(styleNode);
-	} else {
-		activeFontStylesheet.replaceChild(styleNode, activeFontStylesheet.childNodes[0]);
-	}
+	const activeFontStylesheet = getActiveFontStylesheet(selectorSuffix);
+	activeFontStylesheet.innerHTML = style;
 }
