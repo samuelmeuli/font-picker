@@ -43,8 +43,12 @@ export default class FontPicker {
 			limit = 50,
 			sort = "alphabet",
 		}: Options,
-		onChange: (font: Font) => void = () => {},
+		onChange: (font: Font) => void = (): void => {},
 	) {
+		// Function bindings
+		this.closeEventListener = this.closeEventListener.bind(this);
+		this.toggleExpanded = this.toggleExpanded.bind(this);
+
 		// Initialize FontManager and FontPicker UI
 		const options = {
 			pickerId,
@@ -56,9 +60,6 @@ export default class FontPicker {
 		};
 		this.fontManager = new FontManager(apiKey, defaultFamily, options, onChange);
 		this.generateUI(sort);
-
-		// Function bindings
-		this.closeEventListener = this.closeEventListener.bind(this);
 	}
 
 	/**
@@ -77,8 +78,8 @@ export default class FontPicker {
 		// Generate HTML for dropdown button (contains family of active font and dropdown icon)
 		this.dropdownButton = document.createElement("button");
 		this.dropdownButton.classList.add("dropdown-button");
-		this.dropdownButton.onclick = () => this.toggleExpanded();
-		this.dropdownButton.onkeypress = () => this.toggleExpanded();
+		this.dropdownButton.onclick = this.toggleExpanded;
+		this.dropdownButton.onkeypress = this.toggleExpanded;
 		this.dropdownButton.type = "button";
 		this.fontPickerDiv.appendChild(this.dropdownButton);
 		// Font family of active font
@@ -94,20 +95,26 @@ export default class FontPicker {
 		// Fetch and render font list
 		this.fontManager
 			.init()
-			.then((fontMap: FontList) => {
-				const fonts = Array.from(fontMap.values());
-				if (sort === "alphabet") {
-					fonts.sort((font1: Font, font2: Font) => font1.family.localeCompare(font2.family));
-				}
-				this.generateFontList(fonts);
-				dropdownIcon.classList.replace("loading", "finished");
-			})
-			.catch((err: Error) => {
-				// On error: Log error message
-				dropdownIcon.classList.replace("loading", "error");
-				console.error("Error trying to fetch the list of available fonts");
-				console.error(err);
-			});
+			.then(
+				(fontMap: FontList): void => {
+					const fonts = Array.from(fontMap.values());
+					if (sort === "alphabet") {
+						fonts.sort(
+							(font1: Font, font2: Font): number => font1.family.localeCompare(font2.family),
+						);
+					}
+					this.generateFontList(fonts);
+					dropdownIcon.classList.replace("loading", "finished");
+				},
+			)
+			.catch(
+				(err: Error): void => {
+					// On error: Log error message
+					dropdownIcon.classList.replace("loading", "error");
+					console.error("Error trying to fetch the list of available fonts");
+					console.error(err);
+				},
+			);
 	}
 
 	/**
@@ -118,9 +125,11 @@ export default class FontPicker {
 		this.ul = document.createElement("ul");
 
 		// Generate HTML for font list entries
-		fonts.forEach(font => {
-			this.addFontLi(font);
-		});
+		fonts.forEach(
+			(font): void => {
+				this.addFontLi(font);
+			},
+		);
 		this.fontPickerDiv.appendChild(this.ul);
 	}
 

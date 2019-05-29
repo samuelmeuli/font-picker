@@ -14,16 +14,18 @@ export default function extractFontStyles(allFontStyles: string): Record<string,
 
 	// Assign font-face rules to fontIds
 	const fontStyles: Record<string, string> = {};
-	rules.forEach(rule => {
-		// Run regex to get font family
-		const fontFamily = getMatches(FONT_FAMILY_REGEX, rule)[0];
-		const fontId = getFontId(fontFamily);
+	rules.forEach(
+		(rule): void => {
+			// Run regex to get font family
+			const fontFamily = getMatches(FONT_FAMILY_REGEX, rule)[0];
+			const fontId = getFontId(fontFamily);
 
-		// Append rule to font font family's other rules
-		if (!(fontId in fontStyles)) {
-			fontStyles[fontId] = "";
-		}
-		fontStyles[fontId] += `@font-face {\n${rule}\n}\n\n`;
-	});
+			// Append rule to font font family's other rules
+			if (!(fontId in fontStyles)) {
+				fontStyles[fontId] = "";
+			}
+			fontStyles[fontId] += `@font-face {\n${rule}\n}\n\n`;
+		},
+	);
 	return fontStyles;
 }

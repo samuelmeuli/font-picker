@@ -20,9 +20,9 @@ export function applyFontPreview(previewFont: Font, selectorSuffix: string): voi
 /**
  * Create/find and return the apply-font stylesheet for the provided selectorSuffix
  */
-function getActiveFontStylesheet(selectorSuffix: string) {
+function getActiveFontStylesheet(selectorSuffix: string): HTMLStyleElement {
 	const stylesheetId = `active-font-${selectorSuffix}`;
-	let activeFontStylesheet = document.getElementById(stylesheetId);
+	let activeFontStylesheet = document.getElementById(stylesheetId) as HTMLStyleElement;
 	if (!activeFontStylesheet) {
 		activeFontStylesheet = document.createElement("style");
 		activeFontStylesheet.id = stylesheetId;

@@ -18,8 +18,10 @@ export async function loadFontPreviews(
 	// Only load previews of fonts which don't have a stylesheet (for preview or full font) yet
 	const fontsArray: Font[] = Array.from(fonts.values());
 	const fontsToFetch = fontsArray
-		.map((font: Font) => font.id)
-		.filter(fontId => !stylesheetExists(fontId, false) && !stylesheetExists(fontId, true));
+		.map((font: Font): string => font.id)
+		.filter(
+			(fontId): boolean => !stylesheetExists(fontId, false) && !stylesheetExists(fontId, true),
+		);
 
 	// Get Google Fonts stylesheet containing all requested styles
 	const response = await getStylesheet(fontsArray, scripts, variants, true);
@@ -27,21 +29,25 @@ export async function loadFontPreviews(
 	const fontStyles = extractFontStyles(response);
 
 	// Create separate stylesheets for the fonts
-	fontsArray.forEach(font => {
-		applyFontPreview(font, selectorSuffix);
+	fontsArray.forEach(
+		(font): void => {
+			applyFontPreview(font, selectorSuffix);
 
-		// Add stylesheets for fonts which need to be downloaded
-		if (fontsToFetch.includes(font.id)) {
-			// Make sure response contains styles for the font
-			if (!(font.id in fontStyles)) {
-				console.error(
-					`Missing styles for font "${font.family}" (fontId "${font.id}") in Google Fonts response`,
-				);
-				return;
+			// Add stylesheets for fonts which need to be downloaded
+			if (fontsToFetch.includes(font.id)) {
+				// Make sure response contains styles for the font
+				if (!(font.id in fontStyles)) {
+					console.error(
+						`Missing styles for font "${font.family}" (fontId "${
+							font.id
+						}") in Google Fonts response`,
+					);
+					return;
+				}
+				createStylesheet(font.id, fontStyles[font.id], true);
 			}
-			createStylesheet(font.id, fontStyles[font.id], true);
-		}
-	});
+		},
+	);
 }
 
 /**

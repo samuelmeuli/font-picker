@@ -16,7 +16,9 @@ export default async function getStylesheet(
 ): Promise<string> {
 	// Build query URL for specified font families and variants
 	const variantsEnc = variants.join(",");
-	const familiesEnc = fonts.map(font => `${encodeURIComponent(font.family)}:${variantsEnc}`);
+	const familiesEnc = fonts.map(
+		(font): string => `${encodeURIComponent(font.family)}:${variantsEnc}`,
+	);
 	let query = `?family=${familiesEnc.join("|")}`;
 
 	// Query the fonts in the specified scripts
@@ -25,11 +27,11 @@ export default async function getStylesheet(
 	// If previewsOnly: Only query the characters contained in the font names
 	if (previewsOnly) {
 		// Concatenate the family names of all fonts
-		const familyNamesConcat = fonts.map(font => font.family).join("");
+		const familyNamesConcat = fonts.map((font): string => font.family).join("");
 		// Create a string with all characters (listed once) contained in the font family names
 		const downloadChars = familyNamesConcat
 			.split("")
-			.filter((char, pos, self) => self.indexOf(char) === pos)
+			.filter((char, pos, self): boolean => self.indexOf(char) === pos)
 			.join("");
 		// Query only the identified characters
 		query += `&text=${downloadChars}`;

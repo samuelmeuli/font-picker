@@ -44,7 +44,7 @@ export default class FontManager {
 			variants = ["regular"],
 			limit = 50,
 		}: Options,
-		onChange: (font: Font) => void = () => {},
+		onChange: (font: Font) => void = (): void => {},
 	) {
 		// Validate pickerId parameter
 		validatePickerId(pickerId);
@@ -90,9 +90,9 @@ export default class FontManager {
 				// `categories` parameter: only keep fonts in categories from the provided array
 				(this.options.categories.length === 0 || this.options.categories.includes(font.category)) &&
 				// `scripts` parameter: Only keep fonts which are available in all specified scripts
-				this.options.scripts.every((script: Script) => font.scripts.includes(script)) &&
+				this.options.scripts.every((script: Script): boolean => font.scripts.includes(script)) &&
 				// `variants` parameter: Only keep fonts which contain all specified variants
-				this.options.variants.every((variant: Variant) => font.variants.includes(variant))
+				this.options.variants.every((variant: Variant): boolean => font.variants.includes(variant))
 			) {
 				// Font fulfils all requirements: Add it to font map
 				this.fonts.set(font.family, font);
@@ -164,10 +164,12 @@ export default class FontManager {
 			this.options.scripts,
 			this.options.variants,
 			this.selectorSuffix,
-		).then(() => {
-			if (runOnChange) {
-				this.onChange(activeFont);
-			}
-		});
+		).then(
+			(): void => {
+				if (runOnChange) {
+					this.onChange(activeFont);
+				}
+			},
+		);
 	}
 }

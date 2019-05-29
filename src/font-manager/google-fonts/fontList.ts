@@ -28,13 +28,15 @@ export default async function getFontList(apiKey: string): Promise<Font[]> {
 	// - Generate fontId
 	// Return the updated list
 	const fontsOriginal = json.items;
-	return fontsOriginal.map((fontOriginal: FontResponse) => {
-		const { family, subsets, ...others } = fontOriginal;
-		return {
-			...others,
-			family,
-			id: getFontId(family),
-			scripts: subsets,
-		};
-	});
+	return fontsOriginal.map(
+		(fontOriginal: FontResponse): Font => {
+			const { family, subsets, ...others } = fontOriginal;
+			return {
+				...others,
+				family,
+				id: getFontId(family),
+				scripts: subsets,
+			};
+		},
+	);
 }
