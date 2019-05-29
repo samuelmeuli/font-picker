@@ -273,6 +273,13 @@ export default class FontPicker {
 		) as HTMLButtonElement;
 		this.activeFontButton.classList.add("active-font");
 	}
+
+	/**
+	 * Update the onChange function (executed when changing the active font)
+	 */
+	public setOnChange(onChange: (font: Font) => void): void {
+		this.fontManager.setOnChange(onChange);
+	}
 }
 
 // Attach FontPicker class to window to make it accessible in <script> tags

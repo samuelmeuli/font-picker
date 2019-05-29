@@ -15,7 +15,7 @@ export default class FontManager {
 
 	private readonly options: Options;
 
-	private readonly onChange: (font: Font) => void;
+	private onChange: (font: Font) => void;
 
 	// Other class variables
 
@@ -171,5 +171,12 @@ export default class FontManager {
 				}
 			},
 		);
+	}
+
+	/**
+	 * Update the onChange function (executed when changing the active font)
+	 */
+	public setOnChange(onChange: (font: Font) => void): void {
+		this.onChange = onChange;
 	}
 }
