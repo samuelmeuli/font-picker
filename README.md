@@ -101,6 +101,7 @@ The `FontPicker` class exposes the following functions:
 - **`removeFont(fontFamily: string)`**: Removes the specified font from the font list
 - **`getActiveFont()`**: Returns the font object of the currently active font
 - **`setActiveFont(fontFamily: string)`**: Sets the provided font as the active font
+- **`setOnChange(onChange: (font: Font) => void)`**: Update the `onChange` function after the font picker has been initialized
 
 ## Development
 
