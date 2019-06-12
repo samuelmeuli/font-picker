@@ -23,7 +23,7 @@ To be able to access the API, you'll need to [generate a Google Fonts API key](h
 
 You have the following options for installing/using the package:
 
-- **Using script tags:** Download the `FontPicker.js` file from the [releases page](https://github.com/samuelmeuli/font-picker/releases/latest), save it in your project and include it in your HTML:
+- **Using script tags:** Download the `FontPicker.js` file from the [releases page](https://github.com/samuelmeuli/font-picker/releases/latest) and save it in your project. Include the script in your HTML at the end of the document `<body>`:
 
 ```html
 <script src="path/to/FontPicker.js"></script>
