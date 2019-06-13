@@ -2,9 +2,9 @@
 
 <html lang="en">
 	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="Font selector component for Google Fonts">
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<meta name="description" content="Font selector component for Google Fonts" />
 
 		<title>Font Picker</title>
 
@@ -15,8 +15,9 @@
 		<h1>Font Picker</h1>
 
 		<h2>Demo</h2>
+		<noscript>JavaScript needs to be enabled for the font picker to work.</noscript>
+
 		<div id="font-picker"></div>
-		<noscript>JavaScript needs to be enabled to be able to use the font picker.</noscript>
 		<p class="apply-font">
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quae quidem vel cum periculo est
 			quaerenda vobis; Quid ergo hoc loco intellegit honestum? Nam illud quidem adduci vix possum,
@@ -31,21 +32,21 @@
 
 		<h2>Download</h2>
 		<a href="https://github.com/samuelmeuli/font-picker" class="github-button">
-			<img src="github-icon.svg" alt="GitHub icon" width="25" class="github-icon" />
+			<img src="github-icon.svg" alt="" width="20" class="github-icon" />
 			Font Picker
 		</a>
 		<a href="https://github.com/samuelmeuli/font-picker-react" class="github-button">
-			<img src="github-icon.svg" alt="GitHub icon" width="25" class="github-icon" />
+			<img src="github-icon.svg" alt="" width="20" class="github-icon" />
 			Font Picker React
 		</a>
-	</body>
 
-	<script src="./FontPicker.js"></script>
-	<script>
-		const fontPicker = new FontPicker(
-			"AIzaSyAOkdDlx49HCSBdu86oe8AD1Q7piIxlR6k", // Google API key
-			"Open Sans", // Default font
-			{ limit: 30 }, // Additional options
-		);
-	</script>
+		<script src="./FontPicker.js"></script>
+		<script>
+			const fontPicker = new FontPicker(
+				"AIzaSyAOkdDlx49HCSBdu86oe8AD1Q7piIxlR6k", // Google API key
+				"Open Sans", // Default font
+				{ limit: 30 }, // Additional options
+			);
+		</script>
+	</body>
 </html>
