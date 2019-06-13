@@ -4,7 +4,7 @@
 	"description": "Font selector component for Google Fonts",
 	"author": "Samuel Meuli <me@samuelmeuli.com>",
 	"repository": "github:samuelmeuli/font-picker",
-	"homepage": "https://samuelmeuli.github.io/font-picker",
+	"homepage": "https://font-picker.samuelmeuli.com",
 	"license": "MIT",
 	"keywords": [
 		"fonts",
