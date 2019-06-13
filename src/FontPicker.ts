@@ -1,7 +1,11 @@
-import FontManager from "../font-manager/FontManager";
-import getFontId from "../shared/fontId";
-import { Font, FontList, Options, SortOption } from "../shared/types";
-import "./styles/styles.scss";
+import {
+	Font,
+	FontList,
+	FontManager,
+	getFontId,
+	Options,
+	SortOption,
+} from "@samuelmeuli/font-manager";
 
 /**
  * Font picker user interface
@@ -95,26 +99,22 @@ export default class FontPicker {
 		// Fetch and render font list
 		this.fontManager
 			.init()
-			.then(
-				(fontMap: FontList): void => {
-					const fonts = Array.from(fontMap.values());
-					if (sort === "alphabet") {
-						fonts.sort(
-							(font1: Font, font2: Font): number => font1.family.localeCompare(font2.family),
-						);
-					}
-					this.generateFontList(fonts);
-					dropdownIcon.classList.replace("loading", "finished");
-				},
-			)
-			.catch(
-				(err: Error): void => {
-					// On error: Log error message
-					dropdownIcon.classList.replace("loading", "error");
-					console.error("Error trying to fetch the list of available fonts");
-					console.error(err);
-				},
-			);
+			.then((fontMap: FontList): void => {
+				const fonts = Array.from(fontMap.values());
+				if (sort === "alphabet") {
+					fonts.sort((font1: Font, font2: Font): number =>
+						font1.family.localeCompare(font2.family),
+					);
+				}
+				this.generateFontList(fonts);
+				dropdownIcon.classList.replace("loading", "finished");
+			})
+			.catch((err: Error): void => {
+				// On error: Log error message
+				dropdownIcon.classList.replace("loading", "error");
+				console.error("Error trying to fetch the list of available fonts");
+				console.error(err);
+			});
 	}
 
 	/**
@@ -125,11 +125,9 @@ export default class FontPicker {
 		this.ul = document.createElement("ul");
 
 		// Generate HTML for font list entries
-		fonts.forEach(
-			(font): void => {
-				this.addFontLi(font);
-			},
-		);
+		fonts.forEach((font): void => {
+			this.addFontLi(font);
+		});
 		this.fontPickerDiv.appendChild(this.ul);
 	}
 
