@@ -61,10 +61,23 @@
 		"stylelint": "^10.0.1",
 		"typescript": "^3.3.3333"
 	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "lint-staged"
+	"eslintConfig": {
+		"root": true,
+		"extends": [
+			"@samuelmeuli/eslint-config/base-typescript",
+			"prettier",
+			"prettier/@typescript-eslint"
+		],
+		"env": {
+			"browser": true
 		}
+	},
+	"stylelint": {
+		"extends": "@samuelmeuli/stylelint-config"
+	},
+	"prettier": {
+		"printWidth": 100,
+		"trailingComma": "all"
 	},
 	"lint-staged": {
 		"*.{js,jsx}": [
@@ -91,5 +104,10 @@
 			"yarn format",
 			"git add"
 		]
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
 	}
 }

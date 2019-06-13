@@ -1,9 +1,0 @@
-root: true
-
-extends:
-  - "@samuelmeuli/eslint-config/base-typescript"
-  - "prettier"
-  - "prettier/@typescript-eslint"
-
-env:
-  browser: true
