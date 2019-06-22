@@ -2,8 +2,10 @@ import {
 	Font,
 	FontList,
 	FontManager,
+	FONT_FAMILY_DEFAULT,
 	getFontId,
 	Options,
+	OPTIONS_DEFAULTS,
 	SortOption,
 } from "@samuelmeuli/font-manager";
 
@@ -37,15 +39,15 @@ export default class FontPicker {
 	 */
 	constructor(
 		apiKey: string,
-		defaultFamily: string = "Open Sans",
+		defaultFamily: string = FONT_FAMILY_DEFAULT,
 		{
-			pickerId = "",
-			families = [],
-			categories = [],
-			scripts = ["latin"],
-			variants = ["regular"],
-			limit = 50,
-			sort = "alphabet",
+			pickerId = OPTIONS_DEFAULTS.pickerId,
+			families = OPTIONS_DEFAULTS.families,
+			categories = OPTIONS_DEFAULTS.categories,
+			scripts = OPTIONS_DEFAULTS.scripts,
+			variants = OPTIONS_DEFAULTS.variants,
+			limit = OPTIONS_DEFAULTS.limit,
+			sort = OPTIONS_DEFAULTS.sort,
 		}: Options,
 		onChange: (font: Font) => void = (): void => {},
 	) {
