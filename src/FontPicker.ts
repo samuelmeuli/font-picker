@@ -61,6 +61,7 @@ export default class FontPicker {
 			scripts,
 			variants,
 			limit,
+			sort,
 		};
 		this.fontManager = new FontManager(apiKey, defaultFamily, options, onChange);
 		this.generateUI(sort);
@@ -169,22 +170,25 @@ export default class FontPicker {
 	/**
 	 * EventListener for closing the font picker when clicking anywhere outside it
 	 */
-	private closeEventListener(e: MouseEvent | KeyboardEvent): void {
-		let targetElement = e.target as Node; // Clicked element
+	private closeEventListener(e: MouseEvent): void {
+		let targetEl = e.target as Node; // Clicked element
+		const fontPickerEl = document.getElementById(`font-picker${this.fontManager.selectorSuffix}`);
 
-		do {
-			if (
-				targetElement === document.getElementById(`font-picker${this.fontManager.selectorSuffix}`)
-			) {
-				// Click inside font picker
+		// eslint-disable-next-line no-constant-condition
+		while (true) {
+			if (targetEl === fontPickerEl) {
+				// Click inside font picker: Exit
 				return;
 			}
-			// Move up the DOM
-			targetElement = targetElement.parentNode;
-		} while (targetElement);
-
-		// Click outside font picker
-		this.toggleExpanded();
+			if (targetEl.parentNode) {
+				// Click outside font picker: Move up the DOM
+				targetEl = targetEl.parentNode;
+			} else {
+				// DOM root is reached: Toggle picker, exit
+				this.toggleExpanded();
+				return;
+			}
+		}
 	}
 
 	/**
@@ -223,7 +227,12 @@ export default class FontPicker {
 		this.fontManager.addFont(fontFamily, true);
 
 		// Add font to list in font picker
-		this.addFontLi(this.fontManager.getFonts().get(fontFamily), index);
+		const font = this.fontManager.getFonts().get(fontFamily);
+		if (font) {
+			this.addFontLi(font, index);
+		} else {
+			console.error(`Font "${fontFamily}" is missing in font list`);
+		}
 	}
 
 	/**
@@ -241,7 +250,9 @@ export default class FontPicker {
 		if (fontButton) {
 			const fontLi = fontButton.parentElement;
 			fontButton.remove();
-			fontLi.remove();
+			if (fontLi) {
+				fontLi.remove();
+			}
 		} else {
 			throw Error(
 				`Could not remove font from font picker: Font family "${fontFamily}" is not in the list`,
@@ -281,6 +292,4 @@ export default class FontPicker {
 }
 
 // Attach FontPicker class to window to make it accessible in <script> tags
-// @ts-ignore
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (window as any).FontPicker = FontPicker;

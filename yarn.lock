@@ -140,9 +140,9 @@
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
 "@samuelmeuli/eslint-config@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@samuelmeuli/eslint-config/-/eslint-config-2.1.0.tgz#f2824925419529b3501d888e0c5adc72bd0bacde"
-  integrity sha512-hIC0kuSlkIDLR99FEoyangrtcqSdUgmg3T3y+/7rTjYI80j//16iULEFtoZT+lS1Kau/z+XFHNjChSBBEkXhaw==
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@samuelmeuli/eslint-config/-/eslint-config-2.2.0.tgz#96fb89e9171abdb98dfeaa047d6382f8b504334f"
+  integrity sha512-jXYp6t1pKtAPzBLPUyA7AG8avRBehL/uFtCrjceeHGoOODaGjEZwI70/sWu6+9gw/0jJl5a4+nmH5L9w7xzptw==
 
 "@samuelmeuli/font-manager@^1.0.0":
   version "1.0.0"
@@ -156,6 +156,11 @@
   dependencies:
     stylelint-config-rational-order "^0.1.2"
     stylelint-config-sass-guidelines "^6.0.0"
+
+"@samuelmeuli/tsconfig@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@samuelmeuli/tsconfig/-/tsconfig-0.1.1.tgz#2af8a6e3e9a815bdacf22e428a5ae1b06451e1d9"
+  integrity sha512-KIRqNxYOaMob+ohcGjDbrq8eRj+S+wVLe0iWEyeFkIIFekTXZofjVehaWayLb6DZ3lJJtqNDz+as7AoK4Aqshg==
 
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"

@@ -1,19 +1,8 @@
 {
+	"extends": "@samuelmeuli/tsconfig",
 	"compilerOptions": {
-		"allowSyntheticDefaultImports": true,
+		"module": "ES6",
 		"declaration": true,
-		"declarationMap": true,
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"noFallthroughCasesInSwitch": true,
-		"noImplicitAny": true,
-		"noImplicitReturns": true,
-		"noImplicitThis": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"removeComments": true,
-		"sourceMap": true,
-		"strictBindCallApply": true,
-		"strictFunctionTypes": true
+		"declarationMap": true
 	}
 }
