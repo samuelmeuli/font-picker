@@ -1,7 +1,9 @@
+import babel from "rollup-plugin-babel";
 import resolve from "rollup-plugin-node-resolve";
-import typescript from "rollup-plugin-typescript2";
 
 import pkg from "./package.json";
+
+const EXTENSIONS = [".js", ".ts"];
 
 export default {
 	input: "./src/FontPicker.ts",
@@ -22,10 +24,17 @@ export default {
 		},
 	],
 	plugins: [
+		// Resolve TypeScript files and dependencies
 		// Bundle `font-manager` into the package (to make it usable with a <script> tag)
-		resolve(),
-		typescript({
-			cacheRoot: "./node_modules/.cache/rollup-plugin-typescript2/",
+		resolve({
+			extensions: EXTENSIONS,
+		}),
+		// Transform TypeScript with Babel
+		babel({
+			presets: ["@babel/preset-env", "@babel/preset-typescript"],
+			plugins: ["@babel/plugin-proposal-class-properties"],
+			exclude: "./node_modules/**",
+			extensions: EXTENSIONS,
 		}),
 	],
 };
