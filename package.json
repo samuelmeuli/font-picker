@@ -43,7 +43,7 @@
 		"release": "np"
 	},
 	"dependencies": {
-		"@samuelmeuli/font-manager": "^1.0.0"
+		"@samuelmeuli/font-manager": "^1.1.0"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.5.5",

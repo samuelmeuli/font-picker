@@ -721,10 +721,10 @@
   resolved "https://registry.yarnpkg.com/@samuelmeuli/eslint-config/-/eslint-config-2.2.2.tgz#6dc21aa91cc3a68726db85d649585b8e4649f97f"
   integrity sha512-oLm9Gnq0qIeTuQOtUL1rmH+xYvSm1/GKjLIfcB1r31br7LfhhZuwME/q6k3mxTZvpWO67fhuixrdtOdqdOUWMw==
 
-"@samuelmeuli/font-manager@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@samuelmeuli/font-manager/-/font-manager-1.0.0.tgz#df1cd3b382c89a85d1261ba8fd69e0c383d8d9f1"
-  integrity sha512-rrnURUgZKL7UIUq5jwsMXy6MK29LjW+FIqjrFFXsoKhyLJa9jGSRo0kx+XMPRGAxuR+2+uWuOoaRPjaXsXuAdA==
+"@samuelmeuli/font-manager@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@samuelmeuli/font-manager/-/font-manager-1.1.0.tgz#d1e2948ebca109409036f261e8f2be76d59c0a06"
+  integrity sha512-YzqfnVrnkIfDnwHjLpWUkcDFL8rqco8+7m7fCtw9xI9i2FRKDCVl5wHNXOxJa+am/LUbzKPGEJn4QuQUQTciGw==
 
 "@samuelmeuli/stylelint-config@^1.0.2":
   version "1.0.2"
