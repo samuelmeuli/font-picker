@@ -83,7 +83,7 @@ const fontPicker = new FontPicker(apiKey, defaultFamily, options, onChange);
 - **`apiKey` (required)**: Google API key
 - **`defaultFamily`**: Font that is selected on initialization. Default: `"Open Sans"`
 - **`options`**: Object with additional optional parameters:
-  - **`pickerId`**: If you have multiple font pickers on your site, you need to give them unique IDs which must be appended to the pickers' `id` attributes and the `.apply-font` class names. Example: If `options = { pickerId: "main" }`, use `#font-picker-main` and `.apply-font-main`
+  - **`name`**: If you have multiple font pickers on your site, you need to give them unique IDs which must be appended to the pickers' `id` attributes and the `.apply-font` class names. Example: If `options = { name: "main" }`, use `#font-picker-main` and `.apply-font-main`
   - **`families`**: If only specific fonts shall appear in the list, specify their names in an array. Default: All font families
   - **`categories`**: Array of font categories to include in the list. Possible values: `"sans-serif", "serif", "display", "handwriting", "monospace"`. Default: All categories
   - **`scripts`**: Array of scripts which the fonts must include and which will be downloaded on font selection. Example: `["latin", "greek", "hebrew"]` (see [all possible values](./src/shared/types.ts)). Default: `["latin"]`
