@@ -292,6 +292,3 @@ export default class FontPicker {
 		this.fontManager.setOnChange(onChange);
 	}
 }
-
-// Attach FontPicker class to window to make it accessible in <script> tags
-(window as any).FontPicker = FontPicker;
