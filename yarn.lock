@@ -649,6 +649,13 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-transform-typescript" "^7.3.2"
 
+"@babel/runtime@^7.5.5":
+  version "7.5.5"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.5.5.tgz#74fba56d35efbeca444091c7850ccd494fd2f132"
+  integrity sha512-28QvEGyQyNkB0/m2B4FU7IEZGK2NUrcMtT6BZEFALTguLk+AUT6ofsHtPk5QyjAdUkpMJ+/Em+quwz4HOt30AQ==
+  dependencies:
+    regenerator-runtime "^0.13.2"
+
 "@babel/template@^7.1.0", "@babel/template@^7.4.4":
   version "7.4.4"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.4.4.tgz#f4b88d1225689a08f5bc3a17483545be9e4ed237"
@@ -721,10 +728,12 @@
   resolved "https://registry.yarnpkg.com/@samuelmeuli/eslint-config/-/eslint-config-2.2.2.tgz#6dc21aa91cc3a68726db85d649585b8e4649f97f"
   integrity sha512-oLm9Gnq0qIeTuQOtUL1rmH+xYvSm1/GKjLIfcB1r31br7LfhhZuwME/q6k3mxTZvpWO67fhuixrdtOdqdOUWMw==
 
-"@samuelmeuli/font-manager@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@samuelmeuli/font-manager/-/font-manager-1.1.0.tgz#d1e2948ebca109409036f261e8f2be76d59c0a06"
-  integrity sha512-YzqfnVrnkIfDnwHjLpWUkcDFL8rqco8+7m7fCtw9xI9i2FRKDCVl5wHNXOxJa+am/LUbzKPGEJn4QuQUQTciGw==
+"@samuelmeuli/font-manager@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@samuelmeuli/font-manager/-/font-manager-1.1.1.tgz#f679b71496fcba82695f56ac7acac4a5483aef6e"
+  integrity sha512-Dsv0mCe7f1QF3BqpwajKUAXjCLMp6y7xuG7XjNWm+9SIh7uvMetsvupsiXcteRyU/dC/StwDZ5ylb4yBNWNZKw==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
 
 "@samuelmeuli/stylelint-config@^1.0.2":
   version "1.0.2"
@@ -5750,6 +5759,11 @@ regenerate@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.4.0.tgz#4a856ec4b56e4077c557589cae85e7a4c8869a11"
   integrity sha512-1G6jJVDWrt0rK99kBjvEtziZNCICAuvIPkSiUFIQxVP06RCVpq3dmDo2oi6ABpYaDYaTRr67BEhL8r1wgEZZKg==
+
+regenerator-runtime@^0.13.2:
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.3.tgz#7cf6a77d8f5c6f60eb73c5fc1955b2ceb01e6bf5"
+  integrity sha512-naKIZz2GQ8JWh///G7L3X6LaQUAMp2lvb1rvwwsURe/VXwD6VMfr+/1NuNw3ag8v2kY1aQ/go5SNn79O9JU7yw==
 
 regenerator-transform@^0.14.0:
   version "0.14.1"
