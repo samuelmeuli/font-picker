@@ -3,7 +3,6 @@ const nodeExternals = require("webpack-node-externals");
 
 const baseConfig = {
 	entry: "./src/FontPicker.ts",
-	devtool: "source-map",
 	resolve: {
 		extensions: [".js", ".jsx", ".ts", ".tsx"],
 	},
@@ -34,6 +33,7 @@ const outputUmd = {
 module.exports = [
 	{
 		...baseConfig,
+		devtool: "source-map",
 		output: {
 			...outputUmd,
 			path: path.resolve(__dirname, "dist"),
@@ -49,6 +49,7 @@ module.exports = [
 	},
 	{
 		...baseConfig,
+		devtool: "source-map",
 		output: {
 			...outputBrowser,
 			path: path.resolve(__dirname, "demo", "dist"),
