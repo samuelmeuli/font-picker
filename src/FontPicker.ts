@@ -16,9 +16,6 @@ export default class FontPicker {
 	// Button in the font list which contains and highlights the currently active font
 	private activeFontButton: HTMLButtonElement;
 
-	// Font picker button
-	private dropdownButton: HTMLButtonElement;
-
 	// <p> element in the dropdownButton containing the name of the currently active font
 	private dropdownFamily: HTMLParagraphElement;
 
@@ -83,21 +80,21 @@ export default class FontPicker {
 		}
 
 		// Generate HTML for dropdown button (contains family of active font and dropdown icon)
-		this.dropdownButton = document.createElement("button");
-		this.dropdownButton.classList.add("dropdown-button");
-		this.dropdownButton.onclick = this.toggleExpanded;
-		this.dropdownButton.onkeypress = this.toggleExpanded;
-		this.dropdownButton.type = "button";
-		this.fontPickerDiv.appendChild(this.dropdownButton);
+		const dropdownButton = document.createElement("button");
+		dropdownButton.classList.add("dropdown-button");
+		dropdownButton.onclick = this.toggleExpanded;
+		dropdownButton.onkeypress = this.toggleExpanded;
+		dropdownButton.type = "button";
+		this.fontPickerDiv.appendChild(dropdownButton);
 		// Font family of active font
 		this.dropdownFamily = document.createElement("p");
 		this.dropdownFamily.textContent = this.fontManager.getActiveFont().family;
 		this.dropdownFamily.classList.add("dropdown-font-family");
-		this.dropdownButton.appendChild(this.dropdownFamily);
+		dropdownButton.appendChild(this.dropdownFamily);
 		// Dropdown icon (possible classes/states: "loading", "finished", "error")
 		const dropdownIcon = document.createElement("p");
 		dropdownIcon.classList.add("dropdown-icon", "loading");
-		this.dropdownButton.appendChild(dropdownIcon);
+		dropdownButton.appendChild(dropdownIcon);
 
 		// Fetch and render font list
 		this.fontManager
