@@ -129,6 +129,17 @@ export default class FontPicker {
 			this.addFontLi(font);
 		});
 		this.fontPickerDiv.appendChild(this.ul);
+
+		// Highlight active font and save reference to the corresponding HTML element
+		const activeFontFamily = this.fontManager.getActiveFont().family;
+		const activeFontId = getFontId(activeFontFamily);
+		const fontButtonId = `font-button-${activeFontId}${this.fontManager.selectorSuffix}`;
+		this.activeFontButton = document.getElementById(fontButtonId) as HTMLButtonElement;
+		if (this.activeFontButton) {
+			this.activeFontButton.classList.add("active-font");
+		} else {
+			console.error(`Could not find font button with ID (${fontButtonId})`);
+		}
 	}
 
 	/**
@@ -151,12 +162,6 @@ export default class FontPicker {
 		fontButton.onclick = onActivate;
 		fontButton.onkeypress = onActivate;
 		li.appendChild(fontButton);
-
-		// Highlight font if active
-		if (font.family === this.fontManager.getActiveFont().family) {
-			fontButton.classList.add("active-font");
-			this.activeFontButton = fontButton; // Save reference to button of active font
-		}
 
 		// Insert font button at the specified index. If not specified, append to the end of the list
 		if (listIndex) {
@@ -275,11 +280,15 @@ export default class FontPicker {
 
 		// Write new font family in dropdown button and highlight font entry in the list
 		this.dropdownFamily.textContent = fontFamily;
-		this.activeFontButton.classList.remove("active-font");
-		this.activeFontButton = document.getElementById(
-			`font-button-${fontId}${this.fontManager.selectorSuffix}`,
-		) as HTMLButtonElement;
-		this.activeFontButton.classList.add("active-font");
+		if (this.activeFontButton) {
+			this.activeFontButton.classList.remove("active-font");
+			this.activeFontButton = document.getElementById(
+				`font-button-${fontId}${this.fontManager.selectorSuffix}`,
+			) as HTMLButtonElement;
+			this.activeFontButton.classList.add("active-font");
+		} else {
+			console.error("`activeFontButton` is undefined");
+		}
 	}
 
 	/**
