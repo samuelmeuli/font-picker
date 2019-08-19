@@ -123,6 +123,7 @@ export default class FontPicker {
 	private generateFontList(fonts: Font[]): void {
 		// Generate HTML for font list below dropdown button
 		this.ul = document.createElement("ul");
+		this.ul.classList.add("font-list");
 
 		// Generate HTML for font list entries
 		fonts.forEach((font): void => {
@@ -149,9 +150,11 @@ export default class FontPicker {
 	private addFontLi(font: Font, listIndex?: number): void {
 		const fontId = getFontId(font.family);
 		const li = document.createElement("li");
+		li.classList.add("font-list-item");
 		const fontButton = document.createElement("button");
 		fontButton.type = "button";
 		fontButton.id = `font-button-${fontId}${this.fontManager.selectorSuffix}`;
+		fontButton.classList.add("font-button");
 		fontButton.textContent = font.family;
 
 		// Update active font when font button is clicked
