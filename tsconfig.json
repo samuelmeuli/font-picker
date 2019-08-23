@@ -1,9 +1,6 @@
 {
 	"extends": "@samuelmeuli/tsconfig",
 	"compilerOptions": {
-		"module": "ES6",
-		"declaration": true,
-		"declarationDir": "./dist/",
-		"declarationMap": true
+		"module": "ES6"
 	}
 }
