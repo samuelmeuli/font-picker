@@ -42,7 +42,7 @@
 		"release": "np"
 	},
 	"dependencies": {
-		"@samuelmeuli/font-manager": "^1.1.1"
+		"@samuelmeuli/font-manager": "^1.2.0"
 	},
 	"devDependencies": {
 		"@samuelmeuli/eslint-config": "^3.0.1",

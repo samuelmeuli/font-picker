@@ -165,10 +165,10 @@
   resolved "https://registry.yarnpkg.com/@samuelmeuli/eslint-config/-/eslint-config-3.0.1.tgz#e69dd00345f9977dfca642163ef36f9656f310fb"
   integrity sha512-i3/NXJGGfo+sVZVDIeUsspEyc8vwHeRxxh2hIc72lrWFZK7JhAzRpBpJoM/dOnReaOLDHdfGDiOIrdx7hMdUXg==
 
-"@samuelmeuli/font-manager@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@samuelmeuli/font-manager/-/font-manager-1.1.1.tgz#f679b71496fcba82695f56ac7acac4a5483aef6e"
-  integrity sha512-Dsv0mCe7f1QF3BqpwajKUAXjCLMp6y7xuG7XjNWm+9SIh7uvMetsvupsiXcteRyU/dC/StwDZ5ylb4yBNWNZKw==
+"@samuelmeuli/font-manager@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@samuelmeuli/font-manager/-/font-manager-1.2.0.tgz#ec9ec3dab4cbbd56ce2f579f332bbd7e3aa26894"
+  integrity sha512-ChNcTdVDL0OjXAMQYi8R9ScXvVZ3p32/4MupKbGksGtF1xPKKTM6vEo74XCBo7LEPQ+Eb+BiS9yD4B0Oo4/LQw==
   dependencies:
     "@babel/runtime" "^7.5.5"
 
