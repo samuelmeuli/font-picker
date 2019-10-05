@@ -9,7 +9,6 @@ const GLOBALS = {
 };
 const INPUT_FILE = "./src/FontPicker.ts";
 const OUTPUT_NAME = "FontPicker";
-const TS_CACHE_ROOT = "./node_modules/.cache/rollup-plugin-typescript2/";
 
 export default [
 	// Browser configuration
@@ -32,9 +31,7 @@ export default [
 		plugins: [
 			// Bundle `font-manager` into the package (to make it usable with a <script> tag)
 			resolve(),
-			typescript({
-				cacheRoot: TS_CACHE_ROOT,
-			}),
+			typescript(),
 		],
 	},
 
@@ -59,7 +56,6 @@ export default [
 		external: EXTERNALS,
 		plugins: [
 			typescript({
-				cacheRoot: TS_CACHE_ROOT,
 				tsconfigOverride: {
 					compilerOptions: {
 						declaration: true,
