@@ -28,11 +28,11 @@ You have the following options for installing/using the package:
 ```html
 <script src="path/to/FontPicker.js"></script>
 <script>
-  const fontPicker = new FontPicker(
-    YOUR_API_KEY, // Google API key
-    "Open Sans", // Default font
-    { limit: 30 }, // Additional options
-  );
+	const fontPicker = new FontPicker(
+		YOUR_API_KEY, // Google API key
+		"Open Sans", // Default font
+		{ limit: 30 }, // Additional options
+	);
 </script>
 ```
 
@@ -46,9 +46,9 @@ npm install font-picker
 import FontPicker from "font-picker";
 
 const fontPicker = new FontPicker(
-  YOUR_API_KEY, // Google API key
-  "Open Sans", // Default font
-  { limit: 30 }, // Additional options
+	YOUR_API_KEY, // Google API key
+	"Open Sans", // Default font
+	{ limit: 30 }, // Additional options
 );
 ```
 
@@ -83,11 +83,12 @@ const fontPicker = new FontPicker(apiKey, defaultFamily, options, onChange);
 - **`apiKey` (required)**: Google API key
 - **`defaultFamily`**: Font that is selected on initialization. Default: `"Open Sans"`
 - **`options`**: Object with additional optional parameters:
-  - **`pickerId`**: If you have multiple font pickers on your site, you need to give them unique IDs which must be appended to the pickers' `id` attributes and the `.apply-font` class names. Example: If `options = { pickerId: "main" }`, use `#font-picker-main` and `.apply-font-main`
+  - **`pickerId`**: If you have multiple font pickers on your site, you need to give them unique IDs which must be appended to the pickers' `id` attributes and the `.apply-font` class names. Example: If the options object is `{ pickerId: "main" }`, use `#font-picker-main` and `.apply-font-main`
   - **`families`**: If only specific fonts shall appear in the list, specify their names in an array. Default: All font families
   - **`categories`**: Array of font categories to include in the list. Possible values: `"sans-serif", "serif", "display", "handwriting", "monospace"`. Default: All categories
-  - **`scripts`**: Array of scripts which the fonts must include and which will be downloaded on font selection. Example: `["latin", "greek", "hebrew"]` (see [all possible values](./src/shared/types.ts)). Default: `["latin"]`
-  - **`variants`**: Array of variants which the fonts must include and which will be downloaded on font selection. Example: `["regular", "italic", "700", "700italic"]` (see [all possible values](./src/shared/types.ts)). Default: `["regular"]`
+  - **`scripts`**: Array of scripts which the fonts must include and which will be downloaded on font selection. Default: `["latin"]`. Example: `["latin", "greek", "hebrew"]` (see [all possible values](./src/shared/types.ts))
+  - **`variants`**: Array of variants which the fonts must include and which will be downloaded on font selection. Default: `["regular"]`. Example: `["regular", "italic", "700", "700italic"]` (see [all possible values](./src/shared/types.ts))
+  - **`filter`**: Function which must evaluate to `true` for a font to be included in the list. Default: `font => true`. Example: If `font => font.family.toLowerCase().startsWith("m")`, only fonts whose names begin with "M" will be in the list
   - **`limit`**: Maximum number of fonts to display in the list (the least popular fonts will be omitted). Default: `50`
   - **`sort`**: Sorting attribute for the font list. Possible values: `"alphabet", "popularity"`. Default: `"alphabet"`
 - **`onChange`**: Function to execute whenever the active font is changed

@@ -43,6 +43,7 @@ export default class FontPicker {
 			categories = OPTIONS_DEFAULTS.categories,
 			scripts = OPTIONS_DEFAULTS.scripts,
 			variants = OPTIONS_DEFAULTS.variants,
+			filter = OPTIONS_DEFAULTS.filter,
 			limit = OPTIONS_DEFAULTS.limit,
 			sort = OPTIONS_DEFAULTS.sort,
 		}: Options,
@@ -60,6 +61,7 @@ export default class FontPicker {
 			categories,
 			scripts,
 			variants,
+			filter,
 			limit,
 			sort,
 		};
