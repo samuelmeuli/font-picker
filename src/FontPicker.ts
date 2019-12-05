@@ -1,8 +1,8 @@
 import {
 	Font,
+	FONT_FAMILY_DEFAULT,
 	FontList,
 	FontManager,
-	FONT_FAMILY_DEFAULT,
 	getFontId,
 	Options,
 	OPTIONS_DEFAULTS,
@@ -20,7 +20,7 @@ export default class FontPicker {
 	private dropdownFamily: HTMLParagraphElement;
 
 	// State of the font picker (expanded or collapsed)
-	private expanded: boolean = false;
+	private expanded = false;
 
 	// Instance of the FontManager class used for managing, downloading and applying fonts
 	private fontManager: FontManager;
@@ -46,6 +46,7 @@ export default class FontPicker {
 			limit = OPTIONS_DEFAULTS.limit,
 			sort = OPTIONS_DEFAULTS.sort,
 		}: Options,
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
 		onChange: (font: Font) => void = (): void => {},
 	) {
 		// Function bindings
