@@ -77,6 +77,9 @@
 			"browser": true
 		}
 	},
+	"stylelint": {
+		"extends": "@samuelmeuli/stylelint-config"
+	},
 	"prettier": "@samuelmeuli/prettier-config",
 	"lint-staged": {
 		"*.{js,jsx}": [
