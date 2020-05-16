@@ -46,7 +46,7 @@ export default class FontPicker {
 			filter = OPTIONS_DEFAULTS.filter,
 			limit = OPTIONS_DEFAULTS.limit,
 			sort = OPTIONS_DEFAULTS.sort,
-		}: Options,
+		}: Partial<Options>,
 		// eslint-disable-next-line @typescript-eslint/no-empty-function
 		onChange: (font: Font) => void = (): void => {},
 	) {
