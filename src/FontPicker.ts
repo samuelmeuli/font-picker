@@ -286,7 +286,7 @@ export default class FontPicker {
 
 		// Write new font family in dropdown button and highlight font entry in the list
 		this.dropdownFamily.textContent = fontFamily;
-		this.dropdownFamily.style = "font-family: " + fontFamily + ";";
+		this.dropdownFamily.style.setProperty("font-family", fontFamily);
 		if (this.activeFontButton) {
 			this.activeFontButton.classList.remove("active-font");
 			this.activeFontButton = document.getElementById(
