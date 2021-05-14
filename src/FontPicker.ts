@@ -170,7 +170,7 @@ export default class FontPicker {
 		li.appendChild(fontButton);
 
 		// Insert font button at the specified index. If not specified, append to the end of the list
-		if (listIndex) {
+		if (listIndex !== undefined && listIndex !== null) {
 			this.ul.insertBefore(li, this.ul.children[listIndex]);
 		} else {
 			this.ul.appendChild(li);
@@ -226,7 +226,7 @@ export default class FontPicker {
 	/**
 	 * Add font to font picker and font map
 	 */
-	public addFont(fontFamily: string, index?: number): void {
+	public addFont(fontFamily: string, index?: number, url = ''): void {
 		if (Array.from(this.fontManager.getFonts().keys()).includes(fontFamily)) {
 			throw Error(
 				`Did not add font to font picker: Font family "${fontFamily}" is already in the list`,
@@ -234,7 +234,7 @@ export default class FontPicker {
 		}
 
 		// Add font to font map in FontManager
-		this.fontManager.addFont(fontFamily, true);
+		this.fontManager.addFont(fontFamily, true, url);
 
 		// Add font to list in font picker
 		const font = this.fontManager.getFonts().get(fontFamily);
