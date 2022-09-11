@@ -31,6 +31,9 @@ export default class FontPicker {
 	// Font list which is shown below the dropdownButton if expanded === true
 	private ul: HTMLUListElement;
 
+	// if not initialising by pickerId, can be initialised by element instead
+	private element?: HTMLDivElement;
+
 	/**
 	 * Instantiate a FontManager object and generate the font picker HTML
 	 */
@@ -46,7 +49,8 @@ export default class FontPicker {
 			filter = OPTIONS_DEFAULTS.filter,
 			limit = OPTIONS_DEFAULTS.limit,
 			sort = OPTIONS_DEFAULTS.sort,
-		}: Partial<Options>,
+			element,
+		}: Partial<Options & { element: HTMLDivElement }>,
 		// eslint-disable-next-line @typescript-eslint/no-empty-function
 		onChange: (font: Font) => void = (): void => {},
 	) {
@@ -65,6 +69,7 @@ export default class FontPicker {
 			limit,
 			sort,
 		};
+		this.element = element;
 		this.fontManager = new FontManager(apiKey, defaultFamily, options, onChange);
 		this.generateUI(sort);
 	}
@@ -77,7 +82,7 @@ export default class FontPicker {
 		const pickerId = `font-picker${selectorSuffix}`;
 
 		// Locate <div> where font picker should be rendered
-		this.fontPickerDiv = document.getElementById(pickerId) as HTMLDivElement;
+		this.fontPickerDiv = (this.element || document.getElementById(pickerId)) as HTMLDivElement;
 		if (!this.fontPickerDiv) {
 			throw Error(`Missing div with id="${pickerId}"`);
 		}
@@ -138,7 +143,9 @@ export default class FontPicker {
 		const activeFontFamily = this.fontManager.getActiveFont().family;
 		const activeFontId = getFontId(activeFontFamily);
 		const fontButtonId = `font-button-${activeFontId}${this.fontManager.selectorSuffix}`;
-		this.activeFontButton = document.getElementById(fontButtonId) as HTMLButtonElement;
+		this.activeFontButton = (document.getElementById(fontButtonId) || this.element?.querySelector(
+			`#${fontButtonId}`,
+		)) as HTMLButtonElement;
 		if (this.activeFontButton) {
 			this.activeFontButton.classList.add("active-font");
 		} else {
@@ -182,7 +189,7 @@ export default class FontPicker {
 	 */
 	private closeEventListener(e: MouseEvent): void {
 		let targetEl = e.target as Node; // Clicked element
-		const fontPickerEl = document.getElementById(`font-picker${this.fontManager.selectorSuffix}`);
+		const fontPickerEl = document.getElementById(`font-picker${this.fontManager.selectorSuffix}`) || this.element;
 
 		// eslint-disable-next-line no-constant-condition
 		while (true) {
@@ -256,6 +263,8 @@ export default class FontPicker {
 		const fontId = getFontId(fontFamily);
 		const fontButton = document.getElementById(
 			`font-button-${fontId}${this.fontManager.selectorSuffix}`,
+		) || this.element?.querySelector(
+			`#font-button-${fontId}${this.fontManager.selectorSuffix}`,
 		);
 		if (fontButton) {
 			const fontLi = fontButton.parentElement;
@@ -288,9 +297,11 @@ export default class FontPicker {
 		this.dropdownFamily.textContent = fontFamily;
 		if (this.activeFontButton) {
 			this.activeFontButton.classList.remove("active-font");
-			this.activeFontButton = document.getElementById(
+			this.activeFontButton = (document.getElementById(
 				`font-button-${fontId}${this.fontManager.selectorSuffix}`,
-			) as HTMLButtonElement;
+			) || this.element?.querySelector(
+				`#font-button-${fontId}${this.fontManager.selectorSuffix}`,
+			)) as HTMLButtonElement;
 			this.activeFontButton.classList.add("active-font");
 		} else {
 			console.error("`activeFontButton` is undefined");
